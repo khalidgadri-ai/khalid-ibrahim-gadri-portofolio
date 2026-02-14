@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khalid Ibrahim Gadri | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --text: #334155;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Tajawal', 'Inter', sans-serif; line-height: 1.6; color: var(--text); background-color: var(--white); scroll-behavior: smooth; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* Navbar */
+        .navbar { padding: 1rem 0; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); z-index: 1000; }
+        .navbar .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 700; color: var(--dark); text-decoration: none; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 1.5rem; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; transition: var(--transition); }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        .hero { padding: 6rem 0; background: radial-gradient(circle at top right, #f1f5f9, #ffffff); border-bottom: 1px solid var(--border); }
+        .badge { display: inline-block; padding: 0.5rem 1rem; background: rgba(37, 99, 235, 0.1); color: var(--primary); border-radius: 50px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem; }
+        h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); color: var(--dark); margin-bottom: 1rem; line-height: 1.1; }
+        .hero-subtitle { font-size: 1.2rem; max-width: 700px; margin-bottom: 2rem; color: #64748b; }
+        .btn-group { display: flex; gap: 1rem; }
+        .btn { padding: 0.8rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: var(--transition); cursor: pointer; border: none; }
+        .btn-primary { background: var(--primary); color: var(--white); }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-outline { border: 1.5px solid var(--border); color: var(--dark); background: transparent; }
+        .btn-outline:hover { background: var(--light); }
+
+        /* Sections */
+        .section { padding: 5rem 0; }
+        .section-title { font-size: 2rem; margin-bottom: 3rem; color: var(--dark); display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ""; height: 3px; width: 60px; background: var(--primary); display: inline-block; }
+
+        /* Skills Grid */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .skill-card { padding: 2rem; background: var(--light); border-radius: 12px; border: 1px solid var(--border); }
+        .skill-card h3 { margin-bottom: 1rem; font-size: 1.2rem; color: var(--primary); }
+        .skill-card ul { list-style: none; }
+        .skill-card li { margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+        .skill-card li::before { content: "▹"; color: var(--primary); font-weight: bold; }
+
+        /* Projects - Masonry-like Layout */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .project-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: var(--transition); }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+        .project-img { height: 200px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;}
+        .project-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+        .project-content { padding: 1.5rem; }
+        .project-tag { font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+        .project-content h3 { margin-bottom: 0.8rem; color: var(--dark); }
+        .project-content p { font-size: 0.9rem; margin-bottom: 1rem; color: #475569; }
+        .tech-list { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .tech-list span { padding: 0.2rem 0.6rem; background: var(--light); border-radius: 4px; font-size: 0.75rem; border: 1px solid var(--border); }
+
+        /* Certifications */
+        .cert-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+        .cert-card { background: var(--white); border: 1px solid var(--border); padding: 1rem; border-radius: 10px; display:flex; flex-direction:column; gap:0.6rem; }
+        .cert-card h3 { margin:0; font-size:1rem; color:var(--dark); }
+        .cert-issuer { color:#64748b; font-size:0.9rem; }
+        .cert-card a { margin-top:auto; align-self:flex-start; }
+
+        /* Experience Timeline */
+        .timeline { border-right: 2px solid var(--border); padding-right: 2rem; position: relative; }
+        [dir="ltr"] .timeline { border-right: none; border-left: 2px solid var(--border); padding-left: 2rem; }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; }
+        .timeline-item::after { content: ""; position: absolute; top: 0; right: -2.45rem; width: 12px; height: 12px; background: var(--primary); border-radius: 50%; border: 3px solid var(--white); }
+        [dir="ltr"] .timeline-item::after { right: auto; left: -2.45rem; }
+        .timeline-date { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+        .timeline-item h3 { color: var(--dark); margin: 0.2rem 0; }
+        .timeline-item h4 { font-weight: 500; font-size: 1rem; color: #64748b; margin-bottom: 0.5rem; }
+
+        /* Footer & Contact */
+        footer { background: var(--dark); color: var(--white); padding: 4rem 0 2rem; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem; text-align: center; }
+        .contact-link { color: var(--white); text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid transparent; transition: var(--transition); }
+        .contact-link:hover { border-color: var(--primary); color: var(--primary); }
+        .copyright { text-align: center; font-size: 0.85rem; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate { animation: fadeIn 0.8s ease forwards; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">K.<span>Gadri</span></a>
+            <ul class="nav-links" id="menu-links">
+                </ul>
+            <button id="lang-toggle" class="btn btn-outline" style="padding: 0.4rem 1rem;">EN</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div id="badge-content"></div>
+            <h1 id="hero-name">خالد إبراهيم قادري</h1>
+            <p class="hero-subtitle" id="hero-sub"></p>
+            <div class="btn-group">
+                <a href="#contact" class="btn btn-primary" id="btn-contact">تواصل معي</a>
+                <a href="#" class="btn btn-outline" id="btn-cv">تحميل السيرة الذاتية</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title" id="title-about">عني</h2>
+            <p id="about-p" style="max-width: 800px; font-size: 1.1rem; color: #475569;"></p>
+        </div>
+    </section>
+
+    <section id="skills" class="section" style="background: #fdfdfd;">
+        <div class="container">
+            <h2 class="section-title" id="title-skills">المهارات والخبرات</h2>
+            <div class="skills-grid" id="skills-container">
+                </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title" id="title-projects">نماذج الأعمال الذكية</h2>
+            <div class="project-grid" id="projects-container">
+                </div>
+        </div>
+    </section>
+
+    <!-- Certifications (data-driven) -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2 class="section-title" id="title-certs">الشهادات / Certifications</h2>
+            <div class="cert-grid" id="certs-container"></div>
+        </div>
+    </section>
+
+
+    <section id="experience" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title" id="title-exp">المسار المهني</h2>
+            <div class="timeline" id="exp-container">
+                </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                </div>
+            </aside>
+                </div>
+                <div>
+                    <a href="https://www.linkedin.com/in/khalid-ibrahim-gadri-ab51432aa/" class="contact-link">LinkedIn</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Khalid Ibrahim Gadri. [Business Administration First Class Honors] Developed &amp; programmed by Khalid Ibrahim Gadri — تم التطوير والبرمجة بواسطة خالد ابراهيم قادري. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Interface (bottom) -->
+    <button id="admin-toggle" style="position:fixed;right:18px;bottom:18px;z-index:1500;padding:0.6rem 0.9rem;border-radius:10px;border:1px solid var(--border);background:var(--white);cursor:pointer">Admin</button>
+    <aside id="admin-panel" style="position:fixed;right:18px;bottom:68px;z-index:1499;width:360px;max-width:calc(100% - 40px);background:var(--white);border:1px solid var(--border);box-shadow:0 12px 30px rgba(2,6,23,0.08);padding:1rem;border-radius:12px;display:none;overflow:auto;max-height:80vh;">
+        <h3 style="margin:0 0 0.5rem;font-size:1rem;color:var(--dark)">Admin — قسم النماذج الذكية</h3>
+        <form id="admin-form">
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Language</label>
+            <select id="admin-lang" style="width:100%;padding:0.45rem;margin-bottom:0.6rem;border:1px solid var(--border);border-radius:8px;">
+                <option value="ar">Arabic (ar)</option>
+                <option value="en">English (en)</option>
+            </select>
+
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tag</label>
+            <input id="admin-tag" placeholder="e.g. Business Development" style="width:100%;padding:0.5rem;margin-bottom:0.6rem;border:1px solid var(--border);border-radius:8px;" />
+
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Title</label>
+            <input id="admin-title" placeholder="Project title" style="width:100%;padding:0.5rem;margin-bottom:0.6rem;border:1px solid var(--border);border-radius:8px;" />
+
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Description</label>
+            <textarea id="admin-desc" rows="3" placeholder="Short description" style="width:100%;padding:0.5rem;margin-bottom:0.6rem;border:1px solid var(--border);border-radius:8px"></textarea>
+
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Image URL (optional)</label>
+            <input id="admin-image-url" placeholder="/assets/img.jpg or https://..." style="width:100%;padding:0.45rem;margin-bottom:0.45rem;border:1px solid var(--border);border-radius:8px;" />
+
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Or upload image</label>
+            <input id="admin-image-file" type="file" accept="image/*" style="width:100%;margin-bottom:0.6rem;" />
+
+            <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tech tags (comma separated)</label>
+            <input id="admin-tech" placeholder="AI, UX, Backend" style="width:100%;padding:0.45rem;margin-bottom:0.8rem;border:1px solid var(--border);border-radius:8px;" />
+
+            <div style="display:flex;gap:0.5rem;">
+                <button type="submit" class="btn btn-primary" style="flex:1">قسم النماذج الذكية</button>
+                <button type="button" id="admin-clear" class="btn btn-outline" style="flex:1">Clear</button>
+            </div>
+                <p id="admin-msg" style="font-size:0.85rem;color:#64748b;margin-top:0.6rem"></p>
+                <input type="hidden" id="admin-edit-index" />
+                <input type="hidden" id="admin-edit-source" />
+                <div style="margin-top:0.8rem;border-top:1px dashed var(--border);padding-top:0.8rem">
+                    <div style="display:flex;gap:0.5rem;align-items:center;margin-bottom:0.6rem">
+                        <button type="button" id="admin-refresh-list" class="btn btn-outline" style="flex:1">Refresh List</button>
+                        <button type="button" id="admin-clear-local" class="btn btn-outline" style="flex:1">Clear Local</button>
+                    </div>
+                    <div id="admin-image-preview" style="height:90px;margin-bottom:0.6rem;display:flex;align-items:center;gap:0.5rem"></div>
+                    <div id="admin-project-list" style="max-height:260px;overflow:auto;display:grid;gap:0.5rem"></div>
+                </div>
+            
+                <!-- Certifications admin -->
+                <div style="margin-top:0.8rem;border-top:1px dashed var(--border);padding-top:0.8rem">
+                    <h4 style="margin:0 0 0.5rem;font-size:0.95rem">Certifications / الشهادات</h4>
+                    <div id="admin-cert-form" style="display:grid;gap:0.4rem">
+                        <input type="hidden" id="admin-cert-edit-index" />
+                        <input type="hidden" id="admin-cert-edit-source" />
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Language</label>
+                        <select id="admin-cert-lang" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem">
+                            <option value="ar">Arabic (ar)</option>
+                            <option value="en">English (en)</option>
+                        </select>
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tag</label>
+                        <input id="admin-cert-tag" placeholder="e.g. Business Development" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Title</label>
+                        <input id="admin-cert-title" placeholder="Certificate title" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Description</label>
+                        <textarea id="admin-cert-desc" rows="3" placeholder="Short description" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px"></textarea>
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Image URL (optional)</label>
+                        <input id="admin-cert-image-url" placeholder="/assets/img.jpg or https://..." style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Or upload image</label>
+                        <input id="admin-cert-image-file" type="file" accept="image/*" style="width:100%;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tech tags (comma separated)</label>
+                        <input id="admin-cert-tech" placeholder="AI, UX, Backend" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <div style="display:flex;gap:0.5rem;margin-top:0.2rem">
+                            <button type="button" id="admin-cert-save" class="btn btn-primary" style="flex:1">Save Certificate</button>
+                            <button type="button" id="admin-cert-clear" class="btn btn-outline" style="flex:1">Clear</button>
+                        </div>
+                        <div id="admin-cert-preview" style="height:80px;margin-top:0.4rem"></div>
+                        <div style="margin-top:0.6rem">
+                            <button type="button" id="admin-cert-refresh" class="btn btn-outline" style="width:100%;margin-bottom:0.4rem">Refresh Certificates List</button>
+                            <button type="button" id="admin-cert-clear-local" class="btn btn-outline" style="width:100%">Clear Local Certificates</button>
+                        </div>
+                        <div id="admin-cert-list" style="max-height:200px;overflow:auto;margin-top:0.6rem;display:grid;gap:0.4rem"></div>
+                    </div>
+                </div>
+                
+                <!-- Projects admin -->
+                <div style="margin-top:0.8rem;border-top:1px dashed var(--border);padding-top:0.8rem">
+                    <h4 style="margin:0 0 0.5rem;font-size:0.95rem">Projects / المشاريع</h4>
+                    <div id="admin-projects-form" style="display:grid;gap:0.4rem">
+                        <input type="hidden" id="admin-projects-edit-index" />
+                        <input type="hidden" id="admin-projects-edit-source" />
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Language</label>
+                        <select id="admin-projects-lang" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem">
+                            <option value="ar">Arabic (ar)</option>
+                            <option value="en">English (en)</option>
+                        </select>
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tag</label>
+                        <input id="admin-projects-tag" placeholder="e.g. Business Development" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Title</label>
+                        <input id="admin-projects-title" placeholder="Project title" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Description</label>
+                        <textarea id="admin-projects-desc" rows="3" placeholder="Short description" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px"></textarea>
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Image URL (optional)</label>
+                        <input id="admin-projects-image-url" placeholder="/assets/img.jpg or https://..." style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Or upload image</label>
+                        <input id="admin-projects-image-file" type="file" accept="image/*" style="width:100%;" />
+
+                        <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tech tags (comma separated)</label>
+                        <input id="admin-projects-tech" placeholder="AI, UX, Backend" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                        <div style="display:flex;gap:0.5rem;margin-top:0.2rem">
+                            <button type="button" id="admin-projects-save" class="btn btn-primary" style="flex:1">Save Project</button>
+                            <button type="button" id="admin-projects-clear" class="btn btn-outline" style="flex:1">Clear</button>
+                        </div>
+                        <div id="admin-projects-preview" style="height:80px;margin-top:0.4rem"></div>
+                        <div style="margin-top:0.6rem">
+                            <button type="button" id="admin-projects-refresh" class="btn btn-outline" style="width:100%;margin-bottom:0.4rem">Refresh Projects List</button>
+                            <button type="button" id="admin-projects-clear-local" class="btn btn-outline" style="width:100%">Clear Local Projects</button>
+                        </div>
+                        <div id="admin-projects-list" style="max-height:200px;overflow:auto;margin-top:0.6rem;display:grid;gap:0.4rem"></div>
+                    </div>
+                </div>
+                
+                        <!-- Literary admin -->
+                        <div style="margin-top:0.8rem;border-top:1px dashed var(--border);padding-top:0.8rem">
+                            <h4 style="margin:0 0 0.5rem;font-size:0.95rem">المؤلفات الأدبية / Literary Works</h4>
+                            <div id="admin-literary-form" style="display:grid;gap:0.4rem">
+                                <input type="hidden" id="admin-literary-edit-index" />
+                                <input type="hidden" id="admin-literary-edit-source" />
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Language</label>
+                                <select id="admin-literary-lang" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem">
+                                    <option value="ar">Arabic (ar)</option>
+                                    <option value="en">English (en)</option>
+                                </select>
+
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tag</label>
+                                <input id="admin-literary-tag" placeholder="e.g. Fiction" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Title</label>
+                                <input id="admin-literary-title" placeholder="Work title" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Description</label>
+                                <textarea id="admin-literary-desc" rows="3" placeholder="Short description" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px"></textarea>
+
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Image URL (optional)</label>
+                                <input id="admin-literary-image-url" placeholder="/assets/img.jpg or https://..." style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Or upload image</label>
+                                <input id="admin-literary-image-file" type="file" accept="image/*" style="width:100%;" />
+
+                                <label style="display:block;font-size:0.85rem;margin-bottom:0.25rem">Tags (comma separated)</label>
+                                <input id="admin-literary-tech" placeholder="genre, theme" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;" />
+
+                                <div style="display:flex;gap:0.5rem;margin-top:0.2rem">
+                                    <button type="button" id="admin-literary-save" class="btn btn-primary" style="flex:1">Save Literary</button>
+                                    <button type="button" id="admin-literary-clear" class="btn btn-outline" style="flex:1">Clear</button>
+                                </div>
+                                <div id="admin-literary-preview" style="height:80px;margin-top:0.4rem"></div>
+                                <div style="margin-top:0.6rem">
+                                    <button type="button" id="admin-literary-refresh" class="btn btn-outline" style="width:100%;margin-bottom:0.4rem">Refresh List</button>
+                                    <button type="button" id="admin-literary-clear-local" class="btn btn-outline" style="width:100%">Clear Local Literary</button>
+                                </div>
+                                <div id="admin-literary-list" style="max-height:200px;overflow:auto;margin-top:0.6rem;display:grid;gap:0.4rem"></div>
+                            </div>
+                        </div>
+                
+                        <!-- Content editors: About / Skills / Experience -->
+                        <div style="margin-top:0.8rem;border-top:1px dashed var(--border);padding-top:0.8rem">
+                            <h4 style="margin:0 0 0.5rem;font-size:0.95rem">Content Editors</h4>
+                            <label style="font-size:0.85rem;margin-bottom:0.25rem;display:block">Language</label>
+                            <select id="admin-content-lang" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.5rem">
+                                <option value="ar">Arabic (ar)</option>
+                                <option value="en">English (en)</option>
+                            </select>
+
+                            <!-- About -->
+                            <label style="font-size:0.85rem;margin:0.25rem 0">About / القصة المهنية</label>
+                            <textarea id="admin-about-p" rows="4" style="width:100%;padding:0.45rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem"></textarea>
+                            <button type="button" id="admin-about-save" class="btn btn-primary" style="width:100%;margin-bottom:0.6rem">Save About</button>
+
+                            <!-- Skills -->
+                            <label style="font-size:0.85rem;margin:0.25rem 0">Skills (title + comma-separated items)</label>
+                            <div id="admin-skills-list" style="max-height:140px;overflow:auto;display:grid;gap:0.4rem;margin-bottom:0.4rem"></div>
+                            <input id="admin-skill-title" placeholder="Skill group title" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.3rem" />
+                            <input id="admin-skill-items" placeholder="item1, item2, item3" style="width:100%;padding:0.4rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem" />
+                            <div style="display:flex;gap:0.4rem;margin-bottom:0.6rem">
+                                <button type="button" id="admin-skill-add" class="btn btn-primary" style="flex:1">Add Skill Group</button>
+                                <button type="button" id="admin-skills-clear" class="btn btn-outline" style="flex:1">Clear Skills</button>
+                            </div>
+
+                            <!-- Experience -->
+                            <label style="font-size:0.85rem;margin:0.25rem 0">Experience (date, role, company, task)</label>
+                            <div id="admin-exp-list" style="max-height:160px;overflow:auto;display:grid;gap:0.4rem;margin-bottom:0.4rem"></div>
+                            <input id="admin-exp-date" placeholder="e.g. 2023 - Present" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.3rem" />
+                            <input id="admin-exp-role" placeholder="Role" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.3rem" />
+                            <input id="admin-exp-company" placeholder="Company" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.3rem" />
+                            <input id="admin-exp-task" placeholder="Short description" style="width:100%;padding:0.35rem;border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem" />
+                            <div style="display:flex;gap:0.4rem;margin-bottom:0.6rem">
+                                <button type="button" id="admin-exp-add" class="btn btn-primary" style="flex:1">Add Experience</button>
+                                <button type="button" id="admin-exp-clear" class="btn btn-outline" style="flex:1">Clear Experience</button>
+                            </div>
+
+                            <!-- Admin controls: password & export/import -->
+                            <div style="border-top:1px dashed var(--border);padding-top:0.6rem">
+                                <button type="button" id="admin-set-pass" class="btn btn-outline" style="width:100%;margin-bottom:0.4rem">Set/Change Admin Password</button>
+                                <button type="button" id="admin-export" class="btn btn-outline" style="width:100%;margin-bottom:0.4rem">Export Local Data (JSON)</button>
+                                <input id="admin-import-file" type="file" accept="application/json" style="width:100%;margin-bottom:0.4rem" />
+                                <button type="button" id="admin-import" class="btn btn-outline" style="width:100%">Import Local Data (JSON)</button>
+                            </div>
+                        </div>
+        </form>
+    </aside>
+
+    <script>
+    // دمج البيانات مباشرة في الصفحة لتوفير ملف data.js
+    const content = {
+        ar: {
+            heroName: "خالد إبراهيم قادري",
+            heroSub: "مطور حلول أعمال ذكية | متخصص إدارة أعمال (مرتبة الشرف الأولى)",
+            badge: "تطوير مدعوم بالذكاء الاصطناعي",
+            aboutTitle: "عني",
+            aboutP: "أركز في عملي البرمجي على بناء المنطق والهيكلية المتينة. أؤمن بأن البرمجة وسيلة لحل مشكلات الأعمال المعقدة، وأستخدم الذكاء الاصطناعي كشريك استراتيجي لضمان الكفاءة والدقة.",
+            skillsTitle: "المهارات والخبرات",
+            skills: [
+                { title: "تقنيات التطوير", items: ["Python", "Dart & Flutter", "JavaScript", "HTML/CSS"] },
+                { title: "حلول الأعمال", items: ["نظام الفواتير الطبية", "إدارة قواعد البيانات", "تطبيقات الويب"] }
+            ],
+            projectsTitle: "نماذج الأعمال الذكية",
+            projects: [
+                {
+                    tag: "نظام إداري",
+                    title: "نظام الفواتير لمستشفى ضرما",
+                    desc: "تطوير نظام فواتير متكامل باستخدام HTML و JavaScript لتحسين الكفاءة الإدارية.",
+                    tech: ["JavaScript", "UI/UX"]
+                },
+                {
+                    tag: "ريادة أعمال",
+                    title: "معسكر ألف ميل",
+                    desc: "المشاركة في معسكر ألف ميل للابتكار وريادة الأعمال لتطوير حلول تقنية مبتكرة.",
+                    tech: ["Innovation", "Business"]
+                }
+            ],
+            expTitle: "المسار المهني",
+            exp: [
+                {
+                    date: "2026 - الحالي",
+                    role: "مطور تطبيقات أعمال (AI-Driven)",
+                    company: "مشاريع مستقلة",
+                    task: "بناء تطبيقات ذكية لحل مشكلات إدارية وتنظيمية باستخدام تقنيات حديثة."
+                }
+            ],
+            nav: ["الرئيسية", "عني", "المهارات", "المشاريع", "الخبرة"],
+            contact: "تواصل معي",
+            cv: "تحميل السيرة الذاتية"
+        },
+        en: {
+            heroName: "Khalid Ibrahim Gadri",
+            heroSub: "Smart Business Solutions Developer | BBA Honors",
+            badge: "AI-Augmented Development",
+            aboutTitle: "About Me",
+            aboutP: "I focus on logic and structured architecture. I leverage AI to build efficient business systems.",
+            skillsTitle: "Skills",
+            skills: [
+                { title: "Tech Stack", items: ["Python", "Flutter", "JS"] },
+                { title: "Business", items: ["Medical Billing", "Project Management"] }
+            ],
+            projectsTitle: "Smart Projects",
+            projects: [
+                {
+                    tag: "Admin System",
+                    title: "Darma Medical Billing",
+                    desc: "Custom web solution for hospital billing management.",
+                    tech: ["JS", "Web"]
+                }
+            ],
+            nav: ["Home", "About", "Skills", "Projects", "Experience"],
+            contact: "Contact Me",
+            cv: "Download CV"
+        }
+    };
+    </script>
+    <script>
+        /* `content` is now loaded from data.js (data-driven). */
+        function updateContent(lang) {
+            const data = content[lang];
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update Navigation
+            const navIds = ['#about', '#skills', '#projects', '#experience'];
+            document.getElementById('menu-links').innerHTML = data.nav.map((item, i) => 
+                `<li><a href="${navIds[i-1] || '#'}">${item}</a></li>`).join('');
+
+            // Update Hero
+            document.getElementById('badge-content').innerHTML = `<span class="badge">${data.badge}</span>`;
+            document.getElementById('hero-name').textContent = data.heroName;
+            document.getElementById('hero-sub').textContent = data.heroSub;
+            document.getElementById('btn-contact').textContent = data.contact;
+            document.getElementById('btn-cv').textContent = data.cv;
+
+            // Update Titles
+            document.getElementById('title-about').textContent = data.aboutTitle;
+            document.getElementById('about-p').textContent = data.aboutP;
+            document.getElementById('title-skills').textContent = data.skillsTitle;
+                // Update Hero
+                document.documentElement.lang = lang;
+            if (document.getElementById('title-literary')) document.getElementById('title-literary').textContent = data.literaryTitle || '';
+            document.getElementById('title-exp').textContent = data.expTitle;
+
+            // Update Skills
+            document.getElementById('skills-container').innerHTML = data.skills.map(s => `
+                <div class="skill-card">
+                    <h3>${s.title}</h3>
+                    <ul>${s.items.map(li => `<li>${li}</li>`).join('')}</ul>
+                </div>
+            `).join('');
+
+            // Update Projects (merge with localStorage projects; show real image if provided, otherwise placeholder)
+            const localStore = JSON.parse(localStorage.getItem('localProjects') || '{}');
+            const localProjects = Array.isArray(localStore[lang]) ? localStore[lang] : [];
+            const projectsToRender = [...localProjects, ...data.projects];
+
+            document.getElementById('projects-container').innerHTML = projectsToRender.map(p => `
+                <div class="project-card">
+                    <div class="project-img">
+                        ${p.image && p.image.trim() ? `<img src="${p.image}" alt="${p.title}">` : `<div style="background:var(--primary); width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:1.1rem; opacity:0.08">${lang === 'ar' ? 'صورة' : 'Placeholder'}</div>`}
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">${p.tag || ''}</span>
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                        <div class="tech-list">${(p.tech || []).map(t => `<span>${t}</span>`).join('')}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update Certifications (merge with localStorage certificates)
+            if (document.getElementById('certs-container')) {
+                const localCertStore = JSON.parse(localStorage.getItem('localCerts') || '{}');
+                const localCerts = Array.isArray(localCertStore[lang]) ? localCertStore[lang] : [];
+                const certsToRender = [...localCerts, ...(data.certifications || [])];
+                document.getElementById('certs-container').innerHTML = certsToRender.map(c => `
+                    <div class="cert-card">
+                        <div class="cert-img">
+                            ${c.image && c.image.trim() ? `<img src="${c.image}" alt="${c.title}">` : `<div style="background:var(--primary); width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:1.1rem; opacity:0.08">${lang === 'ar' ? 'صورة' : 'Placeholder'}</div>`}
+                        </div>
+                        <div class="cert-content">
+                            <span class="cert-tag">${c.tag || ''}</span>
+                            <h3>${c.title}</h3>
+                            <p>${c.desc}</p>
+                            <div class="tech-list">${(c.tech || []).map(t => `<span>${t}</span>`).join('')}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Update Literary (merge with localStorage)
+            if (document.getElementById('literary-container')) {
+                const localLitStore = JSON.parse(localStorage.getItem('localLiterary') || '{}');
+                const localLit = Array.isArray(localLitStore[lang]) ? localLitStore[lang] : [];
+                const litToRender = [...localLit, ...(data.literary || [])];
+                document.getElementById('literary-container').innerHTML = litToRender.map(p => `
+                    <div class="project-card">
+                        <div class="project-img">
+                            ${p.image && p.image.trim() ? `<img src="${p.image}" alt="${p.title}">` : `<div style="background:var(--primary); width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:1.1rem; opacity:0.08">${lang === 'ar' ? 'صورة' : 'Placeholder'}</div>`}
+                        </div>
+                        <div class="project-content">
+                            <span class="project-tag">${p.tag || ''}</span>
+                            <h3>${p.title}</h3>
+                            <p>${p.desc}</p>
+                            <div class="tech-list">${(p.tech || []).map(t => `<span>${t}</span>`).join('')}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Update Experience
+            document.getElementById('exp-container').innerHTML = data.exp.map(e => `
+                <div class="timeline-item">
+                    <span class="timeline-date">${e.date}</span>
+                    <h3>${e.role}</h3>
+                    <h4>${e.company}</h4>
+                    <p>${e.task}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'EN' : 'العربية';
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            const currentLang = document.documentElement.lang;
+            updateContent(currentLang === 'ar' ? 'en' : 'ar');
+        });
+
+        // Initialize with Arabic
+        updateContent('ar');
+
+        // --- Admin panel logic (LocalStorage backed) ---
+        const adminToggle = document.getElementById('admin-toggle');
+        const adminPanel = document.getElementById('admin-panel');
+        const adminForm = document.getElementById('admin-form');
+        const adminMsg = document.getElementById('admin-msg');
+
+        // Only show Admin controls on local environments by default.
+        function shouldShowAdminPanel() {
+            try {
+                const q = new URLSearchParams(location.search);
+                if (q.get('admin') === '1') return true;
+                if (location.hash === '#admin') return true;
+                if (location.protocol === 'file:') return true;
+                const h = location.hostname;
+                if (h === 'localhost' || h === '127.0.0.1') return true;
+                return false;
+            } catch (e) { return false; }
+        }
+
+        if (!shouldShowAdminPanel()) {
+            if (adminToggle) adminToggle.style.display = 'none';
+            if (adminPanel) adminPanel.style.display = 'none';
+        }
+
+        
+
+        function getLocalProjects() {
+            try { return JSON.parse(localStorage.getItem('localProjects') || '{}'); } catch (e) { return {}; }
+        }
+
+        function saveLocalProjects(obj) {
+            localStorage.setItem('localProjects', JSON.stringify(obj));
+        }
+
+        // Local certificates helpers
+        function getLocalCertificates() {
+            try { return JSON.parse(localStorage.getItem('localCerts') || '{}'); } catch (e) { return {}; }
+        }
+
+        function saveLocalCertificates(obj) {
+            localStorage.setItem('localCerts', JSON.stringify(obj));
+        }
+
+        // Local literary helpers
+        function getLocalLiterary() {
+            try { return JSON.parse(localStorage.getItem('localLiterary') || '{}'); } catch (e) { return {}; }
+        }
+
+        function saveLocalLiterary(obj) {
+            localStorage.setItem('localLiterary', JSON.stringify(obj));
+        }
+
+        // Admin: certificates list and management
+        function renderAdminCertList(lang) {
+            const listEl = document.getElementById('admin-cert-list');
+            listEl.innerHTML = '';
+            const store = getLocalCertificates();
+            const local = Array.isArray(store[lang]) ? store[lang] : [];
+            const remote = Array.isArray(content[lang].certifications) ? content[lang].certifications : [];
+            const items = [...local.map((c,i)=>Object.assign({_adminSource:'local',_adminIndex:i},c)), ...remote.map((c,i)=>Object.assign({_adminSource:'data',_adminIndex:i},c))];
+            if (!items.length) {
+                listEl.innerHTML = `<div style="color:#64748b;padding:0.6rem">${lang === 'ar' ? 'لا توجد شهادات.' : 'No certifications.'}</div>`;
+                return;
+            }
+            items.forEach(c => {
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                row.style.justifyContent = 'space-between';
+                row.style.alignItems = 'center';
+                row.style.border = '1px solid var(--border)';
+                row.style.padding = '0.4rem';
+                row.style.borderRadius = '8px';
+
+                const left = document.createElement('div');
+                left.style.flex = '1';
+                left.innerHTML = `<div style="font-weight:600">${c.title || '(untitled)'}</div><div style="font-size:0.85rem;color:#64748b">${c.tag || ''} • ${c.desc ? c.desc.substring(0,50) + '...' : ''}</div>`;
+
+                const right = document.createElement('div');
+                right.style.display = 'flex';
+                right.style.gap = '0.4rem';
+
+                const src = document.createElement('div');
+                src.textContent = c._adminSource === 'local' ? (lang === 'ar' ? 'محلي' : 'Local') : (lang === 'ar' ? 'من الملف' : 'From file');
+                src.style.background = 'var(--light)';
+                src.style.padding = '0.15rem 0.5rem';
+                src.style.borderRadius = '6px';
+
+                const editBtn = document.createElement('button'); editBtn.className='btn btn-outline'; editBtn.textContent = lang === 'ar' ? 'تعديل' : 'Edit'; editBtn.onclick = ()=>adminCertLoadForEdit(c._adminSource, c._adminIndex, lang);
+                const delBtn = document.createElement('button'); delBtn.className='btn btn-outline'; delBtn.textContent = lang === 'ar' ? 'حذف' : 'Delete'; delBtn.onclick = ()=>adminCertDelete(c._adminSource, c._adminIndex, lang);
+                const importBtn = document.createElement('button'); importBtn.className='btn btn-outline'; importBtn.textContent = lang === 'ar' ? 'استيراد' : 'Import'; importBtn.style.display = c._adminSource === 'data' ? 'inline-flex' : 'none'; importBtn.onclick = ()=>adminCertImportToLocal(c._adminIndex, lang);
+
+                right.appendChild(src); right.appendChild(editBtn); right.appendChild(delBtn); right.appendChild(importBtn);
+                row.appendChild(left); row.appendChild(right);
+                listEl.appendChild(row);
+            });
+        }
+
+        function adminCertLoadForEdit(source, index, lang) {
+            document.getElementById('admin-cert-edit-source').value = source;
+            document.getElementById('admin-cert-edit-index').value = index;
+            document.getElementById('admin-cert-lang').value = lang;
+            if (source === 'local') {
+                const store = getLocalCertificates();
+                const arr = Array.isArray(store[lang]) ? store[lang] : [];
+                const c = arr[index]; if (!c) return;
+                document.getElementById('admin-cert-tag').value = c.tag || '';
+                document.getElementById('admin-cert-title').value = c.title || '';
+                document.getElementById('admin-cert-desc').value = c.desc || '';
+                document.getElementById('admin-cert-tech').value = c.tech ? c.tech.join(', ') : '';
+                document.getElementById('admin-cert-image-url').value = c.image || '';
+                showCertPreview(c.image);
+            } else {
+                const arr = Array.isArray(content[lang].certifications) ? content[lang].certifications : [];
+                const c = arr[index]; if (!c) return;
+                document.getElementById('admin-cert-tag').value = c.tag || '';
+                document.getElementById('admin-cert-title').value = c.title || '';
+                document.getElementById('admin-cert-desc').value = c.desc || '';
+                document.getElementById('admin-cert-tech').value = c.tech ? c.tech.join(', ') : '';
+                document.getElementById('admin-cert-image-url').value = c.image || '';
+                showCertPreview(c.image);
+            }
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم تحميل الشهادة للتعديل' : 'Loaded certificate for edit');
+        }
+
+        function adminCertDelete(source, index, lang) {
+            if (source === 'local') {
+                const store = getLocalCertificates(); store[lang] = store[lang] || [];
+                if (index >=0 && index < store[lang].length) {
+                    if (!confirm(document.documentElement.lang === 'ar' ? 'هل تريد حذف هذه الشهادة محليا؟' : 'Delete this local certificate?')) return;
+                    store[lang].splice(index,1); saveLocalCertificates(store); renderAdminCertList(lang); updateContent(document.documentElement.lang||'ar'); adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الحذف' : 'Deleted');
+                }
+            } else {
+                alert(document.documentElement.lang === 'ar' ? 'لا يمكنك حذف الشهادات من الملف. استوردها أولاً.' : 'Cannot delete file-provided certificates. Import to local first.');
+            }
+        }
+
+        function adminCertImportToLocal(dataIndex, lang) {
+            const arr = Array.isArray(content[lang].certifications) ? content[lang].certifications : [];
+            const c = arr[dataIndex]; if (!c) return;
+            const store = getLocalCertificates(); store[lang] = store[lang] || []; store[lang].unshift(Object.assign({}, c)); saveLocalCertificates(store); renderAdminCertList(lang); updateContent(document.documentElement.lang||'ar'); adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الاستيراد' : 'Imported');
+        }
+
+        function showCertPreview(src) {
+            const preview = document.getElementById('admin-cert-preview'); preview.innerHTML = '';
+            if (!src) return; const img = document.createElement('img'); img.src = src; img.style.maxHeight='80px'; img.style.borderRadius='6px'; img.style.objectFit='cover'; preview.appendChild(img);
+        }
+
+        document.getElementById('admin-cert-image-url').addEventListener('input', (e) => showCertPreview(e.target.value));
+        document.getElementById('admin-cert-image-file').addEventListener('change', (e) => {
+            const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = (ev) => showCertPreview(ev.target.result); r.readAsDataURL(f);
+        });
+
+        document.getElementById('admin-cert-save').addEventListener('click', () => {
+            const lang = document.getElementById('admin-cert-lang').value || 'en';
+            const tag = document.getElementById('admin-cert-tag').value.trim();
+            const title = document.getElementById('admin-cert-title').value.trim();
+            const desc = document.getElementById('admin-cert-desc').value.trim();
+            const tech = document.getElementById('admin-cert-tech').value.trim().split(',').map(t=>t.trim()).filter(t=>t);
+            const imageUrl = document.getElementById('admin-cert-image-url').value.trim();
+            const fileInput = document.getElementById('admin-cert-image-file');
+            const editIndex = document.getElementById('admin-cert-edit-index').value;
+            const editSource = document.getElementById('admin-cert-edit-source').value;
+            if (!title) { adminMsg.textContent = document.documentElement.lang === 'ar' ? 'الرجاء إدخال عنوان الشهادة' : 'Please enter certificate title'; return; }
+            const certObj = { tag, title, desc, tech, image: '' };
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const fr = new FileReader(); fr.onload = (ev) => finalizeCertStore(Object.assign({}, certObj, {image: ev.target.result}), lang, editSource, editIndex); fr.readAsDataURL(fileInput.files[0]);
+            } else {
+                certObj.image = imageUrl || '';
+                finalizeCertStore(certObj, lang, editSource, editIndex);
+            }
+        });
+
+        function finalizeCertStore(certObj, lang, editSource, editIndex) {
+            const store = getLocalCertificates(); store[lang] = store[lang] || [];
+            if (editSource === 'local' && editIndex !== '') {
+                const idx = parseInt(editIndex,10);
+                if (!isNaN(idx) && idx>=0 && idx<store[lang].length) { store[lang][idx] = certObj; saveLocalCertificates(store); adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم تحديث الشهادة' : 'Certificate updated'); }
+            } else {
+                store[lang].unshift(certObj); saveLocalCertificates(store); adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم حفظ الشهادة محلياً' : 'Saved certificate locally');
+            }
+            document.getElementById('admin-cert-tag').value = '';
+            document.getElementById('admin-cert-title').value = '';
+            document.getElementById('admin-cert-desc').value = '';
+            document.getElementById('admin-cert-tech').value = '';
+            document.getElementById('admin-cert-image-url').value = '';
+            try { document.getElementById('admin-cert-image-file').value = ''; } catch(e){}
+            document.getElementById('admin-cert-edit-index').value=''; document.getElementById('admin-cert-edit-source').value=''; showCertPreview(''); renderAdminCertList(lang); updateContent(document.documentElement.lang||'ar');
+        }
+
+        document.getElementById('admin-cert-clear').addEventListener('click', () => {
+            document.getElementById('admin-cert-tag').value = '';
+            document.getElementById('admin-cert-title').value = '';
+            document.getElementById('admin-cert-desc').value = '';
+            document.getElementById('admin-cert-tech').value = '';
+            document.getElementById('admin-cert-image-url').value = '';
+            try { document.getElementById('admin-cert-image-file').value = ''; } catch(e){}
+            document.getElementById('admin-cert-edit-index').value=''; document.getElementById('admin-cert-edit-source').value=''; adminMsg.textContent=''; showCertPreview('');
+        });
+
+        document.getElementById('admin-cert-refresh').addEventListener('click', () => renderAdminCertList(document.getElementById('admin-cert-lang').value || 'ar'));
+        document.getElementById('admin-cert-clear-local').addEventListener('click', () => {
+            const lang = document.getElementById('admin-cert-lang').value || 'ar'; if (!confirm(document.documentElement.lang === 'ar' ? 'مسح كل الشهادات المحلية لهذه اللغة؟' : 'Clear all local certificates for this language?')) return; const store = getLocalCertificates(); store[lang]=[]; saveLocalCertificates(store); renderAdminCertList(lang); updateContent(document.documentElement.lang||'ar'); adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم مسح الشهادات المحلية' : 'Cleared local certificates');
+        });
+
+        document.getElementById('admin-cert-lang').addEventListener('change', (e)=>renderAdminCertList(e.target.value));
+        // initial certificates list render
+        renderAdminCertList(document.getElementById('admin-cert-lang').value || 'ar');
+
+        // Local content helpers (about, skills, exp)
+        function getLocalContent() {
+            try { return JSON.parse(localStorage.getItem('localContent') || '{}'); } catch (e) { return {}; }
+        }
+
+        function saveLocalContent(obj) {
+            localStorage.setItem('localContent', JSON.stringify(obj));
+        }
+
+        // Merge localContent into data for rendering
+        function getMergedContent(lang) {
+            const base = content[lang] || {};
+            const local = getLocalContent()[lang] || {};
+            const merged = Object.assign({}, base);
+            // aboutP
+            if (local.aboutP) merged.aboutP = local.aboutP;
+            // skills
+            if (Array.isArray(local.skills)) merged.skills = local.skills;
+            // exp
+            if (Array.isArray(local.exp)) merged.exp = local.exp;
+            // projects and certifications handled separately via localProjects/localCerts
+            return merged;
+        }
+
+        // Override updateContent to use merged content
+        const _origUpdateContent = updateContent;
+        function updateContent(lang) {
+            const data = getMergedContent(lang);
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Update Navigation (keep using content nav)
+            const navIds = ['#about', '#skills', '#projects', '#experience'];
+            document.getElementById('menu-links').innerHTML = (content[lang].nav || []).map((item, i) => 
+                `<li><a href="${navIds[i-1] || '#'}">${item}</a></li>`).join('');
+
+            // Update Hero (from original data)
+            document.getElementById('badge-content').innerHTML = `<span class="badge">${content[lang].badge}</span>`;
+            document.getElementById('hero-name').textContent = content[lang].heroName;
+            document.getElementById('hero-sub').textContent = content[lang].heroSub;
+            document.getElementById('btn-contact').textContent = content[lang].contact;
+            document.getElementById('btn-cv').textContent = content[lang].cv;
+
+            // Update Titles
+            document.getElementById('title-about').textContent = data.aboutTitle || content[lang].aboutTitle;
+            document.getElementById('about-p').textContent = data.aboutP || content[lang].aboutP;
+            document.getElementById('title-skills').textContent = data.skillsTitle || content[lang].skillsTitle;
+            document.getElementById('title-projects').textContent = data.projectsTitle || content[lang].projectsTitle;
+            document.getElementById('title-exp').textContent = data.expTitle || content[lang].expTitle;
+
+            // Update Skills (from merged)
+            document.getElementById('skills-container').innerHTML = (data.skills || []).map(s => `
+                <div class="skill-card">
+                    <h3>${s.title}</h3>
+                    <ul>${s.items.map(li => `<li>${li}</li>`).join('')}</ul>
+                </div>
+            `).join('');
+
+            // Update Projects (merge with localStorage projects; show real image if provided, otherwise placeholder)
+            const localStore = JSON.parse(localStorage.getItem('localProjects') || '{}');
+            const localProjects = Array.isArray(localStore[lang]) ? localStore[lang] : [];
+            const projectsToRender = [...localProjects, ...(content[lang].projects || [])];
+
+            document.getElementById('projects-container').innerHTML = projectsToRender.map(p => `
+                <div class="project-card">
+                    <div class="project-img">
+                        ${p.image && p.image.trim() ? `<img src="${p.image}" alt="${p.title}">` : `<div style="background:var(--primary); width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; font-size:1.1rem; opacity:0.08">${lang === 'ar' ? 'صورة' : 'Placeholder'}</div>`}
+                    </div>
+                    <div class="project-content">
+                        <span class="project-tag">${p.tag || ''}</span>
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                        <div class="tech-list">${(p.tech || []).map(t => `<span>${t}</span>`).join('')}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update Certifications (merge with localStorage certificates)
+            if (document.getElementById('certs-container')) {
+                const localCertStore = JSON.parse(localStorage.getItem('localCerts') || '{}');
+                const localCerts = Array.isArray(localCertStore[lang]) ? localCertStore[lang] : [];
+                const certsToRender = [...localCerts, ...(content[lang].certifications || [])];
+                document.getElementById('certs-container').innerHTML = certsToRender.map(c => `
+                    <div class="cert-card">
+                        <h3>${c.title}</h3>
+                        <div class="cert-issuer">${c.issuer || ''} ${c.year ? '• ' + c.year : ''}</div>
+                        ${c.image && c.image.trim() ? `<div style="height:140px;margin-top:0.5rem;overflow:hidden;border-radius:8px"><img src="${c.image}" style="width:100%;height:100%;object-fit:cover" /></div>` : ''}
+                        <a href="${c.url || '#'}" target="_blank" rel="noopener" class="btn btn-outline" style="margin-top:0.6rem">${lang === 'ar' ? 'عرض الشهادة' : 'View Certificate'}</a>
+                    </div>
+                `).join('');
+            }
+
+            // Update Experience (from merged)
+            document.getElementById('exp-container').innerHTML = (data.exp || []).map(e => `
+                <div class="timeline-item">
+                    <span class="timeline-date">${e.date}</span>
+                    <h3>${e.role}</h3>
+                    <h4>${e.company}</h4>
+                    <p>${e.task}</p>
+                </div>
+            `).join('');
+
+            document.getElementById('lang-toggle').textContent = lang === 'ar' ? 'EN' : 'العربية';
+        }
+
+        // Initialize with Arabic using new updater
+        updateContent('ar');
+
+        // Admin: render project list (merged: local first, then data.js)
+        function getMergedProjects(lang) {
+            const store = getLocalProjects();
+            const local = Array.isArray(store[lang]) ? store[lang] : [];
+            const remote = Array.isArray(content[lang].projects) ? content[lang].projects : [];
+            // mark source on each item for admin list
+            const localMarked = local.map((p, i) => Object.assign({_adminSource: 'local', _adminIndex: i}, p));
+            const remoteMarked = remote.map((p, i) => Object.assign({_adminSource: 'data', _adminIndex: i}, p));
+            return [...localMarked, ...remoteMarked];
+        }
+
+        // renderAdminProjectList renders interactive project cards into both admin lists
+        function renderAdminProjectList(lang) {
+            const items = getMergedProjects(lang);
+            const targetIds = ['admin-project-list', 'admin-projects-list'];
+            targetIds.forEach(tid => renderAdminProjectListTo(document.getElementById(tid), items, lang));
+        }
+
+        function renderAdminProjectListTo(listEl, items, lang) {
+            if (!listEl) return;
+            listEl.innerHTML = '';
+            if (!items || !items.length) {
+                listEl.innerHTML = `<div style="color:#64748b;padding:0.6rem">${lang === 'ar' ? 'لا توجد مشاريع.' : 'No projects found.'}</div>`;
+                return;
+            }
+            items.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.style.border = '1px solid var(--border)';
+                card.style.padding = '0.5rem';
+                card.style.borderRadius = '8px';
+                card.style.display = 'flex';
+                card.style.justifyContent = 'space-between';
+                card.style.alignItems = 'center';
+
+                const left = document.createElement('div');
+                left.style.flex = '1';
+                left.style.marginRight = '0.6rem';
+                left.innerHTML = `<div style="font-weight:600">${p.title || '(untitled)'}</div><div style="font-size:0.85rem;color:#64748b">${p.tag || ''} • ${(p.tech||[]).join(', ')}</div>`;
+
+                const right = document.createElement('div');
+                right.style.display = 'flex';
+                right.style.gap = '0.4rem';
+
+                const sourceBadge = document.createElement('div');
+                sourceBadge.textContent = p._adminSource === 'local' ? (lang === 'ar' ? 'محلي' : 'Local') : (lang === 'ar' ? 'من الملف' : 'From file');
+                sourceBadge.style.fontSize = '0.75rem';
+                sourceBadge.style.padding = '0.15rem 0.5rem';
+                sourceBadge.style.borderRadius = '6px';
+                sourceBadge.style.background = 'var(--light)';
+
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn btn-outline';
+                editBtn.textContent = lang === 'ar' ? 'تعديل' : 'Edit';
+                editBtn.onclick = () => {
+                    if (listEl && listEl.id === 'admin-literary-list') adminLoadForEditLiterary(p._adminSource, p._adminIndex, lang);
+                    else adminLoadForEdit(p._adminSource, p._adminIndex, lang);
+                };
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn btn-outline';
+                delBtn.textContent = lang === 'ar' ? 'حذف' : 'Delete';
+                delBtn.onclick = () => {
+                    if (listEl && listEl.id === 'admin-literary-list') adminDeleteLiterary(p._adminSource, p._adminIndex, lang);
+                    else adminDelete(p._adminSource, p._adminIndex, lang);
+                };
+
+                const importBtn = document.createElement('button');
+                importBtn.className = 'btn btn-outline';
+                importBtn.textContent = lang === 'ar' ? 'استيراد' : 'Import';
+                importBtn.style.display = p._adminSource === 'data' ? 'inline-flex' : 'none';
+                importBtn.onclick = () => {
+                    if (listEl && listEl.id === 'admin-literary-list') adminImportLiteraryToLocal(p._adminIndex, lang);
+                    else adminImportToLocal(p._adminIndex, lang);
+                };
+
+                right.appendChild(sourceBadge);
+                right.appendChild(editBtn);
+                right.appendChild(delBtn);
+                right.appendChild(importBtn);
+
+                card.appendChild(left);
+                card.appendChild(right);
+                listEl.appendChild(card);
+            });
+        }
+
+        // --- Literary admin list rendering ---
+        function getMergedLiterary(lang) {
+            const store = getLocalLiterary();
+            const local = Array.isArray(store[lang]) ? store[lang] : [];
+            const remote = Array.isArray(content[lang].literary) ? content[lang].literary : [];
+            const localMarked = local.map((p,i)=>Object.assign({_adminSource:'local',_adminIndex:i},p));
+            const remoteMarked = remote.map((p,i)=>Object.assign({_adminSource:'data',_adminIndex:i},p));
+            return [...localMarked, ...remoteMarked];
+        }
+
+        function renderAdminLiteraryList(lang) {
+            const items = getMergedLiterary(lang);
+            console.log('renderAdminLiteraryList items:', items);
+            const targetIds = ['admin-literary-list'];
+            targetIds.forEach(tid => renderAdminProjectListTo(document.getElementById(tid), items, lang));
+        }
+
+        // Load a project into the form for editing
+        function adminLoadForEdit(source, index, lang) {
+            document.getElementById('admin-edit-source').value = source;
+            document.getElementById('admin-edit-index').value = index;
+            document.getElementById('admin-lang').value = lang;
+            const store = getLocalProjects();
+            if (source === 'local') {
+                const arr = Array.isArray(store[lang]) ? store[lang] : [];
+                const p = arr[index];
+                if (!p) return;
+                document.getElementById('admin-tag').value = p.tag || '';
+                document.getElementById('admin-title').value = p.title || '';
+                document.getElementById('admin-desc').value = p.desc || '';
+                document.getElementById('admin-image-url').value = p.image || '';
+                document.getElementById('admin-tech').value = (p.tech||[]).join(', ');
+                showImagePreview(p.image);
+            } else {
+                // source === 'data'
+                const arr = Array.isArray(content[lang].projects) ? content[lang].projects : [];
+                const p = arr[index];
+                if (!p) return;
+                document.getElementById('admin-tag').value = p.tag || '';
+                document.getElementById('admin-title').value = p.title || '';
+                document.getElementById('admin-desc').value = p.desc || '';
+                document.getElementById('admin-image-url').value = p.image || '';
+                document.getElementById('admin-tech').value = (p.tech||[]).join(', ');
+                showImagePreview(p.image);
+            }
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم تحميل المشروع للتعديل' : 'Loaded for edit');
+        }
+
+        // Admin load for literary edit
+        function adminLoadForEditLiterary(source, index, lang) {
+            document.getElementById('admin-literary-edit-source').value = source;
+            document.getElementById('admin-literary-edit-index').value = index;
+            document.getElementById('admin-literary-lang').value = lang;
+            if (source === 'local') {
+                const store = getLocalLiterary();
+                const arr = Array.isArray(store[lang]) ? store[lang] : [];
+                const p = arr[index]; if (!p) return;
+                document.getElementById('admin-literary-tag').value = p.tag || '';
+                document.getElementById('admin-literary-title').value = p.title || '';
+                document.getElementById('admin-literary-desc').value = p.desc || '';
+                document.getElementById('admin-literary-image-url').value = p.image || '';
+                document.getElementById('admin-literary-tech').value = (p.tech||[]).join(', ');
+                showLiteraryPreview(p.image);
+            } else {
+                const arr = Array.isArray(content[lang].literary) ? content[lang].literary : [];
+                const p = arr[index]; if (!p) return;
+                document.getElementById('admin-literary-tag').value = p.tag || '';
+                document.getElementById('admin-literary-title').value = p.title || '';
+                document.getElementById('admin-literary-desc').value = p.desc || '';
+                document.getElementById('admin-literary-image-url').value = p.image || '';
+                document.getElementById('admin-literary-tech').value = (p.tech||[]).join(', ');
+                showLiteraryPreview(p.image);
+            }
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم تحميل المؤلف للتعديل' : 'Loaded literary for edit');
+        }
+
+        function adminDelete(source, index, lang) {
+            if (source === 'local') {
+                const store = getLocalProjects();
+                store[lang] = store[lang] || [];
+                if (index >= 0 && index < store[lang].length) {
+                    if (!confirm(document.documentElement.lang === 'ar' ? 'هل تريد حذف هذا المشروع محلياً؟' : 'Delete this local project?')) return;
+                    store[lang].splice(index, 1);
+                    saveLocalProjects(store);
+                    renderAdminProjectList(lang);
+                    updateContent(document.documentElement.lang || 'ar');
+                    adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الحذف' : 'Deleted');
+                }
+            } else {
+                alert(document.documentElement.lang === 'ar' ? 'لا يمكنك حذف المشاريع المضمنة في الملف. استخدم استيراد لتحويلها إلى محلية ثم احذف.' : 'Cannot delete file-provided projects. Import to local first, then delete.');
+            }
+        }
+
+        function adminDeleteLiterary(source, index, lang) {
+            if (source === 'local') {
+                const store = getLocalLiterary();
+                store[lang] = store[lang] || [];
+                if (index >= 0 && index < store[lang].length) {
+                    if (!confirm(document.documentElement.lang === 'ar' ? 'هل تريد حذف هذا المؤلف محلياً؟' : 'Delete this local literary work?')) return;
+                    store[lang].splice(index, 1);
+                    saveLocalLiterary(store);
+                    renderAdminLiteraryList(lang);
+                    updateContent(document.documentElement.lang || 'ar');
+                    adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الحذف' : 'Deleted');
+                }
+            } else {
+                alert(document.documentElement.lang === 'ar' ? 'لا يمكنك حذف المؤلفات المضمنة في الملف. استخدم استيراد لتحويلها إلى محلية ثم احذف.' : 'Cannot delete file-provided literary works. Import to local first, then delete.');
+            }
+        }
+
+        function adminImportToLocal(dataIndex, lang) {
+            const arr = Array.isArray(content[lang].projects) ? content[lang].projects : [];
+            const p = arr[dataIndex];
+            if (!p) return;
+            const store = getLocalProjects();
+            store[lang] = store[lang] || [];
+            store[lang].unshift(Object.assign({}, p));
+            saveLocalProjects(store);
+            renderAdminProjectList(lang);
+            updateContent(document.documentElement.lang || 'ar');
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الاستيراد إلى المشاريع المحلية' : 'Imported to local projects');
+        }
+
+        function adminImportLiteraryToLocal(dataIndex, lang) {
+            const arr = Array.isArray(content[lang].literary) ? content[lang].literary : [];
+            const p = arr[dataIndex]; if (!p) return;
+            const store = getLocalLiterary(); store[lang] = store[lang] || []; store[lang].unshift(Object.assign({}, p)); saveLocalLiterary(store); renderAdminLiteraryList(lang); updateContent(document.documentElement.lang || 'ar'); adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الاستيراد إلى المؤلفات المحلية' : 'Imported to local literary works');
+        }
+
+        function showImagePreview(src) {
+            const preview = document.getElementById('admin-image-preview');
+            preview.innerHTML = '';
+            if (!src) return;
+            const img = document.createElement('img');
+            img.src = src;
+            img.style.maxHeight = '90px';
+            img.style.borderRadius = '6px';
+            img.style.objectFit = 'cover';
+            preview.appendChild(img);
+        }
+
+        function showLiteraryPreview(src) {
+            const preview = document.getElementById('admin-literary-preview');
+            if (!preview) return; preview.innerHTML = '';
+            if (!src) return; const img = document.createElement('img'); img.src = src; img.style.maxHeight='80px'; img.style.borderRadius='6px'; img.style.objectFit='cover'; preview.appendChild(img);
+        }
+
+        adminForm.addEventListener('submit', (ev) => {
+            ev.preventDefault();
+            adminMsg.textContent = '';
+            const lang = document.getElementById('admin-lang').value || 'en';
+            const tag = document.getElementById('admin-tag').value.trim();
+            const title = document.getElementById('admin-title').value.trim();
+            const desc = document.getElementById('admin-desc').value.trim();
+            const imageUrl = document.getElementById('admin-image-url').value.trim();
+            const techRaw = document.getElementById('admin-tech').value.trim();
+            const tech = techRaw ? techRaw.split(',').map(t=>t.trim()).filter(Boolean) : [];
+            const fileInput = document.getElementById('admin-image-file');
+            const editIndex = document.getElementById('admin-edit-index').value;
+            const editSource = document.getElementById('admin-edit-source').value;
+
+            if (!title) { adminMsg.textContent = lang === 'ar' ? 'يرجى إدخال عنوان المشروع.' : 'Please enter project title.'; return; }
+
+            const projectObj = { tag, title, desc, tech, image: '' };
+
+            // If a file is selected, read as data URL and save; otherwise use imageUrl or leave blank
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    projectObj.image = e.target.result;
+                    finalizeStore(projectObj, lang, editSource, editIndex);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                projectObj.image = imageUrl || '';
+                finalizeStore(projectObj, lang, editSource, editIndex);
+            }
+        });
+
+        // Handlers for literary admin form
+        document.getElementById('admin-literary-save').addEventListener('click', () => {
+            adminMsg.textContent = '';
+            const lang = document.getElementById('admin-literary-lang').value || 'en';
+            const tag = document.getElementById('admin-literary-tag').value.trim();
+            const title = document.getElementById('admin-literary-title').value.trim();
+            const desc = document.getElementById('admin-literary-desc').value.trim();
+            const imageUrl = document.getElementById('admin-literary-image-url').value.trim();
+            const techRaw = document.getElementById('admin-literary-tech').value.trim();
+            const tech = techRaw ? techRaw.split(',').map(t=>t.trim()).filter(Boolean) : [];
+            const fileInput = document.getElementById('admin-literary-image-file');
+            const editIndex = document.getElementById('admin-literary-edit-index').value;
+            const editSource = document.getElementById('admin-literary-edit-source').value;
+            if (!title) { adminMsg.textContent = lang === 'ar' ? 'يرجى إدخال عنوان المؤلف.' : 'Please enter work title.'; return; }
+            const obj = { tag, title, desc, tech, image: '' };
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const f = fileInput.files[0]; const r = new FileReader(); r.onload = (e)=>{ obj.image = e.target.result; finalizeStoreLiterary(obj, lang, editSource, editIndex); }; r.readAsDataURL(f);
+            } else { obj.image = imageUrl||''; finalizeStoreLiterary(obj, lang, editSource, editIndex); }
+        });
+
+        document.getElementById('admin-literary-clear').addEventListener('click', ()=>{
+            document.getElementById('admin-literary-tag').value=''; document.getElementById('admin-literary-title').value=''; document.getElementById('admin-literary-desc').value=''; document.getElementById('admin-literary-tech').value=''; document.getElementById('admin-literary-image-url').value=''; try{ document.getElementById('admin-literary-image-file').value=''; }catch(e){}; document.getElementById('admin-literary-edit-index').value=''; document.getElementById('admin-literary-edit-source').value=''; adminMsg.textContent=''; showLiteraryPreview('');
+        });
+
+        document.getElementById('admin-literary-refresh').addEventListener('click', ()=> renderAdminLiteraryList(document.getElementById('admin-literary-lang').value||'ar'));
+
+        document.getElementById('admin-literary-clear-local').addEventListener('click', ()=>{
+            const lang = document.getElementById('admin-literary-lang').value||'ar'; if(!confirm(document.documentElement.lang==='ar'?'مسح كل المؤلفات المحلية لهذه اللغة؟':'Clear all local literary for this language?')) return; const store = getLocalLiterary(); store[lang]=[]; saveLocalLiterary(store); renderAdminLiteraryList(lang); updateContent(document.documentElement.lang||'ar'); adminMsg.textContent = document.documentElement.lang==='ar'?'تم مسح المؤلفات المحلية':'Cleared local literary';
+        });
+
+        document.getElementById('admin-literary-image-url').addEventListener('input', (e)=> showLiteraryPreview(e.target.value));
+        document.getElementById('admin-literary-image-file').addEventListener('change', (e)=>{ const f = e.target.files && e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=(ev)=>showLiteraryPreview(ev.target.result); r.readAsDataURL(f); });
+
+        document.getElementById('admin-literary-lang').addEventListener('change', (e)=> renderAdminLiteraryList(e.target.value));
+
+        // finalize store for literary
+        function finalizeStoreLiterary(obj, lang, editSource, editIndex){
+            const store = getLocalLiterary(); store[lang]=store[lang]||[];
+            if (editSource==='local' && editIndex!==''){
+                const idx = parseInt(editIndex,10); if(!isNaN(idx) && idx>=0 && idx<store[lang].length){ store[lang][idx]=obj; saveLocalLiterary(store); adminMsg.textContent = document.documentElement.lang==='ar'?'تم تحديث المؤلف':'Literary updated'; }
+            } else { store[lang].unshift(obj); saveLocalLiterary(store); adminMsg.textContent = document.documentElement.lang==='ar'?'تم الحفظ محلياً':'Saved locally'; console.log('localLiterary saved:', store); }
+            document.getElementById('admin-literary-tag').value=''; document.getElementById('admin-literary-title').value=''; document.getElementById('admin-literary-desc').value=''; document.getElementById('admin-literary-tech').value=''; document.getElementById('admin-literary-image-url').value=''; try{ document.getElementById('admin-literary-image-file').value=''; }catch(e){} document.getElementById('admin-literary-edit-index').value=''; document.getElementById('admin-literary-edit-source').value=''; showLiteraryPreview(''); renderAdminLiteraryList(lang); updateContent(lang || document.documentElement.lang || 'ar'); }
+
+        // initial render for literary
+        renderAdminLiteraryList(document.getElementById('admin-literary-lang').value||'ar');
+
+        function finalizeStore(projectObj, lang, editSource, editIndex) {
+            // If editing a local item
+            const store = getLocalProjects();
+            store[lang] = store[lang] || [];
+            if (editSource === 'local' && editIndex !== '') {
+                const idx = parseInt(editIndex, 10);
+                if (!isNaN(idx) && idx >= 0 && idx < store[lang].length) {
+                    store[lang][idx] = projectObj;
+                    saveLocalProjects(store);
+                    adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم تحديث المشروع' : 'Project updated');
+                }
+            } else {
+                // new or editing data-source -> always create local entry (import/edit creates local)
+                store[lang].unshift(projectObj);
+                saveLocalProjects(store);
+                adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الحفظ في المشاريع المحلية' : 'Saved to local projects');
+            }
+            // Clear inputs and re-render
+            adminForm.reset();
+            document.getElementById('admin-edit-index').value = '';
+            document.getElementById('admin-edit-source').value = '';
+            showImagePreview('');
+            renderAdminProjectList(lang);
+            updateContent(document.documentElement.lang || 'ar');
+        }
+
+        // --- Handlers for the newly added "Projects" admin block (ids starting with admin-projects-) ---
+        document.getElementById('admin-projects-save').addEventListener('click', () => {
+            adminMsg.textContent = '';
+            const lang = document.getElementById('admin-projects-lang').value || 'en';
+            const tag = document.getElementById('admin-projects-tag').value.trim();
+            const title = document.getElementById('admin-projects-title').value.trim();
+            const desc = document.getElementById('admin-projects-desc').value.trim();
+            const imageUrl = document.getElementById('admin-projects-image-url').value.trim();
+            const techRaw = document.getElementById('admin-projects-tech').value.trim();
+            const tech = techRaw ? techRaw.split(',').map(t=>t.trim()).filter(Boolean) : [];
+            const fileInput = document.getElementById('admin-projects-image-file');
+            const editIndex = document.getElementById('admin-projects-edit-index').value;
+            const editSource = document.getElementById('admin-projects-edit-source').value;
+
+            if (!title) { adminMsg.textContent = lang === 'ar' ? 'يرجى إدخال عنوان المشروع.' : 'Please enter project title.'; return; }
+
+            const projectObj = { tag, title, desc, tech, image: '' };
+
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    projectObj.image = e.target.result;
+                    finalizeStore(projectObj, lang, editSource, editIndex);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                projectObj.image = imageUrl || '';
+                finalizeStore(projectObj, lang, editSource, editIndex);
+            }
+        });
+
+        document.getElementById('admin-projects-clear').addEventListener('click', () => {
+            document.getElementById('admin-projects-tag').value = '';
+            document.getElementById('admin-projects-title').value = '';
+            document.getElementById('admin-projects-desc').value = '';
+            document.getElementById('admin-projects-tech').value = '';
+            document.getElementById('admin-projects-image-url').value = '';
+            try { document.getElementById('admin-projects-image-file').value = ''; } catch(e){}
+            document.getElementById('admin-projects-edit-index').value=''; document.getElementById('admin-projects-edit-source').value=''; adminMsg.textContent='';
+            const prev = document.getElementById('admin-projects-preview'); if (prev) prev.innerHTML = '';
+        });
+
+        document.getElementById('admin-projects-refresh').addEventListener('click', () => {
+            const lang = document.getElementById('admin-projects-lang').value || 'ar';
+            renderAdminProjectList(lang);
+            // mirror the same list into the secondary container if present
+            const src = document.getElementById('admin-project-list');
+            const dst = document.getElementById('admin-projects-list');
+            if (src && dst) dst.innerHTML = src.innerHTML;
+        });
+
+        document.getElementById('admin-projects-clear-local').addEventListener('click', () => {
+            const lang = document.getElementById('admin-projects-lang').value || 'ar';
+            if (!confirm(document.documentElement.lang === 'ar' ? 'مسح كل المشاريع المحلية لهذه اللغة؟' : 'Clear all local projects for this language?')) return;
+            const store = getLocalProjects();
+            store[lang] = [];
+            saveLocalProjects(store);
+            renderAdminProjectList(lang);
+            const src = document.getElementById('admin-project-list');
+            const dst = document.getElementById('admin-projects-list');
+            if (src && dst) dst.innerHTML = src.innerHTML;
+            updateContent(document.documentElement.lang || 'ar');
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم مسح المشاريع المحلية' : 'Cleared local projects');
+        });
+
+        // preview for the secondary projects form
+        function showProjectsPreview(src) {
+            const preview = document.getElementById('admin-projects-preview'); if (!preview) return; preview.innerHTML = '';
+            if (!src) return;
+            const img = document.createElement('img'); img.src = src; img.style.maxHeight = '80px'; img.style.borderRadius = '6px'; img.style.objectFit = 'cover'; preview.appendChild(img);
+        }
+
+        document.getElementById('admin-projects-image-url').addEventListener('input', (e) => showProjectsPreview(e.target.value));
+        document.getElementById('admin-projects-image-file').addEventListener('change', (e) => {
+            const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = (ev) => showProjectsPreview(ev.target.result); r.readAsDataURL(f);
+        });
+
+        document.getElementById('admin-projects-lang').addEventListener('change', (e) => {
+            const lang = e.target.value || 'ar'; renderAdminProjectList(lang);
+            const src = document.getElementById('admin-project-list'); const dst = document.getElementById('admin-projects-list'); if (src && dst) dst.innerHTML = src.innerHTML;
+        });
+
+        // keep original helper for adding programmatically
+        function storeProject(lang, projectObj) {
+            const store = getLocalProjects();
+            store[lang] = store[lang] || [];
+            store[lang].unshift(projectObj); // newest first
+            saveLocalProjects(store);
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم الإضافة' : 'Added');
+            // Clear inputs
+            adminForm.reset();
+            // Rerender content for current language
+            const cur = document.documentElement.lang || 'ar';
+            updateContent(cur);
+        }
+
+        document.getElementById('admin-clear').addEventListener('click', () => {
+            adminForm.reset(); adminMsg.textContent = '';
+        });
+
+        // Refresh, Clear Local handlers
+        document.getElementById('admin-refresh-list').addEventListener('click', () => {
+            const lang = document.getElementById('admin-lang').value || 'ar';
+            renderAdminProjectList(lang);
+        });
+
+        document.getElementById('admin-clear-local').addEventListener('click', () => {
+            const lang = document.getElementById('admin-lang').value || 'ar';
+            if (!confirm(document.documentElement.lang === 'ar' ? 'مسح كل المشاريع المحلية لهذه اللغة؟' : 'Clear all local projects for this language?')) return;
+            const store = getLocalProjects();
+            store[lang] = [];
+            saveLocalProjects(store);
+            renderAdminProjectList(lang);
+            updateContent(document.documentElement.lang || 'ar');
+            adminMsg.textContent = (document.documentElement.lang === 'ar' ? 'تم مسح المشاريع المحلية' : 'Cleared local projects');
+        });
+
+        // Image preview on URL change or file select
+        document.getElementById('admin-image-url').addEventListener('input', (e) => showImagePreview(e.target.value));
+        document.getElementById('admin-image-file').addEventListener('change', (e) => {
+            const f = e.target.files && e.target.files[0];
+            if (!f) return;
+            const r = new FileReader();
+            r.onload = (ev) => showImagePreview(ev.target.result);
+            r.readAsDataURL(f);
+        });
+
+        // Re-render list when language select changes
+        document.getElementById('admin-lang').addEventListener('change', (e) => renderAdminProjectList(e.target.value));
+
+        // Initial admin list render
+        renderAdminProjectList(document.getElementById('admin-lang').value || 'ar');
+
+        // --- Content editor handlers ---
+        function renderAdminSkills(lang) {
+            const area = document.getElementById('admin-skills-list'); area.innerHTML = '';
+            const local = getLocalContent()[lang] || {};
+            const skills = Array.isArray(local.skills) ? local.skills : (Array.isArray(content[lang].skills) ? content[lang].skills : []);
+            if (!skills.length) { area.innerHTML = `<div style="color:#64748b;padding:0.4rem">${lang==='ar'?'لا توجد مهارات':'No skills'}</div>`; return; }
+            skills.forEach((s,i)=>{
+                const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.alignItems='center'; row.style.border='1px solid var(--border)'; row.style.padding='0.3rem'; row.style.borderRadius='6px';
+                const left=document.createElement('div'); left.innerHTML=`<strong>${s.title}</strong><div style="font-size:0.85rem;color:#64748b">${(s.items||[]).join(', ')}</div>`;
+                const right=document.createElement('div'); right.style.display='flex'; right.style.gap='0.3rem';
+                const edit=document.createElement('button'); edit.className='btn btn-outline'; edit.textContent=lang==='ar'?'تعديل':'Edit'; edit.onclick=()=>{ document.getElementById('admin-skill-title').value=s.title; document.getElementById('admin-skill-items').value=(s.items||[]).join(', '); document.getElementById('admin-skill-add').dataset.editIndex=i; };
+                const del=document.createElement('button'); del.className='btn btn-outline'; del.textContent=lang==='ar'?'حذف':'Delete'; del.onclick=()=>{ if(!confirm(document.documentElement.lang==='ar'?'حذف مجموعة المهارة؟':'Delete this skill group?'))return; const lc=getLocalContent(); lc[lang]=lc[lang]||{}; lc[lang].skills = Array.isArray(lc[lang].skills)?lc[lang].skills.slice(): (Array.isArray(content[lang].skills)?content[lang].skills.slice():[]); lc[lang].skills.splice(i,1); saveLocalContent(lc); renderAdminSkills(lang); updateContent(document.documentElement.lang||'ar'); };
+                right.appendChild(edit); right.appendChild(del); row.appendChild(left); row.appendChild(right); area.appendChild(row);
+            });
+        }
+
+        document.getElementById('admin-skill-add').addEventListener('click', ()=>{
+            const lang=document.getElementById('admin-content-lang').value||'ar';
+            const title=document.getElementById('admin-skill-title').value.trim();
+            const itemsRaw=document.getElementById('admin-skill-items').value.trim();
+            if(!title) { adminMsg.textContent = document.documentElement.lang==='ar'?'الرجاء إدخال عنوان المهارة':'Please enter skill title'; return; }
+            const items = itemsRaw? itemsRaw.split(',').map(s=>s.trim()).filter(Boolean):[];
+            const lc = getLocalContent(); lc[lang]=lc[lang]||{}; lc[lang].skills = Array.isArray(lc[lang].skills)?lc[lang].skills: (Array.isArray(content[lang].skills)?content[lang].skills.slice():[]);
+            const editIndex = parseInt(document.getElementById('admin-skill-add').dataset.editIndex||'',10);
+            if (!isNaN(editIndex)) { lc[lang].skills[editIndex] = {title, items}; delete document.getElementById('admin-skill-add').dataset.editIndex; adminMsg.textContent = document.documentElement.lang==='ar'?'تم تعديل المهارة':'Skill updated'; }
+            else { lc[lang].skills.unshift({title, items}); adminMsg.textContent = document.documentElement.lang==='ar'?'تم إضافة المهارة':'Skill added'; }
+            saveLocalContent(lc); document.getElementById('admin-skill-title').value=''; document.getElementById('admin-skill-items').value=''; renderAdminSkills(lang); updateContent(document.documentElement.lang||'ar');
+        });
+
+        document.getElementById('admin-skills-clear').addEventListener('click', ()=>{
+            const lang=document.getElementById('admin-content-lang').value||'ar'; if(!confirm(document.documentElement.lang==='ar'?'مسح كل المهارات المحلية لهذه اللغة؟':'Clear all local skills for this language?')) return; const lc=getLocalContent(); lc[lang]=lc[lang]||{}; lc[lang].skills=[]; saveLocalContent(lc); renderAdminSkills(lang); updateContent(document.documentElement.lang||'ar');
+        });
+
+        // About handlers
+        document.getElementById('admin-about-save').addEventListener('click', ()=>{
+            const lang=document.getElementById('admin-content-lang').value||'ar'; const val=document.getElementById('admin-about-p').value.trim(); const lc=getLocalContent(); lc[lang]=lc[lang]||{}; lc[lang].aboutP = val; saveLocalContent(lc); adminMsg.textContent = document.documentElement.lang==='ar'?'تم حفظ القصة المهنية':'About saved'; updateContent(document.documentElement.lang||'ar');
+        });
+
+        // Experience handlers
+        function renderAdminExp(lang){ const area=document.getElementById('admin-exp-list'); area.innerHTML=''; const lc=getLocalContent(); const arr = (lc[lang]&&Array.isArray(lc[lang].exp))?lc[lang].exp: (Array.isArray(content[lang].exp)?content[lang].exp.slice():[]); if(!arr.length){ area.innerHTML=`<div style="color:#64748b;padding:0.4rem">${lang==='ar'?'لا توجد خبرات':'No experience'}</div>`; return;} arr.forEach((e,i)=>{ const row=document.createElement('div'); row.style.display='flex'; row.style.justifyContent='space-between'; row.style.alignItems='center'; row.style.border='1px solid var(--border)'; row.style.padding='0.3rem'; row.style.borderRadius='6px'; const left=document.createElement('div'); left.innerHTML=`<strong>${e.role}</strong><div style="font-size:0.85rem;color:#64748b">${e.company} • ${e.date}</div><div style="font-size:0.85rem;color:#475569">${e.task}</div>`; const right=document.createElement('div'); right.style.display='flex'; right.style.gap='0.3rem'; const edit=document.createElement('button'); edit.className='btn btn-outline'; edit.textContent=lang==='ar'?'تعديل':'Edit'; edit.onclick=()=>{ document.getElementById('admin-exp-date').value=e.date||''; document.getElementById('admin-exp-role').value=e.role||''; document.getElementById('admin-exp-company').value=e.company||''; document.getElementById('admin-exp-task').value=e.task||''; document.getElementById('admin-exp-add').dataset.editIndex=i; }; const del=document.createElement('button'); del.className='btn btn-outline'; del.textContent=lang==='ar'?'حذف':'Delete'; del.onclick=()=>{ if(!confirm(document.documentElement.lang==='ar'?'حذف هذه الخبرة؟':'Delete this experience?'))return; const lc2=getLocalContent(); lc2[lang]=lc2[lang]||{}; lc2[lang].exp = Array.isArray(lc2[lang].exp)?lc2[lang].exp: (Array.isArray(content[lang].exp)?content[lang].exp.slice():[]); lc2[lang].exp.splice(i,1); saveLocalContent(lc2); renderAdminExp(lang); updateContent(document.documentElement.lang||'ar'); }; right.appendChild(edit); right.appendChild(del); row.appendChild(left); row.appendChild(right); area.appendChild(row); }); }
+
+        document.getElementById('admin-exp-add').addEventListener('click', ()=>{
+            const lang=document.getElementById('admin-content-lang').value||'ar'; const date=document.getElementById('admin-exp-date').value.trim(); const role=document.getElementById('admin-exp-role').value.trim(); const company=document.getElementById('admin-exp-company').value.trim(); const task=document.getElementById('admin-exp-task').value.trim(); if(!role){ adminMsg.textContent = document.documentElement.lang==='ar'?'الرجاء إدخال الدور':'Please enter role'; return; } const lc=getLocalContent(); lc[lang]=lc[lang]||{}; lc[lang].exp = Array.isArray(lc[lang].exp)?lc[lang].exp: (Array.isArray(content[lang].exp)?content[lang].exp.slice():[]); const editIndex = parseInt(document.getElementById('admin-exp-add').dataset.editIndex||'',10); const obj={date, role, company, task}; if(!isNaN(editIndex)){ lc[lang].exp[editIndex]=obj; delete document.getElementById('admin-exp-add').dataset.editIndex; adminMsg.textContent = document.documentElement.lang==='ar'?'تم تعديل الخبرة':'Experience updated'; } else { lc[lang].exp.unshift(obj); adminMsg.textContent = document.documentElement.lang==='ar'?'تم إضافة الخبرة':'Experience added'; } saveLocalContent(lc); document.getElementById('admin-exp-date').value=''; document.getElementById('admin-exp-role').value=''; document.getElementById('admin-exp-company').value=''; document.getElementById('admin-exp-task').value=''; renderAdminExp(lang); updateContent(document.documentElement.lang||'ar'); });
+
+        document.getElementById('admin-exp-clear').addEventListener('click', ()=>{ const lang=document.getElementById('admin-content-lang').value||'ar'; if(!confirm(document.documentElement.lang==='ar'?'مسح كل الخبرات المحلية لهذه اللغة؟':'Clear all local experience for this language?')) return; const lc=getLocalContent(); lc[lang]=lc[lang]||{}; lc[lang].exp=[]; saveLocalContent(lc); renderAdminExp(lang); updateContent(document.documentElement.lang||'ar'); });
+
+        // Render on content-lang change
+        document.getElementById('admin-content-lang').addEventListener('change', (e)=>{ const lang=e.target.value||'ar'; const lc=getLocalContent(); document.getElementById('admin-about-p').value=(lc[lang]&&lc[lang].aboutP)||content[lang].aboutP||''; renderAdminSkills(lang); renderAdminExp(lang); });
+
+        // initialize content editors
+        document.getElementById('admin-content-lang').dispatchEvent(new Event('change'));
+
+        // --- Admin password and export/import ---
+        function isAdminAuthenticated() { return sessionStorage.getItem('adminAuth')==='1'; }
+
+        document.getElementById('admin-toggle').addEventListener('click', () => {
+            const pass = localStorage.getItem('adminPass');
+            if (pass && !isAdminAuthenticated()) {
+                const attempt = prompt(document.documentElement.lang === 'ar' ? 'أدخل كلمة مرور الأدمن' : 'Enter admin password');
+                if (attempt === pass) { sessionStorage.setItem('adminAuth','1'); adminPanel.style.display = 'block'; renderAdminProjectList(document.getElementById('admin-lang').value||'ar'); renderAdminCertList(document.getElementById('admin-cert-lang').value||'ar'); renderAdminLiteraryList(document.getElementById('admin-literary-lang').value||'ar'); document.getElementById('admin-content-lang').dispatchEvent(new Event('change')); }
+                else alert(document.documentElement.lang === 'ar' ? 'كلمة المرور غير صحيحة' : 'Incorrect password');
+            } else {
+                // if no pass set or already authenticated toggle visibility
+                if (!pass) { adminPanel.style.display = adminPanel.style.display === 'none' ? 'block' : 'none'; } else { adminPanel.style.display = adminPanel.style.display === 'none' ? 'block' : 'none'; }
+            }
+        });
+
+        document.getElementById('admin-set-pass').addEventListener('click', ()=>{
+            const cur = localStorage.getItem('adminPass');
+            const newPass = prompt(cur ? (document.documentElement.lang === 'ar' ? 'أدخل كلمة المرور الجديدة' : 'Enter new admin password') : (document.documentElement.lang === 'ar' ? 'اضبط كلمة مرور للأدمن' : 'Set admin password'));
+            if (!newPass) return; localStorage.setItem('adminPass', newPass); alert(document.documentElement.lang === 'ar' ? 'تم ضبط كلمة المرور' : 'Password set');
+        });
+
+        // Export local data
+        document.getElementById('admin-export').addEventListener('click', ()=>{
+            const payload = { localContent: getLocalContent(), localProjects: JSON.parse(localStorage.getItem('localProjects')||'{}'), localCerts: JSON.parse(localStorage.getItem('localCerts')||'{}'), localLiterary: JSON.parse(localStorage.getItem('localLiterary')||'{}') };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+            const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href=url; a.download='portfolio-local-data.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+        });
+
+        // Import local data
+        document.getElementById('admin-import').addEventListener('click', ()=>{
+            const fi = document.getElementById('admin-import-file'); if(!fi.files || !fi.files[0]) { alert(document.documentElement.lang==='ar'?'اختر ملف JSON للاستيراد':'Choose a JSON file to import'); return; }
+            const reader = new FileReader(); reader.onload = (e)=>{
+                try { const obj = JSON.parse(e.target.result); if(obj.localContent) localStorage.setItem('localContent', JSON.stringify(obj.localContent)); if(obj.localProjects) localStorage.setItem('localProjects', JSON.stringify(obj.localProjects)); if(obj.localCerts) localStorage.setItem('localCerts', JSON.stringify(obj.localCerts)); if(obj.localLiterary) localStorage.setItem('localLiterary', JSON.stringify(obj.localLiterary)); renderAdminProjectList(document.getElementById('admin-lang').value||'ar'); renderAdminCertList(document.getElementById('admin-cert-lang').value||'ar'); renderAdminLiteraryList(document.getElementById('admin-literary-lang').value||'ar'); document.getElementById('admin-content-lang').dispatchEvent(new Event('change')); updateContent(document.documentElement.lang||'ar'); alert(document.documentElement.lang==='ar'?'تم الاستيراد':'Import complete'); } catch(err){ alert('Invalid JSON'); }
+            }; reader.readAsText(fi.files[0]);
+        });
+
+        // Make admin panel draggable by its header (pointer events)
+        (function(){
+            const panel = document.getElementById('admin-panel');
+            if (!panel) return;
+            const header = panel.querySelector('h3');
+            if (!header) return;
+            header.style.cursor = 'move';
+            let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
+            header.addEventListener('pointerdown', (e) => {
+                dragging = true;
+                try { header.setPointerCapture(e.pointerId); } catch(_) {}
+                startX = e.clientX; startY = e.clientY;
+                const rect = panel.getBoundingClientRect();
+                startLeft = rect.left; startTop = rect.top;
+                panel.style.right = 'auto'; panel.style.bottom = 'auto';
+                panel.style.left = startLeft + 'px'; panel.style.top = startTop + 'px';
+                document.body.style.userSelect = 'none';
+            });
+            document.addEventListener('pointermove', (e) => {
+                if (!dragging) return;
+                const dx = e.clientX - startX; const dy = e.clientY - startY;
+                let newLeft = startLeft + dx; let newTop = startTop + dy;
+                newLeft = Math.max(8, Math.min(window.innerWidth - panel.offsetWidth - 8, newLeft));
+                newTop = Math.max(8, Math.min(window.innerHeight - panel.offsetHeight - 8, newTop));
+                panel.style.left = newLeft + 'px'; panel.style.top = newTop + 'px';
+            });
+            header.addEventListener('pointerup', (e) => { dragging = false; try { header.releasePointerCapture(e.pointerId); } catch(_){} document.body.style.userSelect = 'auto'; });
+            header.addEventListener('pointercancel', () => { dragging = false; document.body.style.userSelect = 'auto'; });
+        })();
+    </script>
+</body>
+</html>
