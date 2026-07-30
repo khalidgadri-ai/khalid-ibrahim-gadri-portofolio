@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
   const sessionData = {
-    selectedEmotion: '',
+    selectedEmotion: 'الخوف من الفشل',
     customEmotion: '',
     initialIntensity: 7,
-    somaticLocation: '',
+    somaticLocation: 'انقباض في الصدر',
     somaticDesc: '',
     protectionMsg: '',
     truthMsg: '',
-    allowValue: '',
-    releaseValue: '',
     affirmation: 'أنا أسمح لهذا الخوف بالرحيل، وأختار طاقة السكينة والأمان.',
     finalIntensity: 3,
     clientName: '',
@@ -19,11 +17,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalSteps = 5;
 
   const stepCategoryTitles = {
-    1: 'تحديد الشعور والخوف',
-    2: 'التجسيد في الجسد',
-    3: 'الوعي بالرسالة والاحتياج',
+    1: 'تحديد الشعور والموقف',
+    2: 'التجسيد والوصف الجسدي',
+    3: 'القناعة والاحتياج الأصيل',
     4: 'التنفس والتحرر',
-    5: 'النتيجة والتوجيه'
+    5: 'إعادة التقييم والتشخيص'
   };
 
   const navTabs = document.querySelectorAll('.nav-tab');
@@ -84,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
     intensityInput.addEventListener('input', (e) => {
       const val = e.target.value;
       intensityVal.textContent = val;
-      sessionData.initialIntensity = val;
+      sessionData.initialIntensity = parseInt(val);
       if (compInitial) compInitial.textContent = `${val}/10`;
     });
   }
@@ -93,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     finalIntensityInput.addEventListener('input', (e) => {
       const val = e.target.value;
       finalIntensityVal.textContent = val;
-      sessionData.finalIntensity = val;
+      sessionData.finalIntensity = parseInt(val);
       if (compFinal) compFinal.textContent = `${val}/10`;
     });
   }
@@ -101,6 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.next-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const nextStep = parseInt(btn.dataset.next);
+
+      if (!validateStepInput(currentStep)) {
+        return;
+      }
+
       saveStepData(currentStep);
       goToStep(nextStep);
     });
@@ -112,6 +115,49 @@ document.addEventListener('DOMContentLoaded', () => {
       goToStep(prevStep);
     });
   });
+
+  function validateStepInput(step) {
+    if (step === 1) {
+      const customVal = document.getElementById('step1_custom').value.trim();
+      const err = document.getElementById('err_step1');
+      if (!customVal) {
+        if (err) err.classList.remove('hidden');
+        return false;
+      }
+      if (err) err.classList.add('hidden');
+    } else if (step === 2) {
+      const somaticVal = document.getElementById('step2_somatic').value.trim();
+      const err = document.getElementById('err_step2');
+      if (!somaticVal) {
+        if (err) err.classList.remove('hidden');
+        return false;
+      }
+      if (err) err.classList.add('hidden');
+    } else if (step === 3) {
+      const protVal = document.getElementById('step3_protection').value.trim();
+      const truthVal = document.getElementById('step3_truth').value.trim();
+      const errP = document.getElementById('err_step3_p');
+      const errT = document.getElementById('err_step3_t');
+
+      let valid = true;
+      if (!protVal) { if (errP) errP.classList.remove('hidden'); valid = false; }
+      else { if (errP) errP.classList.add('hidden'); }
+
+      if (!truthVal) { if (errT) errT.classList.remove('hidden'); valid = false; }
+      else { if (errT) errT.classList.add('hidden'); }
+
+      return valid;
+    } else if (step === 4) {
+      const affVal = document.getElementById('step4_release_statement').value.trim();
+      const err = document.getElementById('err_step4');
+      if (!affVal) {
+        if (err) err.classList.remove('hidden');
+        return false;
+      }
+      if (err) err.classList.add('hidden');
+    }
+    return true;
+  }
 
   function goToStep(stepNumber) {
     currentStep = stepNumber;
@@ -136,25 +182,34 @@ document.addEventListener('DOMContentLoaded', () => {
   function saveStepData(step) {
     if (step === 1) {
       sessionData.customEmotion = document.getElementById('step1_custom').value.trim();
-      sessionData.initialIntensity = intensityInput.value;
+      sessionData.initialIntensity = parseInt(intensityInput.value);
     } else if (step === 2) {
       sessionData.somaticDesc = document.getElementById('step2_somatic').value.trim();
     } else if (step === 3) {
       sessionData.protectionMsg = document.getElementById('step3_protection').value.trim();
       sessionData.truthMsg = document.getElementById('step3_truth').value.trim();
     } else if (step === 4) {
-      const allowRadio = document.querySelector('input[name="allow"]:checked');
-      if (allowRadio) sessionData.allowValue = allowRadio.value;
-
-      const releaseRadio = document.querySelector('input[name="release"]:checked');
-      if (releaseRadio) sessionData.releaseValue = releaseRadio.value;
-
       sessionData.affirmation = document.getElementById('step4_release_statement').value.trim();
     } else if (step === 5) {
-      sessionData.finalIntensity = finalIntensityInput.value;
+      sessionData.finalIntensity = parseInt(finalIntensityInput.value);
       sessionData.clientName = document.getElementById('clientName').value.trim();
       sessionData.clientPhone = document.getElementById('clientPhone').value.trim();
     }
+  }
+
+  function calculateCoachingNeed() {
+    const initVal = parseInt(sessionData.initialIntensity) || 7;
+    const finalVal = parseInt(sessionData.finalIntensity) || 3;
+    const drop = initVal - finalVal;
+
+    const needsCoaching = (initVal >= 7 || finalVal >= 5 || drop <= 2);
+
+    return {
+      needsCoaching,
+      initVal,
+      finalVal,
+      drop
+    };
   }
 
   const generateSummaryBtn = document.getElementById('generateSummaryBtn');
@@ -163,8 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
       saveStepData(5);
       cards.forEach(c => c.classList.remove('active'));
 
-      const emotionText = sessionData.customEmotion || sessionData.selectedEmotion || 'غير محدد';
+      const emotionText = sessionData.selectedEmotion || 'غير محدد';
+      const customEventText = sessionData.customEmotion || 'لم يتم ذكر التفاصيل';
+
       document.getElementById('sumEmotion').textContent = emotionText;
+      document.getElementById('sumCustomEvent').textContent = customEventText;
       document.getElementById('sumInitialIntensity').textContent = sessionData.initialIntensity;
 
       const bodyText = sessionData.somaticLocation || 'غير محدد';
@@ -173,24 +231,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.getElementById('sumProtection').textContent = sessionData.protectionMsg || 'لا يوجد';
       document.getElementById('sumTruth').textContent = sessionData.truthMsg || 'لا يوجد';
-
       document.getElementById('sumAffirmation').textContent = sessionData.affirmation || '-';
       document.getElementById('sumFinalIntensity').textContent = sessionData.finalIntensity;
 
       const now = new Date();
-      document.getElementById('summaryDate').textContent = `تاريخ الجلسة: ${now.toLocaleDateString('ar-SA')} - ${now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}`;
+      document.getElementById('summaryDate').textContent = `تاريخ التقييم: ${now.toLocaleDateString('ar-SA')} - ${now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}`;
+
+      const diag = calculateCoachingNeed();
+      const outcomeBox = document.getElementById('diagnosticOutcomeBox');
+      const diagBadge = document.getElementById('diagBadge');
+      const diagTitle = document.getElementById('diagTitle');
+      const diagDesc = document.getElementById('diagDescText') || document.getElementById('diagDescription');
+      const diagIcon = document.getElementById('diagIcon');
+
+      if (diag.needsCoaching) {
+        if (outcomeBox) outcomeBox.className = 'diagnostic-result-box needs-coaching';
+        if (diagBadge) diagBadge.textContent = '🎯 النتيجة التشخيصية: يوصى بشدة بجلسة كوتشينج';
+        if (diagTitle) diagTitle.textContent = 'أنت بحاجة إلى جلسة كوتشينج مخصصة وعميقة';
+        if (diagIcon) diagIcon.textContent = '🚨';
+        if (diagDesc) {
+          diagDesc.textContent = `أظهر تحليل إجاباتك الصريحة وتدرج الشدة (من ${diag.initVal}/10 إلى ${diag.finalVal}/10) وجود جذور انفعالية وقناعات قديمة تتطلب تفكيكاً عميقاً ومواكبة مخصصة مع الكوتش خالد ابراهيم قادري لمساعدتك على التحول التام وتجاوز التحدي بنجاح.`;
+        }
+      } else {
+        if (outcomeBox) outcomeBox.className = 'diagnostic-result-box';
+        if (diagBadge) diagBadge.textContent = '🌱 النتيجة التشخيصية: استجابة ممتازة ووعي عالٍ';
+        if (diagTitle) diagTitle.textContent = 'حالتك مستقرة وتظهر وعياً عالياً بالتحرر';
+        if (diagIcon) diagIcon.textContent = '✨';
+        if (diagDesc) {
+          diagDesc.textContent = `أظهر تحليل إجاباتك انخفاضاً طيباً في شدة الشعور (انخفاض قدره ${diag.drop} درجات). ننصحك بالاستمرار على توكيد التحرر، ويمكنك حجز جلسة متابعة وتطوير مع الكوتش خالد ابراهيم قادري في حال رغبت بتسريع وصولك لأهدافك.`;
+        }
+      }
 
       const directWhatsappLink = document.getElementById('directWhatsappLink');
       if (directWhatsappLink) {
-        const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار المنصة';
-        const rawMsg = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت جلسة التحرر الذاتية عبر المنصة:\n\n• الشعور المستهدف: ${emotionText}\n• الشدة الأولية: ${sessionData.initialIntensity}/10\n• الشدة الحالية: ${sessionData.finalIntensity}/10\n• توكيد التحرر: ${sessionData.affirmation}\n\nأود حجز جلسة كوتشينج خاصة معك لتعميق هذه النتائج.`;
+        const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار الاختبار';
+        const rawMsg = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت اختبار التحرر والكوتشينج وتواصلت بناءً على نتيجة التشخيص:\n\n` +
+          `• نوع الشعور: ${emotionText}\n` +
+          `• الموقف/الذكرى (تعبير حر): ${customEventText}\n` +
+          `• التأثير الجسدي: ${sessionData.somaticLocation} (${sessionData.somaticDesc})\n` +
+          `• حماية الشعور والقناعة: ${sessionData.protectionMsg}\n` +
+          `• الاحتياج الأصيل: ${sessionData.truthMsg}\n` +
+          `• الشدة: من ${sessionData.initialIntensity}/10 إلى ${sessionData.finalIntensity}/10\n` +
+          `• توكيد التحرر: ${sessionData.affirmation}\n\n` +
+          `• نتيجة التشخيص: ${diag.needsCoaching ? 'أحتاج جلسة كوتشينج مخصصة معك' : 'أود استكمال الجلسات معك'}.`;
+
         const encodedMsg = encodeURIComponent(rawMsg);
         directWhatsappLink.href = `https://wa.me/966591533385?text=${encodedMsg}`;
       }
 
+      saveAnalyticsData(sessionData, diag);
+
       summaryView.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  }
+
+  function saveAnalyticsData(data, diagResult) {
+    try {
+      const existing = JSON.parse(localStorage.getItem('khalid_coaching_analytics') || '[]');
+      existing.push({
+        timestamp: new Date().toISOString(),
+        emotion: data.selectedEmotion,
+        customEvent: data.customEmotion,
+        somaticDesc: data.somaticDesc,
+        protectionMsg: data.protectionMsg,
+        truthMsg: data.truthMsg,
+        initialIntensity: data.initialIntensity,
+        finalIntensity: data.finalIntensity,
+        needsCoaching: diagResult.needsCoaching,
+        clientName: data.clientName
+      });
+      localStorage.setItem('khalid_coaching_analytics', JSON.stringify(existing));
+    } catch (e) {
+      console.log('Analytics storage:', e);
+    }
   }
 
   const printSummaryBtn = document.getElementById('printSummaryBtn');
@@ -203,25 +317,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadTxtBtn = document.getElementById('downloadTxtBtn');
   if (downloadTxtBtn) {
     downloadTxtBtn.addEventListener('click', () => {
-      const emotionText = sessionData.customEmotion || sessionData.selectedEmotion || 'غير محدد';
-      const clientNameStr = sessionData.clientName || 'العميل';
-      const reportText = `=== تقرير جلسة التحرر الذاتية ===\nأكاديمية الكوتش خالد ابراهيم قادري\nالتاريخ: ${new Date().toLocaleDateString('ar-SA')}\n\n` +
-        `اسم العميل: ${clientNameStr}\n` +
-        `الشعور المستهدف: ${emotionText}\n` +
-        `شدة الشعور الأولي: ${sessionData.initialIntensity}/10\n` +
-        `شدة الشعور النهائية: ${sessionData.finalIntensity}/10\n` +
-        `مكان الإحساس في الجسد: ${sessionData.somaticLocation || '-'}\n` +
-        `رسالة حماية الشعور: ${sessionData.protectionMsg || '-'}\n` +
+      const emotionText = sessionData.selectedEmotion || 'غير محدد';
+      const clientNameStr = sessionData.clientName || 'المستفيد';
+      const diag = calculateCoachingNeed();
+
+      const reportText = `=== تقرير نتيجة اختبار الكوتشينج والتحرر ===\nأكاديمية الكوتش خالد ابراهيم قادري\nالتاريخ: ${new Date().toLocaleDateString('ar-SA')}\n\n` +
+        `اسم المستفيد: ${clientNameStr}\n` +
+        `نوع الشعور: ${emotionText}\n` +
+        `الموقف/الذكرى (التعبير الحر): ${sessionData.customEmotion || '-'}\n` +
+        `تدرج الشدة: من ${sessionData.initialIntensity}/10 إلى ${sessionData.finalIntensity}/10\n` +
+        `التجسيد الجسدي: ${sessionData.somaticLocation} (${sessionData.somaticDesc || '-'})\n` +
+        `قناعة وحماية الخوف: ${sessionData.protectionMsg || '-'}\n` +
+        `الاحتياج الحقيقي: ${sessionData.truthMsg || '-'}\n` +
         `توكيد التحرر: ${sessionData.affirmation}\n\n` +
-        `للتواصل وحجز الجلسات:\n` +
+        `نتيجة التقييم التشخيصي: ${diag.needsCoaching ? 'يوصى بشدة بحجز جلسة كوتشينج مخصصة' : 'حالة استقرار ووعي جيد'}\n\n` +
+        `للتواصل المباشر وحجز الجلسات:\n` +
         `واتساب: https://wa.me/966591533385\n` +
         `تليجرام: https://t.me/khalidigadri\n` +
-        `الموقع: https://khalidibrahimgadri.com`;
+        `الموقع الرسمي: https://khalidibrahimgadri.com`;
 
       const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `تقرير_جلسة_التحرر_${clientNameStr}.txt`;
+      link.download = `تقرير_اختبار_الكوتشينج_${clientNameStr}.txt`;
       link.click();
     });
   }
@@ -296,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.addEventListener('click', () => {
         btn.textContent = '✅ تم الحفظ بنجاح!';
         setTimeout(() => {
-          if (id === 'saveBeliefBtn') btn.textContent = 'حفظ المعتقد الجديد 🌟';
+          if (id === 'saveBeliefBtn') btn.textContent = 'حفظ القناعة الجديدة 🌟';
           if (id === 'saveWheelBtn') btn.textContent = 'حفظ تقييم العجلة 🎡';
           if (id === 'saveMovieBtn') btn.textContent = 'حفظ السيناريو 🎬';
           if (id === 'saveFocusBtn') btn.textContent = 'تفعيل درع التركيز 🎯';
