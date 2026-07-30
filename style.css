@@ -131,29 +131,47 @@ body {
 
 .tools-nav {
   display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  margin-bottom: 25px;
-  scrollbar-width: none;
+  gap: 10px;
+  overflow-x: auto !important;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  scroll-behavior: smooth;
+  padding: 4px 4px 12px 4px;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) transparent;
 }
 
 .tools-nav::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+}
+
+.tools-nav::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.05);
+  border-radius: 10px;
+}
+
+.tools-nav::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 10px;
 }
 
 .nav-tab {
+  flex-shrink: 0 !important;
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  padding: 10px 16px;
+  padding: 11px 18px;
   border-radius: 25px;
   font-family: var(--font-main);
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-muted);
-  white-space: nowrap;
+  white-space: nowrap !important;
   cursor: pointer;
   transition: var(--transition);
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .nav-tab:hover {
@@ -165,7 +183,7 @@ body {
   background: var(--primary-color);
   color: #FFFFFF;
   border-color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(45, 90, 82, 0.2);
+  box-shadow: 0 4px 14px rgba(45, 90, 82, 0.25);
 }
 
 .tool-section {
