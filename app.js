@@ -180,20 +180,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const now = new Date();
       document.getElementById('summaryDate').textContent = `تاريخ الجلسة: ${now.toLocaleDateString('ar-SA')} - ${now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}`;
 
+      const directWhatsappLink = document.getElementById('directWhatsappLink');
+      if (directWhatsappLink) {
+        const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار المنصة';
+        const rawMsg = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت جلسة التحرر الذاتية عبر المنصة:\n\n• الشعور المستهدف: ${emotionText}\n• الشدة الأولية: ${sessionData.initialIntensity}/10\n• الشدة الحالية: ${sessionData.finalIntensity}/10\n• توكيد التحرر: ${sessionData.affirmation}\n\nأود حجز جلسة كوتشينج خاصة معك لتعميق هذه النتائج.`;
+        const encodedMsg = encodeURIComponent(rawMsg);
+        directWhatsappLink.href = `https://wa.me/966591533385?text=${encodedMsg}`;
+      }
+
       summaryView.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  const sendWhatsappBtn = document.getElementById('sendWhatsappBtn');
-  if (sendWhatsappBtn) {
-    sendWhatsappBtn.addEventListener('click', () => {
-      const name = sessionData.clientName ? `مرحباً، أنا ${sessionData.clientName}` : 'مرحباً كوتش خالد';
-      const emotion = sessionData.customEmotion || sessionData.selectedEmotion || 'شعور';
-      const msg = `${name}، أكملت جلسة التحرر الذاتية عبر المنصة:\n- الشعور المستهدف: ${emotion}\n- الشدة الأولية: ${sessionData.initialIntensity}/10\n- الشدة الحالية: ${sessionData.finalIntensity}/10\n- توكيد التحرر: ${sessionData.affirmation}\n\nأود حجز/استكمال جلسة كوتشينج معك.`;
-
-      const encodedMsg = encodeURIComponent(msg);
-      window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
     });
   }
 
@@ -201,6 +197,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (printSummaryBtn) {
     printSummaryBtn.addEventListener('click', () => {
       window.print();
+    });
+  }
+
+  const downloadTxtBtn = document.getElementById('downloadTxtBtn');
+  if (downloadTxtBtn) {
+    downloadTxtBtn.addEventListener('click', () => {
+      const emotionText = sessionData.customEmotion || sessionData.selectedEmotion || 'غير محدد';
+      const clientNameStr = sessionData.clientName || 'العميل';
+      const reportText = `=== تقرير جلسة التحرر الذاتية ===\nأكاديمية الكوتش خالد ابراهيم قادري\nالتاريخ: ${new Date().toLocaleDateString('ar-SA')}\n\n` +
+        `اسم العميل: ${clientNameStr}\n` +
+        `الشعور المستهدف: ${emotionText}\n` +
+        `شدة الشعور الأولي: ${sessionData.initialIntensity}/10\n` +
+        `شدة الشعور النهائية: ${sessionData.finalIntensity}/10\n` +
+        `مكان الإحساس في الجسد: ${sessionData.somaticLocation || '-'}\n` +
+        `رسالة حماية الشعور: ${sessionData.protectionMsg || '-'}\n` +
+        `توكيد التحرر: ${sessionData.affirmation}\n\n` +
+        `للتواصل وحجز الجلسات:\n` +
+        `واتساب: https://wa.me/966591533385\n` +
+        `تليجرام: https://t.me/khalidigadri\n` +
+        `الموقع: https://khalidibrahimgadri.com`;
+
+      const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `تقرير_جلسة_التحرر_${clientNameStr}.txt`;
+      link.click();
     });
   }
 
@@ -265,24 +287,6 @@ document.addEventListener('DOMContentLoaded', () => {
         startBreathingBtn.disabled = false;
         startBreathingBtn.textContent = 'إعادة التمرين مرة أخرى';
       }, 60000);
-    });
-  }
-
-  const embedModal = document.getElementById('embedModal');
-  const embedCodeBtn = document.getElementById('embedCodeBtn');
-  const closeEmbedBtn = document.getElementById('closeEmbedBtn');
-  const copyEmbedBtn = document.getElementById('copyEmbedBtn');
-  const embedCodeArea = document.getElementById('embedCodeArea');
-
-  if (embedCodeBtn) embedCodeBtn.addEventListener('click', () => embedModal.classList.remove('hidden'));
-  if (closeEmbedBtn) closeEmbedBtn.addEventListener('click', () => embedModal.classList.add('hidden'));
-
-  if (copyEmbedBtn && embedCodeArea) {
-    copyEmbedBtn.addEventListener('click', () => {
-      embedCodeArea.select();
-      document.execCommand('copy');
-      copyEmbedBtn.textContent = '✅ تم النسخ بنجاح!';
-      setTimeout(() => { copyEmbedBtn.textContent = '📋 نسخ كود الدمج'; }, 3000);
     });
   }
 

@@ -198,9 +198,9 @@
         <div class="card step-card" data-step="5">
           <div class="card-header">
             <div class="step-num">5</div>
-            <h2>النتيجة والتواصل مع الكوتش</h2>
+            <h2>النتيجة واستبصار خطوتك القادمة</h2>
           </div>
-          <p class="card-desc">لنلاحظ الأثر والهدوء الذي وصلت إليه بعد هذه الجلسة الذاتية.</p>
+          <p class="card-desc">لاحظ الفرق في الهدوء والسلام الداخلي بعد هذه الجلسة.</p>
 
           <div class="form-group">
             <label>ما شدة الشعور لديك الآن بعد الجلسة؟ (<span id="finalIntensityVal">3</span>/10)</label>
@@ -222,26 +222,26 @@
           </div>
 
           <div class="lead-capture-box">
-            <h3>💌 احفظ نتيجتك أو تواصل مع الكوتش خالد</h3>
-            <p>أدخل بياناتك لتصلك نُسخة من ملخص الجلسة أو لحجز جلسة كوتشينج خاصة تعمّق نتائجك:</p>
+            <h3>💌 احفظ نتيجتك واستلم خطتك</h3>
+            <p>أدخل اسمك ورقمك للاحتفاظ بنسخة مخصصة وإمكانية إرسالها للكوتش خالد:</p>
             <div class="form-group">
-              <input type="text" id="clientName" class="input-text" placeholder="الاسم الكريم">
+              <input type="text" id="clientName" class="input-text" placeholder="اسمك الكريم">
             </div>
             <div class="form-group">
-              <input type="text" id="clientPhone" class="input-text" placeholder="رقم الواتساب (مع رمز الدولة)">
+              <input type="text" id="clientPhone" class="input-text" placeholder="رقم الواتساب (اختياري)">
             </div>
           </div>
 
           <div class="card-actions">
             <button class="btn btn-secondary prev-btn" data-prev="4">⬅ تعديل الإجابات</button>
-            <button class="btn btn-success" id="generateSummaryBtn">عرض ملخص الجلسة وحفظها 📄</button>
+            <button class="btn btn-success" id="generateSummaryBtn">عرض نتيجة الجلسة وحفظها ✨</button>
           </div>
         </div>
 
         <div class="card summary-card hidden" id="summaryView">
           <div class="summary-header">
             <div class="summary-icon">✨</div>
-            <h2>ملخص جلسة التحرر الذاتية</h2>
+            <h2>تقرير نتيجة التحرر والاستبصار الذاتي</h2>
             <p class="summary-subtitle">أكاديمية الكوتش خالد ابراهيم قادري</p>
             <p class="summary-date" id="summaryDate"></p>
           </div>
@@ -273,17 +273,25 @@
           </div>
 
           <div class="summary-cta-box">
-            <h3>🤝 هل ترغب في تعميق التطور والوصول لأهدافك؟</h3>
-            <p>يمكنك حجز جلسة استشارية خاصة مع الكوتش خالد ابراهيم قادري مباشرة:</p>
+            <div class="cta-badge">🚀 الخطوة القادمة لإحداث التحول الحقيقي</div>
+            <h3>هل أنت مستعد لنقل حياتك وأهدافك إلى المستوى التالي؟</h3>
+            <p class="cta-pitch">
+              تهانينا على إكمال هذه الخطوة الواعية! إدراكك لمشاعرك وتفكيكها هو المفتاح لفتح آفاق جديدة. المشاعر والمعتقدات التي استكشفتها اليوم هي بداية الخيط، وحصولك على **توجيه مخصص وعميق في جلسة كوتشينج خاصة مع الكوتش خالد ابراهيم قادري** سيمكّنك من تحويل هذه الاستبصارات إلى نتائج ملموسة وتغيير جذري مستدام في حياتك وشغفك.
+            </p>
             <div class="cta-buttons">
-              <a href="https://khalidibrahimgadri.com" target="_blank" class="btn btn-primary">🌐 زيارة الموقع الرسمي khalidibrahimgadri.com</a>
-              <button id="sendWhatsappBtn" class="btn btn-success">💬 إرسال النتيجة للكوتش عبر الواتساب</button>
+              <a id="directWhatsappLink" href="https://wa.me/966591533385" target="_blank" class="btn btn-whatsapp">
+                💬 التواصل عبر الواتساب (0591533385)
+              </a>
+              <a href="https://t.me/khalidigadri" target="_blank" class="btn btn-telegram">
+                ✈️ التواصل عبر التليجرام (@khalidigadri)
+              </a>
             </div>
           </div>
 
           <div class="card-actions summary-actions">
-            <button class="btn btn-outline" id="printSummaryBtn">🖨️ طباعة / حفظ كـ PDF</button>
-            <button class="btn btn-primary" id="restartBtn">🔄 بدء جلسة جديدة</button>
+            <button class="btn btn-outline" id="printSummaryBtn">🖨️ تصدير / طباعة (PDF)</button>
+            <button class="btn btn-secondary" id="downloadTxtBtn">📥 تحميل النتيجة كملف</button>
+            <button class="btn btn-primary" id="restartBtn">🔄 جلسة جديدة</button>
           </div>
         </div>
 
