@@ -1,27 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
   const sessionData = {
-    selectedEmotion: 'الخوف من الفشل',
-    customEmotion: '',
-    initialIntensity: 7,
-    somaticLocation: 'انقباض في الصدر',
-    somaticDesc: '',
-    protectionMsg: '',
-    truthMsg: '',
-    affirmation: 'أنا أسمح لهذا الخوف بالرحيل، وأختار طاقة السكينة والأمان.',
-    finalIntensity: 3,
+    selectedPath: 'personal',
+    selectedCategory: 'الخوف من الفشل',
+    customText1: '',
+    customText2: '',
+    customText3: '',
+    techHours: 40,
+    appliedCoupon: '',
+    discountPercent: 0,
     clientName: '',
     clientPhone: ''
   };
 
-  let currentStep = 1;
-  const totalSteps = 5;
+  let currentStep = 0;
+  const totalSteps = 3;
 
-  const stepCategoryTitles = {
-    1: 'تحديد الشعور والموقف',
-    2: 'التجسيد والوصف الجسدي',
-    3: 'القناعة والاحتياج الأصيل',
-    4: 'التنفس والتحرر',
-    5: 'إعادة التقييم والتوجيه'
+  const pathConfigs = {
+    personal: {
+      name: 'التطوير والتحرر الشخصي والجلسات الفردية',
+      step1Title: 'تحديد الشعور والموقف المتسبب به',
+      step1Label: 'اختر نوع الشعور الأساسي لتحديد اتجاه التقييم:',
+      step1Tags: ['الخوف من الفشل 😔', 'القلق والتوتر 😰', 'الخوف من المستقبل 🔮', 'الغضب والإنزعاج 😡', 'شعور بالعجز أو الثقل 🪨', 'الخوف من الحكم والحرج 👥'],
+      step1CustomLabel: 'صف بصراحة ومصداقية: ما الموقف، الذكرى، أو الفكرة التي تسببت بهذا الشعور؟ *',
+      step2Title: 'التأثير الجسدي والقناعات الخفية',
+      step2Label1: 'أين تلاحظ التوتر في جسدك وما التغيرات التي مداهمتك؟ *',
+      step2Label2: 'مما يحاول هذا الخوف حمايتك في اعتقادك، وما الاحتياج الأصيل الذي تفترق إليه؟ *',
+      step3Title: 'التنفس والتحرر وصياغة الهدف المنشود',
+      step3Label1: 'اكتب توكيد التحرر والقناعة التمكينية الجديدة التي تختارها الآن: *'
+    },
+    career: {
+      name: 'التطوير والتوجيه المهني والوظيفي',
+      step1Title: 'تحديد التحدي أو الهدف المهني الحالي',
+      step1Label: 'اختر محور التطوير المهني المطلوب:',
+      step1Tags: ['التموضع والترقية الوظيفية 📈', 'القيادة وإدارة الفرق 👥', 'تغيير المسار المهني 🔄', 'التعامل مع ضغوط العمل 💼', 'تطوير الأداء وزيادة الدخل 💰'],
+      step1CustomLabel: 'صف بصراحة وضعك الوظيفي الحالي والهدف الذي تسعى للوصول إليه: *',
+      step2Title: 'عقبات النمو والمهارات المطلوبة',
+      step2Label1: 'ما أبرز العوائق أو المهارات المفقودة التي تعطل قفزتك المهنية القادمة؟ *',
+      step2Label2: 'ما التكلفة الناتجة عن البقاء في الوضع الحالي دون تطوير للمسار؟ *',
+      step3Title: 'الخطة الاستراتيجية والنتائج المنشودة',
+      step3Label1: 'ما المسمى الوظيفي أو الدخل أو النتيجة التي تطمح لتحقيقها خلال 6 أشهر؟ *'
+    },
+    business: {
+      name: 'تطوير وتحليل التجارة والأعمال القائمة',
+      step1Title: 'فحص ميكانيكية وتحديات مشروعك التجاري',
+      step1Label: 'اختر التحدي الأول في مشروعك:',
+      step1Tags: ['الهدر المالي وعشوائية التشغيل 💸', 'ضعف المبيعات والتموضع 📉', 'الرسائل التسويقية وجذب العملاء 🎯', 'إدارة الفريق والعمليات 👥', 'التوسع ودخول أسواق جديدة 🚀'],
+      step1CustomLabel: 'صف طبيعة نشاطك التجاري الحالي والتحدي الأكبر في التشغيل والمبيعات: *',
+      step2Title: 'التحليل المالي والتشغيلي',
+      step2Label1: 'أين تلاحظ التسرب المالي أو الضغط التشغيلي الأكثر إرهاقاً لمشروعك؟ *',
+      step2Label2: 'ما الأثر التراكمي على الأرباح والاستمرارية في حال عدم الحل الفوري؟ *',
+      step3Title: 'هندسة النمو والحلول الاستراتيجية',
+      step3Label1: 'ما رقم المبيعات أو النتيجة التشغيلية التي تسعى لتحقيقها في مشروعك؟ *'
+    },
+    startup: {
+      name: 'التفكير في تأسيس مشروع تجاري جديد',
+      step1Title: 'فحص فكرة المشروع والمجال الاستثماري',
+      step1Label: 'حدد مجال مشروعك المستقبلي:',
+      step1Tags: ['تجارة إلكترونية وخدمات 🛒', 'مشروع خدمي / استشاري 💡', 'منتج خاص / تصنيع 📦', 'تطبيق أو منصة رقمية 🌐', 'فكرة في مرحلة الدراسة 🧠'],
+      step1CustomLabel: 'صف فكرة المشروع، الفئة المستهدفة، والميزة التنافسية التي تخطط لها: *',
+      step2Title: 'جاهزية التأسيس والميزانية',
+      step2Label1: 'ما الميزانية التقديرية المرصودة وما رأس المال المتاح حالياً؟ *',
+      step2Label2: 'ما أبرز مخاوفك أو التحديات التي تجعلك متردداً في انطلاقة المشروع؟ *',
+      step3Title: 'خطة الانطلاق والجدول الزمني',
+      step3Label1: 'متى تخطط لإطلاق مشروعك وما العائد المتوقع للشهور الأولى؟ *'
+    },
+    tech: {
+      name: 'بناء نظام أتمتة أو تطبيق برمجي أو موقع إلكتروني',
+      step1Title: 'تحديد نوع النظام أو الحل البرمجي',
+      step1Label: 'اختر نوع الحل التقني المطلوب:',
+      step1Tags: ['أتمتة عمليات وتقليل الجهد اليدوي ⚙️', 'تطبيق برمجي خاص / هاتف 📱', 'موقع إلكتروني / منصة متكاملة 🌐', 'ربط أنظمة وبوابات دفع 💳', 'نظام إدارة بيانات ومبيعات 📊'],
+      step1CustomLabel: 'صف بالتفصيل طبيعة العمليات التي تريد أتمتتها أو فكرة التطبيق/الموقع: *',
+      step2Title: 'حجم العمليات والشتات اليدوي الحالي',
+      step2Label1: 'كم عدد الساعات الأسبوعية التي تضيع حالياً في العمليات اليدوية التكرارية؟ *',
+      step2Label2: 'ما المخاطر أو تكلفة الأخطاء البشرية الحالية على بياناتك وعملك؟ *',
+      step3Title: 'المواصفات التقنية وتقدير الساعات',
+      step3Label1: 'ما الميزات الجوهرية والأنظمة الخارجية المطلوبة ربطها مع مشروعك؟ *'
+    }
   };
 
   const navTabs = document.querySelectorAll('.nav-tab');
@@ -48,53 +102,76 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  const pathCards = document.querySelectorAll('.path-card');
+  pathCards.forEach(card => {
+    card.addEventListener('click', () => {
+      pathCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      sessionData.selectedPath = card.dataset.path;
+    });
+  });
+
+  const startPathAssessmentBtn = document.getElementById('startPathAssessmentBtn');
+  if (startPathAssessmentBtn) {
+    startPathAssessmentBtn.addEventListener('click', () => {
+      applyPathConfiguration(sessionData.selectedPath);
+      goToStep(1);
+    });
+  }
+
+  function applyPathConfiguration(pathKey) {
+    const config = pathConfigs[pathKey] || pathConfigs.personal;
+
+    document.getElementById('step1Title').textContent = config.step1Title;
+    document.getElementById('step1OptionsLabel').textContent = config.step1Label;
+    document.getElementById('step1CustomLabel').innerHTML = `${config.step1CustomLabel} <span class="required-star">*</span>`;
+
+    const tagsContainer = document.getElementById('step1Tags');
+    tagsContainer.innerHTML = '';
+    config.step1Tags.forEach((tagText, idx) => {
+      const btn = document.createElement('button');
+      btn.className = `tag-btn ${idx === 0 ? 'selected' : ''}`;
+      btn.dataset.value = tagText.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+      btn.textContent = tagText;
+      btn.addEventListener('click', () => {
+        tagsContainer.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        sessionData.selectedCategory = btn.dataset.value;
+      });
+      tagsContainer.appendChild(btn);
+    });
+    sessionData.selectedCategory = config.step1Tags[0].replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '').trim();
+
+    document.getElementById('step2Title').textContent = config.step2Title;
+    document.getElementById('step2Label1').innerHTML = `${config.step2Label1} <span class="required-star">*</span>`;
+    document.getElementById('step2Label2').innerHTML = `${config.step2Label2} <span class="required-star">*</span>`;
+
+    document.getElementById('step3Title').textContent = config.step3Title;
+    document.getElementById('step3Label1').innerHTML = `${config.step3Label1} <span class="required-star">*</span>`;
+
+    const techGroup = document.getElementById('techDetailsGroup');
+    if (pathKey === 'tech') {
+      if (techGroup) techGroup.style.display = 'block';
+    } else {
+      if (techGroup) techGroup.style.display = 'none';
+    }
+  }
+
+  const techScopeRange = document.getElementById('techScopeRange');
+  const techScopeVal = document.getElementById('techScopeVal');
+  if (techScopeRange) {
+    techScopeRange.addEventListener('input', (e) => {
+      const val = e.target.value;
+      sessionData.techHours = parseInt(val);
+      if (techScopeVal) techScopeVal.textContent = `${val} ساعة`;
+    });
+  }
+
   const progressBar = document.getElementById('progressBar');
   const stepCounterText = document.getElementById('stepCounterText');
   const stepCategoryText = document.getElementById('stepCategoryText');
   const cards = document.querySelectorAll('.step-card');
   const summaryView = document.getElementById('summaryView');
-
-  const intensityInput = document.getElementById('step1_intensity');
-  const intensityVal = document.getElementById('intensityVal');
-  const finalIntensityInput = document.getElementById('step5_final_intensity');
-  const finalIntensityVal = document.getElementById('finalIntensityVal');
-  const compInitial = document.getElementById('compInitial');
-  const compFinal = document.getElementById('compFinal');
-
-  setupTagGroup('emotionTags', (val) => { sessionData.selectedEmotion = val; });
-  setupTagGroup('bodyTags', (val) => { sessionData.somaticLocation = val; });
-
-  function setupTagGroup(containerId, callback) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    const buttons = container.querySelectorAll('.tag-btn');
-
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        callback(btn.dataset.value);
-      });
-    });
-  }
-
-  if (intensityInput) {
-    intensityInput.addEventListener('input', (e) => {
-      const val = e.target.value;
-      intensityVal.textContent = val;
-      sessionData.initialIntensity = parseInt(val);
-      if (compInitial) compInitial.textContent = `${val}/10`;
-    });
-  }
-
-  if (finalIntensityInput) {
-    finalIntensityInput.addEventListener('input', (e) => {
-      const val = e.target.value;
-      finalIntensityVal.textContent = val;
-      sessionData.finalIntensity = parseInt(val);
-      if (compFinal) compFinal.textContent = `${val}/10`;
-    });
-  }
 
   document.querySelectorAll('.next-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -118,43 +195,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function validateStepInput(step) {
     if (step === 1) {
-      const customVal = document.getElementById('step1_custom').value.trim();
+      const txt1 = document.getElementById('step1CustomText').value.trim();
       const err = document.getElementById('err_step1');
-      if (!customVal) {
+      if (!txt1) {
         if (err) err.classList.remove('hidden');
         return false;
       }
       if (err) err.classList.add('hidden');
     } else if (step === 2) {
-      const somaticVal = document.getElementById('step2_somatic').value.trim();
-      const err = document.getElementById('err_step2');
-      if (!somaticVal) {
-        if (err) err.classList.remove('hidden');
-        return false;
-      }
-      if (err) err.classList.add('hidden');
-    } else if (step === 3) {
-      const protVal = document.getElementById('step3_protection').value.trim();
-      const truthVal = document.getElementById('step3_truth').value.trim();
-      const errP = document.getElementById('err_step3_p');
-      const errT = document.getElementById('err_step3_t');
+      const txt1 = document.getElementById('step2Text1').value.trim();
+      const txt2 = document.getElementById('step2Text2').value.trim();
+      const err1 = document.getElementById('err_step2_1');
+      const err2 = document.getElementById('err_step2_2');
 
       let valid = true;
-      if (!protVal) { if (errP) errP.classList.remove('hidden'); valid = false; }
-      else { if (errP) errP.classList.add('hidden'); }
+      if (!txt1) { if (err1) err1.classList.remove('hidden'); valid = false; }
+      else { if (err1) err1.classList.add('hidden'); }
 
-      if (!truthVal) { if (errT) errT.classList.remove('hidden'); valid = false; }
-      else { if (errT) errT.classList.add('hidden'); }
+      if (!txt2) { if (err2) err2.classList.remove('hidden'); valid = false; }
+      else { if (err2) err2.classList.add('hidden'); }
 
       return valid;
-    } else if (step === 4) {
-      const affVal = document.getElementById('step4_release_statement').value.trim();
-      const err = document.getElementById('err_step4');
-      if (!affVal) {
-        if (err) err.classList.remove('hidden');
+    } else if (step === 3) {
+      const txt1 = document.getElementById('step3Text1').value.trim();
+      const err1 = document.getElementById('err_step3_1');
+      if (!txt1) {
+        if (err1) err1.classList.remove('hidden');
         return false;
       }
-      if (err) err.classList.add('hidden');
+      if (err1) err1.classList.add('hidden');
     }
     return true;
   }
@@ -162,10 +231,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function goToStep(stepNumber) {
     currentStep = stepNumber;
 
-    const progressPercent = (currentStep / totalSteps) * 100;
+    const progressPercent = ((currentStep + 1) / 4) * 100;
     if (progressBar) progressBar.style.width = `${progressPercent}%`;
-    if (stepCounterText) stepCounterText.textContent = `الخطوة ${currentStep} من ${totalSteps}`;
-    if (stepCategoryText) stepCategoryText.textContent = stepCategoryTitles[currentStep] || '';
+    if (stepCounterText) stepCounterText.textContent = `الخطوة ${currentStep} من 3`;
+    
+    const config = pathConfigs[sessionData.selectedPath] || pathConfigs.personal;
+    if (stepCategoryText) {
+      if (stepNumber === 0) stepCategoryText.textContent = 'اختيار مسار التقييم';
+      else if (stepNumber === 1) stepCategoryText.textContent = config.step1Title;
+      else if (stepNumber === 2) stepCategoryText.textContent = config.step2Title;
+      else if (stepNumber === 3) stepCategoryText.textContent = config.step3Title;
+    }
 
     cards.forEach(card => {
       if (parseInt(card.dataset.step) === stepNumber) {
@@ -181,129 +257,193 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function saveStepData(step) {
     if (step === 1) {
-      sessionData.customEmotion = document.getElementById('step1_custom').value.trim();
-      sessionData.initialIntensity = parseInt(intensityInput.value);
+      sessionData.customText1 = document.getElementById('step1CustomText').value.trim();
     } else if (step === 2) {
-      sessionData.somaticDesc = document.getElementById('step2_somatic').value.trim();
+      sessionData.customText2 = document.getElementById('step2Text1').value.trim();
+      sessionData.customText3 = document.getElementById('step2Text2').value.trim();
     } else if (step === 3) {
-      sessionData.protectionMsg = document.getElementById('step3_protection').value.trim();
-      sessionData.truthMsg = document.getElementById('step3_truth').value.trim();
-    } else if (step === 4) {
-      sessionData.affirmation = document.getElementById('step4_release_statement').value.trim();
-    } else if (step === 5) {
-      sessionData.finalIntensity = parseInt(finalIntensityInput.value);
+      sessionData.customText3 = (sessionData.customText3 ? sessionData.customText3 + ' | النتيجة المنشودة: ' : '') + document.getElementById('step3Text1').value.trim();
       sessionData.clientName = document.getElementById('clientName').value.trim();
       sessionData.clientPhone = document.getElementById('clientPhone').value.trim();
     }
   }
 
-  function calculateCoachingNeed() {
-    const initVal = parseInt(sessionData.initialIntensity) || 7;
-    const finalVal = parseInt(sessionData.finalIntensity) || 3;
-    const drop = initVal - finalVal;
-
-    const needsCoaching = (initVal >= 7 || finalVal >= 5 || drop <= 2);
-
-    return {
-      needsCoaching,
-      initVal,
-      finalVal,
-      drop
-    };
-  }
-
   const generateSummaryBtn = document.getElementById('generateSummaryBtn');
   if (generateSummaryBtn) {
     generateSummaryBtn.addEventListener('click', () => {
-      saveStepData(5);
+      saveStepData(3);
       cards.forEach(c => c.classList.remove('active'));
 
-      const emotionText = sessionData.selectedEmotion || 'غير محدد';
-      const customEventText = sessionData.customEmotion || 'لم يتم ذكر التفاصيل';
+      const pathConf = pathConfigs[sessionData.selectedPath] || pathConfigs.personal;
 
-      document.getElementById('sumEmotion').textContent = emotionText;
-      document.getElementById('sumCustomEvent').textContent = customEventText;
-      document.getElementById('sumInitialIntensity').textContent = sessionData.initialIntensity;
-
-      const bodyText = sessionData.somaticLocation || 'غير محدد';
-      document.getElementById('sumBodyLocation').textContent = bodyText;
-      document.getElementById('sumSomaticDesc').textContent = sessionData.somaticDesc || 'لا يوجد تفاصيل إضافية';
-
-      document.getElementById('sumProtection').textContent = sessionData.protectionMsg || 'لا يوجد';
-      document.getElementById('sumTruth').textContent = sessionData.truthMsg || 'لا يوجد';
-      document.getElementById('sumAffirmation').textContent = sessionData.affirmation || '-';
-      document.getElementById('sumFinalIntensity').textContent = sessionData.finalIntensity;
+      document.getElementById('sumPathName').textContent = pathConf.name;
+      document.getElementById('sumCategory').textContent = sessionData.selectedCategory || 'عام';
+      document.getElementById('sumCustom1').textContent = sessionData.customText1 || '-';
+      document.getElementById('sumCustom2').textContent = sessionData.customText2 || '-';
+      document.getElementById('sumCustom3').textContent = sessionData.customText3 || '-';
 
       const now = new Date();
       document.getElementById('summaryDate').textContent = `تاريخ التقييم: ${now.toLocaleDateString('ar-SA')} - ${now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}`;
 
-      const diag = calculateCoachingNeed();
       const outcomeBox = document.getElementById('diagnosticOutcomeBox');
       const diagBadge = document.getElementById('diagBadge');
       const diagTitle = document.getElementById('diagTitle');
       const diagDesc = document.getElementById('diagDescText') || document.getElementById('diagDescription');
       const diagIcon = document.getElementById('diagIcon');
 
-      if (diag.needsCoaching) {
+      if (sessionData.selectedPath === 'tech') {
         if (outcomeBox) outcomeBox.className = 'diagnostic-result-box needs-coaching';
-        if (diagBadge) diagBadge.textContent = '🎯 نتيجة التقييم: يوصى بشدة بجلسة كوتشينج';
-        if (diagTitle) diagTitle.textContent = 'أنت بحاجة إلى جلسة كوتشينج مخصصة وتحليل الشخصية';
+        if (diagBadge) diagBadge.textContent = '⚙️ النتيجة التقييمية: أتمتة وهندسة أنظمة برمجية';
+        if (diagTitle) diagTitle.textContent = 'مشروعك بحاجة إلى نظام أتمتة وحل برمجي مستقل';
+        if (diagIcon) diagIcon.textContent = '⚙️';
+        if (diagDesc) {
+          diagDesc.textContent = `أظهر تحليل متطلباتك التقنية لحجم العمل الأسبوعي (${sessionData.techHours} ساعة تقديرية) أن الأتمتة البرمجية ستوفر عليك مئات الساعات والتكاليف التشغيلية. تم إعداد تقدير التكلفة وتطبيق الخصم الخاص أدناه.`;
+        }
+
+        document.getElementById('techEstimateCard').style.display = 'block';
+        document.getElementById('coachingOffersGrid').style.display = 'none';
+
+        calculateTechPrices(0);
+      } else {
+        if (outcomeBox) outcomeBox.className = 'diagnostic-result-box needs-coaching';
+        if (diagBadge) diagBadge.textContent = '🎯 النتيجة التقييمية: توجيه واستشارة مخصصة';
+        if (diagTitle) diagTitle.textContent = `يوصى بحجز جلسات توجيه مخصصة لمسار: ${pathConf.name}`;
         if (diagIcon) diagIcon.textContent = '💡';
         if (diagDesc) {
-          diagDesc.textContent = `أظهر تحليل إجاباتك الصريحة وتدرج الشدة (من ${diag.initVal}/10 إلى ${diag.finalVal}/10) وجود قناعات قديمة تتطلب تفكيكاً ومواكبة مخصصة. ننصحك بحجز جلسة كوتشينج وخدمة تحليل الشخصية بالأرقام الصينية بالخصم المستحق (40%) أو باقة 3 جلسات بالخصم (50%).`;
+          diagDesc.textContent = `أظهر تحليل إجاباتك وجود عوائق وقناعات تتطلب تفكيكاً ومواكبة مخصصة مع الكوتش خالد ابراهيم قادري لمساعدتك على التحول السريع واستغلال الخصم الفوري لتأكيد جلساتك.`;
         }
-      } else {
-        if (outcomeBox) outcomeBox.className = 'diagnostic-result-box';
-        if (diagBadge) diagBadge.textContent = '🌱 نتيجة التقييم: استجابة ممتازة ووعي عالٍ';
-        if (diagTitle) diagTitle.textContent = 'حالتك مستقرة وتظهر وعياً عالياً بالتحرر';
-        if (diagIcon) diagIcon.textContent = '✨';
-        if (diagDesc) {
-          diagDesc.textContent = `أظهر تحليل إجاباتك انخفاضاً طيباً في شدة الشعور (انخفاض قدره ${diag.drop} درجات). ننصحك بالاستمرار على توكيد التحرر، واستغلال الخصم الخاص للاستفادة من تحليل الشخصية بالنمط الصيني لتطوير مسارك.`;
-        }
+
+        document.getElementById('techEstimateCard').style.display = 'none';
+        document.getElementById('coachingOffersGrid').style.display = 'grid';
+
+        calculateCoachingPrices(0);
       }
 
-      const whatsappSingleSessionLink = document.getElementById('whatsappSingleSessionLink');
-      const whatsappBundleLink = document.getElementById('whatsappBundleLink');
-      const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار الاختبار';
-
-      const basePayload = `• الشعور المستهدف: ${emotionText}\n` +
-        `• الموقف/الذكرى: ${customEventText}\n` +
-        `• التأثير الجسدي: ${sessionData.somaticLocation} (${sessionData.somaticDesc})\n` +
-        `• قناعة الخوف: ${sessionData.protectionMsg}\n` +
-        `• الاحتياج الاصيل: ${sessionData.truthMsg}\n` +
-        `• الشدة: من ${sessionData.initialIntensity}/10 إلى ${sessionData.finalIntensity}/10\n` +
-        `• توكيد التحرر: ${sessionData.affirmation}`;
-
-      if (whatsappSingleSessionLink) {
-        const msgSingle = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت اختبار التحرر والكوتشينج وأود الاستفادة من (عرض خصم 40%) لحجز جلسة كوتشينج فردية + خدمة تحليل الشخصية بالأرقام الصينية.\n\nبيانات تقريري:\n${basePayload}`;
-        whatsappSingleSessionLink.href = `https://wa.me/966591533385?text=${encodeURIComponent(msgSingle)}`;
-      }
-
-      if (whatsappBundleLink) {
-        const msgBundle = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت اختبار التحرر والكوتشينج وأود الاستفادة من (عرض خصم 50%) لحجز باقة 3 جلسات كوتشينج متكاملة.\n\nبيانات تقريري:\n${basePayload}`;
-        whatsappBundleLink.href = `https://wa.me/966591533385?text=${encodeURIComponent(msgBundle)}`;
-      }
-
-      saveAnalyticsData(sessionData, diag);
+      updateWhatsappLinks();
+      saveAnalyticsData(sessionData);
 
       summaryView.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  function saveAnalyticsData(data, diagResult) {
+  const applyCouponBtn = document.getElementById('applyCouponBtn');
+  if (applyCouponBtn) {
+    applyCouponBtn.addEventListener('click', () => {
+      const code = document.getElementById('couponCodeInput').value.trim().toUpperCase();
+      const msgBox = document.getElementById('couponMsg');
+
+      let discount = 0;
+
+      if (code === 'KHALID40') {
+        discount = 40;
+        msgBox.style.color = '#25D366';
+        msgBox.textContent = '🎉 تم تطبيق خصم 40% بنجاح على الجلسات والخدمات!';
+      } else if (code === 'KHALID50') {
+        discount = 50;
+        msgBox.style.color = '#25D366';
+        msgBox.textContent = '🎉 تم تطبيق خصم 50% بنجاح على الباقات الكاملة!';
+      } else if (code === 'SYSTEM30') {
+        discount = 30;
+        msgBox.style.color = '#25D366';
+        msgBox.textContent = '🎉 تم تطبيق خصم 30% على بناء الأنظمة والأتمتة البرمجية!';
+      } else if (code === '') {
+        discount = 0;
+        msgBox.style.color = '#FFFFFF';
+        msgBox.textContent = 'تم إرجاع الأسعار إلى وضعها الأساسي.';
+      } else {
+        msgBox.style.color = '#E07A5F';
+        msgBox.textContent = '❌ كود الخصم غير صحيح. جرب (KHALID40 أو KHALID50)';
+        return;
+      }
+
+      sessionData.appliedCoupon = code;
+      sessionData.discountPercent = discount;
+
+      if (sessionData.selectedPath === 'tech') {
+        calculateTechPrices(discount);
+      } else {
+        calculateCoachingPrices(discount);
+      }
+
+      updateWhatsappLinks();
+    });
+  }
+
+  function calculateCoachingPrices(discountPercent) {
+    const baseSingleUsd = 106.95;
+    const baseBundleUsd = 320.85;
+
+    const singleUsdElem = document.getElementById('priceSingleUsd');
+    const bundleUsdElem = document.getElementById('priceBundleUsd');
+
+    if (discountPercent > 0) {
+      const newSingleUsd = (baseSingleUsd * (1 - discountPercent / 100)).toFixed(2);
+      const newSingleSar = Math.round(350 * (1 - discountPercent / 100));
+
+      const newBundleUsd = (baseBundleUsd * (1 - discountPercent / 100)).toFixed(2);
+      const newBundleSar = Math.round(1050 * (1 - discountPercent / 100));
+
+      if (singleUsdElem) singleUsdElem.textContent = `$${newSingleUsd} (${newSingleSar} ر.س)`;
+      if (bundleUsdElem) bundleUsdElem.textContent = `$${newBundleUsd} (${newBundleSar} ر.س)`;
+    } else {
+      if (singleUsdElem) singleUsdElem.textContent = `$64.17 (210 ر.س - بعد خصم 40%)`;
+      if (bundleUsdElem) bundleUsdElem.textContent = `$160.42 (525 ر.س - بعد خصم 50%)`;
+    }
+  }
+
+  function calculateTechPrices(discountPercent) {
+    const hours = sessionData.techHours || 40;
+    const ratePerHour = 40;
+    const rawTotalUsd = hours * ratePerHour;
+
+    const actualDiscount = discountPercent > 0 ? discountPercent : 40;
+    const finalUsd = Math.round(rawTotalUsd * (1 - actualDiscount / 100));
+
+    document.getElementById('estHours').textContent = hours;
+    document.getElementById('rawTechPrice').textContent = `$${rawTotalUsd}`;
+    document.getElementById('discountTechVal').textContent = `خصم ${actualDiscount}%`;
+    document.getElementById('finalTechPrice').textContent = `$${finalUsd} (${Math.round(finalUsd * 3.75)} ر.س تقريباً)`;
+  }
+
+  function updateWhatsappLinks() {
+    const whatsappSingleSessionLink = document.getElementById('whatsappSingleSessionLink');
+    const whatsappBundleLink = document.getElementById('whatsappBundleLink');
+    const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار المنصة';
+
+    const pathConf = pathConfigs[sessionData.selectedPath] || pathConfigs.personal;
+    const codeStr = sessionData.appliedCoupon ? ` (كود الخصم المطبق: ${sessionData.appliedCoupon})` : '';
+
+    const basePayload = `• المسار المختار: ${pathConf.name}\n` +
+      `• التصنيف: ${sessionData.selectedCategory}\n` +
+      `• التوصيف والتعبير الحر: ${sessionData.customText1}\n` +
+      `• العوائق الحالية: ${sessionData.customText2}\n` +
+      `• النتيجة المنشودة: ${sessionData.customText3}` +
+      (sessionData.selectedPath === 'tech' ? `\n• الساعات التقنية التقديرية: ${sessionData.techHours} ساعة` : '');
+
+    if (whatsappSingleSessionLink) {
+      const msgSingle = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت تقييم منصة الاستشارات وأود حجز جلسة استشارية فردية / تحليل شخصية بالخصم المستحق${codeStr}.\n\nبيانات تقريري:\n${basePayload}`;
+      whatsappSingleSessionLink.href = `https://wa.me/966591533385?text=${encodeURIComponent(msgSingle)}`;
+    }
+
+    if (whatsappBundleLink) {
+      const msgBundle = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت التقييم وأود الاستفادة من الخصم لحجز الباقة المتكاملة أو طلب عرض سعر بناء نظام أتمتة${codeStr}.\n\nبيانات تقريري:\n${basePayload}`;
+      whatsappBundleLink.href = `https://wa.me/966591533385?text=${encodeURIComponent(msgBundle)}`;
+    }
+  }
+
+  function saveAnalyticsData(data) {
     try {
       const existing = JSON.parse(localStorage.getItem('khalid_coaching_analytics') || '[]');
       existing.push({
         timestamp: new Date().toISOString(),
-        emotion: data.selectedEmotion,
-        customEvent: data.customEmotion,
-        somaticDesc: data.somaticDesc,
-        protectionMsg: data.protectionMsg,
-        truthMsg: data.truthMsg,
-        initialIntensity: data.initialIntensity,
-        finalIntensity: data.finalIntensity,
-        needsCoaching: diagResult.needsCoaching,
+        path: data.selectedPath,
+        category: data.selectedCategory,
+        custom1: data.customText1,
+        custom2: data.customText2,
+        custom3: data.customText3,
+        techHours: data.techHours,
+        coupon: data.appliedCoupon,
         clientName: data.clientName
       });
       localStorage.setItem('khalid_coaching_analytics', JSON.stringify(existing));
@@ -322,23 +462,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const downloadTxtBtn = document.getElementById('downloadTxtBtn');
   if (downloadTxtBtn) {
     downloadTxtBtn.addEventListener('click', () => {
-      const emotionText = sessionData.selectedEmotion || 'غير محدد';
       const clientNameStr = sessionData.clientName || 'المستفيد';
-      const diag = calculateCoachingNeed();
+      const pathConf = pathConfigs[sessionData.selectedPath] || pathConfigs.personal;
 
-      const reportText = `=== تقرير نتيجة اختبار الكوتشينج والتحرر ===\nأكاديمية الكوتش خالد ابراهيم قادري\nالتاريخ: ${new Date().toLocaleDateString('ar-SA')}\n\n` +
+      const reportText = `=== تقرير نتيجة التقييم والتوجيه الاستراتيجي ===\nأكاديمية الكوتش خالد ابراهيم قادري\nالتاريخ: ${new Date().toLocaleDateString('ar-SA')}\n\n` +
         `اسم المستفيد: ${clientNameStr}\n` +
-        `نوع الشعور: ${emotionText}\n` +
-        `الموقف/الذكرى (التعبير الحر): ${sessionData.customEmotion || '-'}\n` +
-        `تدرج الشدة: من ${sessionData.initialIntensity}/10 إلى ${sessionData.finalIntensity}/10\n` +
-        `التجسيد الجسدي: ${sessionData.somaticLocation} (${sessionData.somaticDesc || '-'})\n` +
-        `قناعة وحماية الخوف: ${sessionData.protectionMsg || '-'}\n` +
-        `الاحتياج الحقيقي: ${sessionData.truthMsg || '-'}\n` +
-        `توكيد التحرر: ${sessionData.affirmation}\n\n` +
-        `نتيجة التقييم: ${diag.needsCoaching ? 'يوصى بشدة بحجز جلسة كوتشينج مخصصة وتحليل شخصية' : 'حالة استقرار ووعي جيد'}\n\n` +
-        `العروض المخصصة المستحقة:\n` +
-        `- خصم 40% على جلسة الكوتشينج + خدمة تحليل الشخصية بالأرقام الصينية\n` +
-        `- خصم 50% على باقة 3 جلسات كوتشينج\n\n` +
+        `المسار المختار: ${pathConf.name}\n` +
+        `التصنيف: ${sessionData.selectedCategory}\n` +
+        `التفاصيل والتعبير الحر: ${sessionData.customText1 || '-'}\n` +
+        `العقبات والتكلفة الحالية: ${sessionData.customText2 || '-'}\n` +
+        `النتيجة والهدف المنشود: ${sessionData.customText3 || '-'}\n` +
+        (sessionData.selectedPath === 'tech' ? `الساعات التقديرية للأتمتة: ${sessionData.techHours} ساعة\n` : '') +
+        `كود الخصم المستخدم: ${sessionData.appliedCoupon || 'تلقائي'}\n\n` +
         `للتواصل المباشر وحجز الجلسات بالخصم:\n` +
         `واتساب: https://wa.me/966591533385\n` +
         `تليجرام: https://t.me/khalidigadri\n` +
@@ -347,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = `تقرير_اختبار_الكوتشينج_${clientNameStr}.txt`;
+      link.download = `تقرير_التقييم_الاستراتيجي_${clientNameStr}.txt`;
       link.click();
     });
   }
@@ -356,13 +491,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (restartBtn) {
     restartBtn.addEventListener('click', () => {
       document.querySelectorAll('input[type="text"], textarea').forEach(i => i.value = '');
-      document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('selected'));
-      if (intensityInput) { intensityInput.value = 7; intensityVal.textContent = '7'; }
-      if (finalIntensityInput) { finalIntensityInput.value = 3; finalIntensityVal.textContent = '3'; }
-      if (compInitial) compInitial.textContent = '7/10';
-      if (compFinal) compFinal.textContent = '3/10';
-
-      goToStep(1);
+      goToStep(0);
     });
   }
 

@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>اختبار الكوتشينج والتطوير الذاتي | الكوتش خالد ابراهيم قادري</title>
+  <title>منصة التقييم الاستراتيجي والكوتشينج | الكوتش خالد ابراهيم قادري</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://www.paypal.com/sdk/js?client-id=BAA0L9qfYzyZU52Dm7cKV9lvitAvl5wZ5P7UTvoHEBgJWBPzPqoP6h4xFuIu-w0MsAqCLvXwCz_W_fuwg0&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 </head>
 <body>
   <div class="app-background">
@@ -20,7 +21,7 @@
       <div class="brand">
         <div class="logo-icon">✨</div>
         <div class="brand-text">
-          <h1>اختبار الكوتشينج والتطوير الذاتي</h1>
+          <h1>منصة التقييم الاستراتيجي والكوتشينج</h1>
           <p>بإشراف الكوتش خالد ابراهيم قادري | <a href="https://khalidibrahimgadri.com" target="_blank" class="brand-link">khalidibrahimgadri.com</a></p>
         </div>
       </div>
@@ -30,7 +31,7 @@
     </header>
 
     <nav class="tools-nav">
-      <button class="nav-tab active" data-tool="release">🌿 اختبار التحرر والمشاعر</button>
+      <button class="nav-tab active" data-tool="assessment">🧭 اختبار وتحديد المسار الاستراتيجي</button>
       <button class="nav-tab" data-tool="beliefs">🧠 تفكيك المعتقدات والقناعات</button>
       <button class="nav-tab" data-tool="wheel">🎡 تقييم عجلة الحياة</button>
       <button class="nav-tab" data-tool="movie">🎬 قصة وفيلم الحياة</button>
@@ -41,7 +42,7 @@
       <div class="modal-content">
         <button class="close-modal" id="closeBreathingBtn">&times;</button>
         <h3>تمرين هدوء الجهاز العصبي (4-4-4)</h3>
-        <p class="subtitle">خذ لحظة للهدوء والتواصل مع جسدك قبل بدء الاختبار</p>
+        <p class="subtitle">خذ لحظة للهدوء والتواصل مع ذاتك قبل بدء التقييم</p>
         <div class="breathing-circle-container">
           <div class="breathing-circle" id="breathingCircle">
             <span id="breathingText">شهيق</span>
@@ -53,60 +54,87 @@
       </div>
     </div>
 
-    <section id="tool-release" class="tool-section active">
+    <section id="tool-assessment" class="tool-section active">
       <div class="progress-section">
         <div class="progress-bar-wrapper">
           <div class="progress-bar-fill" id="progressBar"></div>
         </div>
         <div class="steps-info">
-          <span id="stepCounterText">الخطوة 1 من 5</span>
-          <span id="stepCategoryText" class="category-badge">تحديد الشعور والموقف</span>
+          <span id="stepCounterText">الخطوة 1 من 4</span>
+          <span id="stepCategoryText" class="category-badge">تحديد مسار وهدف الجلسة</span>
         </div>
       </div>
 
       <div class="cards-wrapper">
-        <div class="card step-card active" data-step="1">
+        <div class="card step-card active" data-step="0">
           <div class="disclaimer-banner">
-            🔒 <strong>تنبيه هام للاختبار:</strong> للحصول على أدق تقييم ووعي ذاتي مخصص، يرجى الإجابة بمصداقية وصراحة تامة والتعبير بحرية كاملة عما تشعر به.
+            🔒 <strong>تنبيه هام للتقييم:</strong> يرجى اختيار المسار الممثل لرغبتك الحالية بدقة، والإجابة بصراحة تامة لتوليد التقرير والخصم المناسب لطلبك.
           </div>
 
           <div class="card-header">
-            <div class="step-num">1</div>
-            <h2>نوع الشعور والموقف أو الذكرى المتسببة به</h2>
+            <div class="step-num">🧭</div>
+            <h2>اختر هدفك ومنهجية التقييم المطلوبة</h2>
           </div>
+          <p class="card-desc">حدد المجالات التالية للبدء في التقييم المخصص لمسارك:</p>
 
-          <div class="form-group">
-            <label>اختر نوع الشعور الأساسي لتحديد اتجاه التقييم:</label>
-            <div class="emotion-tags" id="emotionTags">
-              <button class="tag-btn selected" data-value="الخوف من الفشل">الخوف من الفشل 😔</button>
-              <button class="tag-btn" data-value="القلق والتوتر">القلق والتوتر 😰</button>
-              <button class="tag-btn" data-value="الخوف من المستقبل">الخوف من المستقبل 🔮</button>
-              <button class="tag-btn" data-value="الغضب والإنزعاج">الغضب والإنزعاج 😡</button>
-              <button class="tag-btn" data-value="شعور بالعجز أو الثقل">شعور بالعجز أو الثقل 🪨</button>
-              <button class="tag-btn" data-value="الخوف من الحكم أو النقد">الخوف من الحكم والنقد 👥</button>
+          <div class="paths-grid">
+            <div class="path-card selected" data-path="personal">
+              <div class="path-icon">🌿</div>
+              <h3>1. التطوير والتحرر الشخصي والجلسات الفردية</h3>
+              <p>تفكيك المخاوف، ضبط المشاعر، رفع الوعي الذاتي والسكينة الداخلية.</p>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label>ما مدى شدة هذا الشعور حالياً؟ (<span id="intensityVal">7</span>/10)</label>
-            <div class="slider-container">
-              <input type="range" id="step1_intensity" min="1" max="10" value="7" class="range-slider">
-              <div class="slider-labels">
-                <span>خفيف جداً (1)</span>
-                <span>متوسط (5)</span>
-                <span>شديد جداً (10)</span>
-              </div>
+            <div class="path-card" data-path="career">
+              <div class="path-icon">👔</div>
+              <h3>2. التطوير والتوجيه المهني والوظيفي</h3>
+              <p>الارتقاء بالمسار المهني، التموضع الوظيفي، وتطوير المهارات القيادية.</p>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="step1_custom">صف بصراحة ومصداقية: ما الموقف، الذكرى، أو الفكرة التي تسببت بهذا الشعور؟ <span class="required-star">*</span></label>
-            <textarea id="step1_custom" class="textarea-input" rows="4" placeholder="اكتب هنا بالتفصيل وبحرية تامة عما تسبب بهذا الشعور لتحديد تقييمك بدقة..."></textarea>
-            <span class="field-error hidden" id="err_step1">⚠️ يرجى كتابة وصف الموقف أو الذكرى للاستمرار</span>
+            <div class="path-card" data-path="business">
+              <div class="path-icon">💼</div>
+              <h3>3. تطوير وتحليل التجارة والأعمال القائمة</h3>
+              <p>فحص ميكانيكية مشروعك، القضاء على الهدر المالي، وصياغة الرسائل التسويقية.</p>
+            </div>
+
+            <div class="path-card" data-path="startup">
+              <div class="path-icon">💡</div>
+              <h3>4. التفكير في تأسيس مشروع تجاري جديد</h3>
+              <p>دراسة وفحص الفكرة التجارية، تحديد الفئة، والتخطيط للبداية الذكية.</p>
+            </div>
+
+            <div class="path-card" data-path="tech">
+              <div class="path-icon">⚙️</div>
+              <h3>5. بناء نظام أتمتة أو تطبيق برمجي أو موقع إلكتروني</h3>
+              <p>أتمتة العمليات، تقليل الجهد اليدوي، وبناء أنظمة برمجية صلبة ومستقلة.</p>
+            </div>
           </div>
 
           <div class="card-actions">
             <span></span>
+            <button class="btn btn-primary" id="startPathAssessmentBtn">البدء في أسئلة التقييم المخصصة ➔</button>
+          </div>
+        </div>
+
+        <div class="card step-card" data-step="1">
+          <div class="card-header">
+            <div class="step-num">1</div>
+            <h2 id="step1Title">تحديد التحدي أو الهدف الأساسي</h2>
+          </div>
+
+          <div class="form-group" id="step1OptionsGroup">
+            <label id="step1OptionsLabel">اختر التصنيف الأساسي:</label>
+            <div class="emotion-tags" id="step1Tags">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label id="step1CustomLabel">صف بصراحة ومصداقية تفاصيل وضعك الحالي: <span class="required-star">*</span></label>
+            <textarea id="step1CustomText" class="textarea-input" rows="4" placeholder="اكتب هنا بالتفصيل وبحرية تامة..."></textarea>
+            <span class="field-error hidden" id="err_step1">⚠️ يرجى الإجابة وتعبئة المربع للاستمرار</span>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-secondary prev-btn" data-prev="0">⬅ تغيير المسار</button>
             <button class="btn btn-primary next-btn" data-next="2">المتابعة للخطوة التالية ➔</button>
           </div>
         </div>
@@ -114,25 +142,19 @@
         <div class="card step-card" data-step="2">
           <div class="card-header">
             <div class="step-num">2</div>
-            <h2>تأثير الشعور وتجسيده في الجسد</h2>
-          </div>
-          <p class="card-desc">المشاعر تعبر عن نفسها في الجسد أولاً. مراقبتها دون مقاومة هي بداية الشفاء والتغيير.</p>
-
-          <div class="form-group">
-            <label>حدد أين تلاحظ التوتر في جسدك بشكل رئيسي:</label>
-            <div class="body-tags" id="bodyTags">
-              <button class="tag-btn selected" data-value="انقباض في الصدر">انقباض في الصدر 🫁</button>
-              <button class="tag-btn" data-value="عقدة أو اضطراب في المعدة">عقدة في المعدة 🤢</button>
-              <button class="tag-btn" data-value="شد في الرقبة والكتفين">شد في الرقبة والكتفين 💆‍♂️</button>
-              <button class="tag-btn" data-value="تسارع نبضات القلب">تسارع نبضات القلب 💓</button>
-              <button class="tag-btn" data-value="صداع أو ضغط في الرأس">ضغط في الرأس 🧠</button>
-            </div>
+            <h2 id="step2Title">الجذور والتأثير الحالي</h2>
           </div>
 
           <div class="form-group">
-            <label for="step2_somatic">صف التغيرات الجسدية التي تشعر بها عندما تداهمك هذه الحالة: <span class="required-star">*</span></label>
-            <textarea id="step2_somatic" class="textarea-input" rows="4" placeholder="مثال: أشعر ببرودة في الأطراف، انقباض ثقيل في الصدر، صعوبة في التنفس العميق..."></textarea>
-            <span class="field-error hidden" id="err_step2">⚠️ يرجى الإجابة بوصف الإحساس الجسدي للاستمرار</span>
+            <label id="step2Label1">ما الذي يعيق تقدمك أو يزيد التكلفة والجهد في هذا المسار حالياً؟ <span class="required-star">*</span></label>
+            <textarea id="step2Text1" class="textarea-input" rows="3" placeholder="صف العوائق الرئيسية..."></textarea>
+            <span class="field-error hidden" id="err_step2_1">⚠️ يرجى تعبئة هذا الحقل للاستمرار</span>
+          </div>
+
+          <div class="form-group">
+            <label id="step2Label2">ما الأثر الحقيقي أو التكلفة التي تتحملها في حال عدم معالجة هذا الأمر؟ <span class="required-star">*</span></label>
+            <textarea id="step2Text2" class="textarea-input" rows="3" placeholder="مثال: هدر الوقت، توتر النفس، تراجع الأرباح..."></textarea>
+            <span class="field-error hidden" id="err_step2_2">⚠️ يرجى تعبئة هذا الحقل للاستمرار</span>
           </div>
 
           <div class="card-actions">
@@ -144,153 +166,127 @@
         <div class="card step-card" data-step="3">
           <div class="card-header">
             <div class="step-num">3</div>
-            <h2>القناعة والخوف الوقائي والاحتياج الأصيل</h2>
-          </div>
-          <p class="card-desc">كل شعور أو خوف يحمل قناعة خلفية يحاول حمايتك بها. اكتشافها هو مفتاح الحل.</p>
-
-          <div class="form-group">
-            <label for="step3_protection">1. مما يحاول هذا الخوف أو الشعور حمايتك في اعتقادك؟ <span class="required-star">*</span></label>
-            <textarea id="step3_protection" class="textarea-input" rows="3" placeholder="اكتب بصراحة: مثال: يحاول حمايتي من الانتقاد، الفشل، أو خيبة الأمل..."></textarea>
-            <span class="field-error hidden" id="err_step3_p">⚠️ يرجى الإجابة عما يحميك منه الخوف</span>
+            <h2 id="step3Title">النتيجة والهدف المنشود</h2>
           </div>
 
           <div class="form-group">
-            <label for="step3_truth">2. ما الذي تحتاجه حقاً للوصول للاطمئنان والسلام اليوم؟ <span class="required-star">*</span></label>
-            <textarea id="step3_truth" class="textarea-input" rows="3" placeholder="اكتب احتياجك الحقيقي: مثال: أحتاج للشعور بالأمان الذاتي والتقبل وتوجيه واعي..."></textarea>
-            <span class="field-error hidden" id="err_step3_t">⚠️ يرجى الإجابة عن احتياجك الحالي</span>
+            <label id="step3Label1">ما النتيجة المثالية التي تطمح للوصول إليها خلال الفترة القادمة؟ <span class="required-star">*</span></label>
+            <textarea id="step3Text1" class="textarea-input" rows="3" placeholder="صف النتيجة المنشودة بالتفصيل..."></textarea>
+            <span class="field-error hidden" id="err_step3_1">⚠️ يرجى تحديد النتيجة المنشودة</span>
           </div>
 
-          <div class="card-actions">
-            <button class="btn btn-secondary prev-btn" data-prev="2">⬅ السابق</button>
-            <button class="btn btn-primary next-btn" data-next="4">المتابعة للخطوة التالية ➔</button>
-          </div>
-        </div>
-
-        <div class="card step-card" data-step="4">
-          <div class="card-header">
-            <div class="step-num">4</div>
-            <h2>السماح وصياغة قناعة التحرر</h2>
-          </div>
-          <p class="card-desc">التحرر يتطلب قراراً واعياً بالتخلي عن التمسك بالقناعات المعيقة القديمة.</p>
-
-          <div class="form-group">
-            <label for="step4_release_statement">اكتب توكيد التحرر والقناعة التمكينية الجديدة التي تختارها الآن: <span class="required-star">*</span></label>
-            <textarea id="step4_release_statement" class="textarea-input" rows="3">أنا أسمح لهذا الخوف والقناعة القديمة بالرحيل، وأختار السكينة والقدرة على التطور.</textarea>
-            <span class="field-error hidden" id="err_step4">⚠️ يرجى تأكيد قناعتك الجديدة</span>
-          </div>
-
-          <div class="card-actions">
-            <button class="btn btn-secondary prev-btn" data-prev="3">⬅ السابق</button>
-            <button class="btn btn-primary next-btn" data-next="5">المتابعة لنتيجة التقييم ➔</button>
-          </div>
-        </div>
-
-        <div class="card step-card" data-step="5">
-          <div class="card-header">
-            <div class="step-num">5</div>
-            <h2>إعادة التقييم وبيانات المستفيد</h2>
-          </div>
-
-          <div class="form-group">
-            <label>ما شدة الشعور لديك الآن بعد أداء التمرين والتعبير؟ (<span id="finalIntensityVal">3</span>/10)</label>
+          <div class="form-group" id="techDetailsGroup" style="display: none;">
+            <label>تقدير نطاق وحجم العمل التقني المطلوب (عدد الساعات والأنظمة):</label>
             <div class="slider-container">
-              <input type="range" id="step5_final_intensity" min="1" max="10" value="3" class="range-slider">
+              <input type="range" id="techScopeRange" min="10" max="120" value="40" class="range-slider">
+              <div class="slider-labels">
+                <span>نظام بسيط / أتمتة (10 ساعات)</span>
+                <span>متوسط (40 ساعة)</span>
+                <span>تطبيق مخصص/موقع كلي (120+ ساعة)</span>
+              </div>
             </div>
-          </div>
-
-          <div class="intensity-comparison">
-            <div class="comp-box initial">
-              <span class="lbl">الشدة في البداية</span>
-              <span class="num" id="compInitial">7/10</span>
-            </div>
-            <div class="comp-arrow">➔</div>
-            <div class="comp-box final">
-              <span class="lbl">الشدة الحالية</span>
-              <span class="num" id="compFinal">3/10</span>
-            </div>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 8px;">
+              الساعات التقديرية الحالية: <strong id="techScopeVal" style="color: var(--primary-color);">40 ساعة</strong>
+            </p>
           </div>
 
           <div class="lead-capture-box">
-            <h3>💌 استلام نتيجة التقييم وحفظ إجاباتك</h3>
-            <p>أدخل اسمك ورقمك لإصدار التقرير ومعرفة هل تحتاج لجلسات كوتشينج أم لا:</p>
+            <h3>💌 استلام نتيجة التقييم وتفعيل الخصم الخاص</h3>
+            <p>أدخل اسمك ورقمك لإصدار التقرير ومعرفة الخصم المستحق على الخدمات أو البرمجيات:</p>
             <div class="form-group">
               <input type="text" id="clientName" class="input-text" placeholder="اسمك الكريم">
             </div>
             <div class="form-group">
-              <input type="text" id="clientPhone" class="input-text" placeholder="رقم الواتساب (اختياري)">
+              <input type="text" id="clientPhone" class="input-text" placeholder="رقم الواتساب">
             </div>
           </div>
 
           <div class="card-actions">
-            <button class="btn btn-secondary prev-btn" data-prev="4">⬅ تعديل الإجابات</button>
-            <button class="btn btn-success" id="generateSummaryBtn">إظهار نتيجة التقييم والوعي الذاتي ✨</button>
+            <button class="btn btn-secondary prev-btn" data-prev="2">⬅ السابق</button>
+            <button class="btn btn-success" id="generateSummaryBtn">إظهار نتيجة التقييم والخصومات ✨</button>
           </div>
         </div>
 
         <div class="card summary-card hidden" id="summaryView">
           <div class="summary-header">
             <div class="summary-icon" id="diagIcon">📊</div>
-            <h2>تقرير ونتيجة اختبار الكوتشينج والتحرر</h2>
+            <h2 id="summaryMainTitle">تقرير التقييم والتوجيه الاستراتيجي</h2>
             <p class="summary-subtitle">إشراف الكوتش خالد ابراهيم قادري</p>
             <p class="summary-date" id="summaryDate"></p>
           </div>
 
           <div class="diagnostic-result-box" id="diagnosticOutcomeBox">
-            <div class="diag-badge" id="diagBadge">نتيجة التقييم الفوري</div>
-            <h3 id="diagTitle">جاري تحليل الإجابات...</h3>
+            <div class="diag-badge" id="diagBadge">نتيجة التقييم المخصص</div>
+            <h3 id="diagTitle">جاري تحليل البيانات...</h3>
             <p id="diagDescription" class="diag-desc-text"></p>
           </div>
 
           <div class="summary-body" id="summaryPrintArea">
             <div class="summary-section">
-              <h4>1. الشعور والموقف التقييمي</h4>
-              <p><strong>نوع الشعور:</strong> <span id="sumEmotion">-</span></p>
-              <p><strong>تدرج الشدة:</strong> من <span id="sumInitialIntensity">7</span>/10 إلى <span id="sumFinalIntensity">3</span>/10</p>
-              <p><strong>الموقف / الذكرى (التعبير الحر):</strong> <span id="sumCustomEvent">-</span></p>
+              <h4>1. تفاصيل التقييم والمسار المختار</h4>
+              <p><strong>المسار المحدد:</strong> <span id="sumPathName">-</span></p>
+              <p><strong>التصنيف / الشعور:</strong> <span id="sumCategory">-</span></p>
+              <p><strong>الوصف والتعبير الحر:</strong> <span id="sumCustom1">-</span></p>
             </div>
 
             <div class="summary-section">
-              <h4>2. التأثير الجسدي والتعبير</h4>
-              <p><strong>مكان التوتر:</strong> <span id="sumBodyLocation">-</span></p>
-              <p><strong>الوصف الجسدي:</strong> <span id="sumSomaticDesc">-</span></p>
-            </div>
-
-            <div class="summary-section">
-              <h4>3. القناعة والاحتياج الأصيل</h4>
-              <p><strong>حماية الخوف:</strong> <span id="sumProtection">-</span></p>
-              <p><strong>الاحتياج الحقيقي:</strong> <span id="sumTruth">-</span></p>
-              <p><strong>توكيد وقناعة التحرر:</strong> <span id="sumAffirmation">-</span></p>
+              <h4>2. العوائق والأثر المستهدف</h4>
+              <p><strong>العقبات والتكلفة الحالية:</strong> <span id="sumCustom2">-</span></p>
+              <p><strong>النتيجة المنشودة:</strong> <span id="sumCustom3">-</span></p>
             </div>
           </div>
 
           <div class="summary-cta-box" id="ctaContainer">
-            <div class="cta-badge">🎁 عروض مميزة مخصصة لك بناءً على نتيجة التقييم</div>
-            <h3 id="ctaHeading">احصل على التوجيه المخصص الآن وحول حياتك</h3>
+            <div class="cta-badge">🎁 كود الخصم المباشر وحجز الخدمات</div>
+            <h3 id="ctaHeading">احصل على التوجيه وحول مسارك الآن</h3>
             
-            <div class="offers-grid">
+            <div class="coupon-bar-wrapper" style="margin: 15px auto;">
+              <div class="coupon-title">
+                <span>🏷️</span> ادخل كود الخصم لتحديث أسعار الجلسات فوراً:
+              </div>
+              <div class="coupon-input-group">
+                <input type="text" id="couponCodeInput" class="coupon-input" placeholder="أدخل الكود (مثال: KHALID40)">
+                <button type="button" id="applyCouponBtn" class="coupon-btn">تطبيق الخصم ✨</button>
+              </div>
+              <div id="couponMsg" class="coupon-msg"></div>
+            </div>
+
+            <div id="techEstimateCard" class="offer-card featured" style="display: none; text-align: right; margin-bottom: 20px;">
+              <div class="offer-tag best">تقدير النظام والبرمجيات ⚙️</div>
+              <h4>تقدير نطاق العمل والتكلفة لنظامك البرمجي</h4>
+              <p>بناءً على النطاق المحدد (<span id="estHours">40</span> ساعة أتمتة وتطوير):</p>
+              <ul style="font-size: 13px; line-height: 1.8; margin-right: 20px; color: var(--text-dark);">
+                <li>التكلفة التقديرية قبل الخصم: <span id="rawTechPrice" style="text-decoration: line-through; color: #888;">$1,600</span> ($40/ساعة)</li>
+                <li><strong>الخصم الخاص المطبق (30% إلى 50%):</strong> <span id="discountTechVal" style="color: var(--primary-color); font-weight: bold;">خصم خاص</span></li>
+                <li><strong>السعر النهائي التقديري بالخصم:</strong> <strong id="finalTechPrice" style="color: #E07A5F; font-size: 16px;">$960</strong></li>
+              </ul>
+              <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">تواصل مباشرة عبر الواتساب لإرسال مواصفاتك التفصيلية واستلام عرض السعر النهائي مع الخصم!</p>
+            </div>
+
+            <div id="coachingOffersGrid" class="offers-grid">
               <div class="offer-card">
                 <div class="offer-tag">خصم 40% 🔥</div>
-                <h4>جلسة كوتشينج فردية + خدمة تحليل الشخصية بالأرقام الصينية</h4>
-                <p>جلسة عميقة لتفكيك الجذور مع خدمة تحليل الشخصية والمسار بالأرقام الصينية لتكتشف جوانب قوتك وخارطة حياتك.</p>
+                <h4>جلسة استشارية فردية + تحليل الشخصية بالأرقام الصينية</h4>
+                <p>السعر الأساسي: <span class="old-price-strike">$106.95</span> | السعر بالخصم: <strong id="priceSingleUsd" style="color: var(--primary-color);">$64.17</strong> (210 ر.س)</p>
               </div>
 
               <div class="offer-card featured">
                 <div class="offer-tag best">خصم 50% ✨ الأوفر والأعمق</div>
-                <h4>باقة 3 جلسات كوتشينج متكاملة</h4>
-                <p>برنامج تحول ومتابعة مستمرة لضمان تفكيك القناعات القديمة وبناء هويتك وشغفك الجديد بفعالية عالية.</p>
+                <h4>باقة 3 جلسات كوتشينج وتوجيه متكاملة</h4>
+                <p>السعر الأساسي: <span class="old-price-strike">$320.85</span> | السعر بالخصم: <strong id="priceBundleUsd" style="color: var(--primary-color);">$160.42</strong> (525 ر.س)</p>
               </div>
             </div>
 
             <p class="cta-pitch" style="margin-top: 15px;">
-              اختر الخيار المناسب لك للاستفادة من الخصم وتواصل مباشرة مع الكوتش خالد ابراهيم قادري عبر الواتساب لتأكيد موعدك:
+              اختر الوسيلة المناسبة لك لتأكيد موعدك مباشرة عبر الواتساب أو الدفع الفوري:
             </p>
 
             <div class="cta-buttons">
               <a id="whatsappSingleSessionLink" href="https://wa.me/966591533385" target="_blank" class="btn btn-whatsapp">
-                💬 حجز الجلسة والتحليل بالخصم (40%)
+                💬 حجز الاستشارة بالخصم عبر الواتساب
               </a>
               <a id="whatsappBundleLink" href="https://wa.me/966591533385" target="_blank" class="btn btn-success">
-                🌟 حجز باقة الـ 3 جلسات بالخصم (50%)
+                🌟 حجز باقة الجلسات/الأنظمة بالخصم عبر الواتساب
               </a>
               <a href="https://t.me/khalidigadri" target="_blank" class="btn btn-telegram">
                 ✈️ للتواصل عبر التليجرام (@khalidigadri)
@@ -301,7 +297,7 @@
           <div class="card-actions summary-actions">
             <button class="btn btn-outline" id="printSummaryBtn">🖨️ تصدير / طباعة التقرير (PDF)</button>
             <button class="btn btn-secondary" id="downloadTxtBtn">📥 تنزيل نسخة من التقرير</button>
-            <button class="btn btn-primary" id="restartBtn">🔄 إعادة الاختبار</button>
+            <button class="btn btn-primary" id="restartBtn">🔄 إعادة التقييم</button>
           </div>
         </div>
 
