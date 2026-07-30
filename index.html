@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ملاذ | مساحة التحرر من المشاعر والخوف</title>
+  <title>منصة الكوتشينج المتكاملة | الكوتش خالد إبراهيم الجدري</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,24 +18,31 @@
   <main class="app-container">
     <header class="app-header">
       <div class="brand">
-        <div class="logo-icon">🌿</div>
+        <div class="logo-icon">🌟</div>
         <div class="brand-text">
-          <h1>ملاذ الكوتشينج</h1>
-          <p>رحلة ميسّرة للتعامل مع المشاعر والتحرر من الخوف</p>
+          <h1>أكاديمية الكوتشينج والتطوير الذاتي</h1>
+          <p>بإشراف الكوتش خالد إبراهيم الجدري | <a href="https://khalidibrahimgadri.com" target="_blank" class="brand-link">khalidibrahimgadri.com</a></p>
         </div>
       </div>
       <div class="header-actions">
-        <button id="toggleBreathingBtn" class="btn btn-outline small">
-          <span>🧘‍♂️</span> تمرين التنفس
-        </button>
+        <button id="toggleBreathingBtn" class="btn btn-outline small">🧘‍♂️ تنفس</button>
+        <button id="embedCodeBtn" class="btn btn-secondary small">🔗 كود الدمج بموقعك</button>
       </div>
     </header>
+
+    <nav class="tools-nav">
+      <button class="nav-tab active" data-tool="release">🌿 التحرر من المشاعر</button>
+      <button class="nav-tab" data-tool="beliefs">🧠 إعادة تشكيل المعتقدات</button>
+      <button class="nav-tab" data-tool="wheel">🎡 عجلة الحياة</button>
+      <button class="nav-tab" data-tool="movie">🎬 قصة وفيلم الحياة</button>
+      <button class="nav-tab" data-tool="focus">🎯 التركيز والإرادة الحرة</button>
+    </nav>
 
     <div id="breathingModal" class="modal hidden">
       <div class="modal-content">
         <button class="close-modal" id="closeBreathingBtn">&times;</button>
         <h3>تمرين هدوء الجهاز العصبي (4-4-4)</h3>
-        <p class="subtitle">خذ لحظة للهدوء والتواصل مع جسدك قبل الإجابة</p>
+        <p class="subtitle">خذ لحظة للهدوء والتواصل مع جسدك</p>
         <div class="breathing-circle-container">
           <div class="breathing-circle" id="breathingCircle">
             <span id="breathingText">شهيق</span>
@@ -47,225 +54,397 @@
       </div>
     </div>
 
-    <div class="progress-section">
-      <div class="progress-bar-wrapper">
-        <div class="progress-bar-fill" id="progressBar"></div>
-      </div>
-      <div class="steps-info">
-        <span id="stepCounterText">الخطوة 1 من 5</span>
-        <span id="stepCategoryText" class="category-badge">تحديد الشعور</span>
+    <div id="embedModal" class="modal hidden">
+      <div class="modal-content">
+        <button class="close-modal" id="closeEmbedBtn">&times;</button>
+        <h3>كود دمج المنصة في موقعك الإلكتوني</h3>
+        <p class="subtitle">انسخ الكود التالي وضعه في أي صفحة في موقعك khalidibrahimgadri.com:</p>
+        <div class="form-group">
+          <textarea class="textarea-input" id="embedCodeArea" rows="4" readonly><iframe src="https://khalid-ibrahim-gadri-portofolio.vercel.app" width="100%" height="800px" style="border:none; border-radius:16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" allowfullscreen></iframe></textarea>
+        </div>
+        <button class="btn btn-primary" id="copyEmbedBtn">📋 نسخ كود الدمج</button>
       </div>
     </div>
 
-    <div class="cards-wrapper">
-      <div class="card step-card active" data-step="1">
-        <div class="card-header">
-          <div class="step-num">1</div>
-          <h2>ما الذي تشعر به أو تخافه في هذه اللحظة؟</h2>
+    <section id="tool-release" class="tool-section active">
+      <div class="progress-section">
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar-fill" id="progressBar"></div>
         </div>
-        <p class="card-desc">حدد الشعور الرئيسي الذي ترغب بالتعامل معه وتفكيكه الآن.</p>
+        <div class="steps-info">
+          <span id="stepCounterText">الخطوة 1 من 5</span>
+          <span id="stepCategoryText" class="category-badge">تحديد الشعور</span>
+        </div>
+      </div>
 
-        <div class="form-group">
-          <label>اختر نوع الشعور الأساسي:</label>
-          <div class="emotion-tags" id="emotionTags">
-            <button class="tag-btn" data-value="الخوف من الفشل">الخوف من الفشل 😔</button>
-            <button class="tag-btn" data-value="القلق والتوتر">القلق والتوتر 😰</button>
-            <button class="tag-btn" data-value="الخوف من المستقبل">الخوف من المستقبل 🔮</button>
-            <button class="tag-btn" data-value="الغضب والإنزعاج">الغضب والإنزعاج 😡</button>
-            <button class="tag-btn" data-value="شعور بالعجز أو الثقل">شعور بالعجز أو الثقل 🪨</button>
-            <button class="tag-btn" data-value="الخوف من الحكم أو النقد">الخوف من الحكم والنقد 👥</button>
+      <div class="cards-wrapper">
+        <div class="card step-card active" data-step="1">
+          <div class="card-header">
+            <div class="step-num">1</div>
+            <h2>ما الذي تشعر به أو تخافه في هذه اللحظة؟</h2>
           </div>
-        </div>
+          <p class="card-desc">حدد الشعور الرئيسي الذي ترغب بالتعامل معه وتفكيكه الآن.</p>
 
-        <div class="form-group">
-          <label for="step1_custom">أو وصف الشعور بكلماتك الخاصة:</label>
-          <input type="text" id="step1_custom" class="input-text" placeholder="مثال: أشعر بضيقة وتوتر بسبب التفكير في القرار القادم..." autocomplete="off">
-        </div>
-
-        <div class="form-group">
-          <label>ما مدى شدة هذا الشعور الآن؟ (<span id="intensityVal">7</span>/10)</label>
-          <div class="slider-container">
-            <input type="range" id="step1_intensity" min="1" max="10" value="7" class="range-slider">
-            <div class="slider-labels">
-              <span>خفيف جداً (1)</span>
-              <span>متوسط (5)</span>
-              <span>شديد جداً (10)</span>
+          <div class="form-group">
+            <label>اختر نوع الشعور الأساسي:</label>
+            <div class="emotion-tags" id="emotionTags">
+              <button class="tag-btn" data-value="الخوف من الفشل">الخوف من الفشل 😔</button>
+              <button class="tag-btn" data-value="القلق والتوتر">القلق والتوتر 😰</button>
+              <button class="tag-btn" data-value="الخوف من المستقبل">الخوف من المستقبل 🔮</button>
+              <button class="tag-btn" data-value="الغضب والإنزعاج">الغضب والإنزعاج 😡</button>
+              <button class="tag-btn" data-value="شعور بالعجز أو الثقل">شعور بالعجز أو الثقل 🪨</button>
+              <button class="tag-btn" data-value="الخوف من الحكم أو النقد">الخوف من الحكم والنقد 👥</button>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="step1_custom">أو وصف الشعور بكلماتك الخاصة:</label>
+            <input type="text" id="step1_custom" class="input-text" placeholder="مثال: أشعر بضيقة وتوتر بسبب التفكير في القرار القادم..." autocomplete="off">
+          </div>
+
+          <div class="form-group">
+            <label>ما مدى شدة هذا الشعور الآن؟ (<span id="intensityVal">7</span>/10)</label>
+            <div class="slider-container">
+              <input type="range" id="step1_intensity" min="1" max="10" value="7" class="range-slider">
+              <div class="slider-labels">
+                <span>خفيف جداً (1)</span>
+                <span>متوسط (5)</span>
+                <span>شديد جداً (10)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <span></span>
+            <button class="btn btn-primary next-btn" data-next="2">المتابعة للخطوة التالية ➔</button>
+          </div>
+        </div>
+
+        <div class="card step-card" data-step="2">
+          <div class="card-header">
+            <div class="step-num">2</div>
+            <h2>أين يظهر هذا الشعور في جسدك؟</h2>
+          </div>
+          <p class="card-desc">المشاعر تعبر عن نفسها في الجسد أولاً. مراقبتها دون مقاومة هي بداية الشفاء.</p>
+
+          <div class="form-group">
+            <label>أين تلاحظ حس الانزعاج أو التوتر؟</label>
+            <div class="body-tags" id="bodyTags">
+              <button class="tag-btn" data-value="انقباض في الصدر">انقباض في الصدر 🫁</button>
+              <button class="tag-btn" data-value="عقدة أو اضطراب في المعدة">عقدة في المعدة 🤢</button>
+              <button class="tag-btn" data-value="شد في الرقبة والكتفين">شد في الرقبة والكتفين 💆‍♂️</button>
+              <button class="tag-btn" data-value="تسارع نبضات القلب">تسارع نبضات القلب 💓</button>
+              <button class="tag-btn" data-value="صداع أو ضغط في الرأس">ضغط في الرأس 🧠</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="step2_somatic">توسّع في وصف الإحساس الجسدي (الشكل، الحرارة، الحركة):</label>
+            <textarea id="step2_somatic" class="textarea-input" rows="3" placeholder="مثال: أشعر بكتلة ثقيلة وباردة في منطقة الصدر..."></textarea>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-secondary prev-btn" data-prev="1">⬅ السابق</button>
+            <button class="btn btn-primary next-btn" data-next="3">المتابعة للخطوة التالية ➔</button>
+          </div>
+        </div>
+
+        <div class="card step-card" data-step="3">
+          <div class="card-header">
+            <div class="step-num">3</div>
+            <h2>ما هي رسالة هذا الشعور أو حمايته لك؟</h2>
+          </div>
+          <p class="card-desc">الخوف غالباً هو حارس يحاول حمايتك. استكشاف نيته الإيجابية يقلل من حدته.</p>
+
+          <div class="form-group">
+            <label for="step3_protection">مما يحاول هذا الخوف/الشعور حمايتك؟</label>
+            <textarea id="step3_protection" class="textarea-input" rows="3" placeholder="مثال: يحاول حمايتي من الفشل أو خيبة الأمل..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="step3_truth">هل هذه الحقيقة المطلقة الآن؟ وما الذي تحتاجه حقاً؟</label>
+            <textarea id="step3_truth" class="textarea-input" rows="3" placeholder="مثال: في الواقع أنا بأمان الآن وأحتاج للشعور بالاطمئنان..."></textarea>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-secondary prev-btn" data-prev="2">⬅ السابق</button>
+            <button class="btn btn-primary next-btn" data-next="4">المتابعة للخطوة التالية ➔</button>
+          </div>
+        </div>
+
+        <div class="card step-card" data-step="4">
+          <div class="card-header">
+            <div class="step-num">4</div>
+            <h2>قرار التحرر والسماح بالمرور</h2>
+          </div>
+          <p class="card-desc">التحرر هو خيار واعٍ بعدم التمسك بالفكرة أو الشعور القديم.</p>
+
+          <div class="release-questions">
+            <div class="release-box">
+              <p class="q-title">1. هل يمكنك السماح لهذا الشعور بالتواجد والتعبير عن نفسه الآن؟</p>
+              <div class="radio-group" id="q1_group">
+                <label class="radio-btn"><input type="radio" name="allow" value="نعم، أسمح له"> نعم، أسمح له بالمرور</label>
+                <label class="radio-btn"><input type="radio" name="allow" value="أحاول التقبل"> أحاول تقبله تدريجياً</label>
+              </div>
+            </div>
+
+            <div class="release-box">
+              <p class="q-title">2. هل أنت مستعد لتنفس هذا الشعور ولإطلاقه وخروجه مع الزفير؟</p>
+              <div class="radio-group" id="q2_group">
+                <label class="radio-btn"><input type="radio" name="release" value="نعم، مستعد تماماً"> نعم، مستعد الآن 🕊️</label>
+                <label class="radio-btn"><input type="radio" name="release" value="مستعد لترك جزء منه"> مستعد للتخلي عن جزء منه</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="step4_release_statement">اكتب توكيد التحرر الخاص بك:</label>
+            <input type="text" id="step4_release_statement" class="input-text" value="أنا أسمح لهذا الخوف بالرحيل، وأختار طاقة السكينة والأمان.">
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-secondary prev-btn" data-prev="3">⬅ السابق</button>
+            <button class="btn btn-primary next-btn" data-next="5">المتابعة للنتيجة ➔</button>
+          </div>
+        </div>
+
+        <div class="card step-card" data-step="5">
+          <div class="card-header">
+            <div class="step-num">5</div>
+            <h2>النتيجة والتواصل مع الكوتش</h2>
+          </div>
+          <p class="card-desc">لنلاحظ الأثر والهدوء الذي وصلت إليه بعد هذه الجلسة الذاتية.</p>
+
+          <div class="form-group">
+            <label>ما شدة الشعور لديك الآن بعد الجلسة؟ (<span id="finalIntensityVal">3</span>/10)</label>
+            <div class="slider-container">
+              <input type="range" id="step5_final_intensity" min="1" max="10" value="3" class="range-slider">
+            </div>
+          </div>
+
+          <div class="intensity-comparison">
+            <div class="comp-box initial">
+              <span class="lbl">الشدة في البداية</span>
+              <span class="num" id="compInitial">7/10</span>
+            </div>
+            <div class="comp-arrow">➔</div>
+            <div class="comp-box final">
+              <span class="lbl">الشدة الحالية</span>
+              <span class="num" id="compFinal">3/10</span>
+            </div>
+          </div>
+
+          <div class="lead-capture-box">
+            <h3>💌 احفظ نتيجتك أو تواصل مع الكوتش خالد</h3>
+            <p>أدخل بياناتك لتصلك نُسخة من ملخص الجلسة أو لحجز جلسة كوتشينج خاصة تعمّق نتائجك:</p>
+            <div class="form-group">
+              <input type="text" id="clientName" class="input-text" placeholder="الاسم الكريم">
+            </div>
+            <div class="form-group">
+              <input type="text" id="clientPhone" class="input-text" placeholder="رقم الواتساب (مع رمز الدولة)">
+            </div>
+          </div>
+
+          <div class="card-actions">
+            <button class="btn btn-secondary prev-btn" data-prev="4">⬅ تعديل الإجابات</button>
+            <button class="btn btn-success" id="generateSummaryBtn">عرض ملخص الجلسة وحفظها 📄</button>
+          </div>
+        </div>
+
+        <div class="card summary-card hidden" id="summaryView">
+          <div class="summary-header">
+            <div class="summary-icon">✨</div>
+            <h2>ملخص جلسة التحرر الذاتية</h2>
+            <p class="summary-subtitle">أكاديمية الكوتش خالد إبراهيم الجدري</p>
+            <p class="summary-date" id="summaryDate"></p>
+          </div>
+
+          <div class="summary-body" id="summaryPrintArea">
+            <div class="summary-section">
+              <h4>1. الشعور والبداية</h4>
+              <p><strong>الشعور المستهدف:</strong> <span id="sumEmotion">-</span></p>
+              <p><strong>شدة الشعور الأولي:</strong> <span id="sumInitialIntensity">-</span>/10</p>
+            </div>
+
+            <div class="summary-section">
+              <h4>2. التجسيد الجسدي</h4>
+              <p><strong>مكان الإحساس:</strong> <span id="sumBodyLocation">-</span></p>
+              <p><strong>الوصف:</strong> <span id="sumSomaticDesc">-</span></p>
+            </div>
+
+            <div class="summary-section">
+              <h4>3. الرسالة والوعي</h4>
+              <p><strong>حماية الشعور:</strong> <span id="sumProtection">-</span></p>
+              <p><strong>الحقيقة والاحتياج:</strong> <span id="sumTruth">-</span></p>
+            </div>
+
+            <div class="summary-section">
+              <h4>4. التحرر والنتيجة</h4>
+              <p><strong>توكيد التحرر:</strong> <span id="sumAffirmation">-</span></p>
+              <p><strong>الشدة النهائية:</strong> <span id="sumFinalIntensity">-</span>/10</p>
+            </div>
+          </div>
+
+          <div class="summary-cta-box">
+            <h3>🤝 هل ترغب في تعميق التطور والوصول لأهدافك؟</h3>
+            <p>يمكنك حجز جلسة استشارية خاصة مع الكوتش خالد إبراهيم الجدري مباشرة:</p>
+            <div class="cta-buttons">
+              <a href="https://khalidibrahimgadri.com" target="_blank" class="btn btn-primary">🌐 زيارة الموقع الرسمي khalidibrahimgadri.com</a>
+              <button id="sendWhatsappBtn" class="btn btn-success">💬 إرسال النتيجة للكوتش عبر الواتساب</button>
+            </div>
+          </div>
+
+          <div class="card-actions summary-actions">
+            <button class="btn btn-outline" id="printSummaryBtn">🖨️ طباعة / حفظ كـ PDF</button>
+            <button class="btn btn-primary" id="restartBtn">🔄 بدء جلسة جديدة</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="tool-beliefs" class="tool-section">
+      <div class="card active">
+        <div class="card-header">
+          <div class="step-num">🧠</div>
+          <h2>أداة تفكيك وإعادة تشكيل المعتقدات المقيّدة</h2>
+        </div>
+        <p class="card-desc">المعتقدات هي العدسة التي نرى بها العالم. استبدال الفكرة المعيقة بفكرة تمكينية يغير حياتك.</p>
+
+        <div class="form-group">
+          <label for="limitingBelief">1. ما هو المعتقد المقيّد الذي تود تفكيكه؟</label>
+          <input type="text" id="limitingBelief" class="input-text" placeholder="مثال: أنا غير جدير بالنجاح / المال صعب الحصول عليه...">
+        </div>
+
+        <div class="form-group">
+          <label for="beliefOrigin">2. ما الأدلة القديمة التي جعلتك تصدق هذا المعتقد؟ وهل هي حتمية اليوم؟</label>
+          <textarea id="beliefOrigin" class="textarea-input" rows="3" placeholder="مثال: تجربة سابقة في الطفولة أو موقف فشل قديم لا يمثل قدراتي الحالية..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="empoweringBelief">3. ما هو المعتقد الجديد التمكيني البديل؟</label>
+          <input type="text" id="empoweringBelief" class="input-text" placeholder="مثال: أنا أتعلم باستمرار وأستحق التطور والنجاح...">
+        </div>
+
+        <div class="form-group">
+          <label for="beliefAction">4. ما هو أول سلوك صغير ستطبقه اليوم لإثبات هذا المعتقد الجديد؟</label>
+          <input type="text" id="beliefAction" class="input-text" placeholder="مثال: أخذ أول خطوة في المشروع بدون انتظار الكمالية...">
         </div>
 
         <div class="card-actions">
           <span></span>
-          <button class="btn btn-primary next-btn" data-next="2">المتابعة للخطوة التالية ➔</button>
+          <button class="btn btn-primary" id="saveBeliefBtn">حفظ المعتقد الجديد 🌟</button>
         </div>
       </div>
+    </section>
 
-      <div class="card step-card" data-step="2">
+    <section id="tool-wheel" class="tool-section">
+      <div class="card active">
         <div class="card-header">
-          <div class="step-num">2</div>
-          <h2>أين يظهر هذا الشعور في جسدك؟</h2>
+          <div class="step-num">🎡</div>
+          <h2>تقييم عجلة الحياة التفاعلية (Wheel of Life)</h2>
         </div>
-        <p class="card-desc">المشاعر تعبر عن نفسها في الجسد أولاً. مراقبتها دون مقاومة هي بداية الشفاء.</p>
+        <p class="card-desc">قس مستوى رضاك من 1 إلى 10 في جوانب حياتك الرئيسية لمعرفة أين تضع تركيزك القادم.</p>
 
-        <div class="form-group">
-          <label>أين تلاحظ حس الانزعاج أو التوتر؟</label>
-          <div class="body-tags" id="bodyTags">
-            <button class="tag-btn" data-value="انقباض في الصدر">انقباض في الصدر 🫁</button>
-            <button class="tag-btn" data-value="عقدة أو اضطراب في المعدة">عقدة في المعدة 🤢</button>
-            <button class="tag-btn" data-value="شد في الرقبة والكتفين">شد في الرقبة والكتفين 💆‍♂️</button>
-            <button class="tag-btn" data-value="تسارع نبضات القلب">تسارع نبضات القلب 💓</button>
-            <button class="tag-btn" data-value="صداع أو ضغط في الرأس">ضغط في الرأس 🧠</button>
+        <div class="wheel-sliders">
+          <div class="wheel-item">
+            <label>1. الجانب الروحي والقيمي: (<span id="val_sp">8</span>/10)</label>
+            <input type="range" min="1" max="10" value="8" class="range-slider wheel-range" data-target="val_sp">
+          </div>
+          <div class="wheel-item">
+            <label>2. الصحة والجسد والطاقة: (<span id="val_he">7</span>/10)</label>
+            <input type="range" min="1" max="10" value="7" class="range-slider wheel-range" data-target="val_he">
+          </div>
+          <div class="wheel-item">
+            <label>3. العلاقات والأسرة: (<span id="val_rel">6</span>/10)</label>
+            <input type="range" min="1" max="10" value="6" class="range-slider wheel-range" data-target="val_rel">
+          </div>
+          <div class="wheel-item">
+            <label>4. العمل والمهنة: (<span id="val_car">7</span>/10)</label>
+            <input type="range" min="1" max="10" value="7" class="range-slider wheel-range" data-target="val_car">
+          </div>
+          <div class="wheel-item">
+            <label>5. المال والتدفق المالي: (<span id="val_fin">5</span>/10)</label>
+            <input type="range" min="1" max="10" value="5" class="range-slider wheel-range" data-target="val_fin">
+          </div>
+          <div class="wheel-item">
+            <label>6. النمو الشخصي والتعلم: (<span id="val_grw">9</span>/10)</label>
+            <input type="range" min="1" max="10" value="9" class="range-slider wheel-range" data-target="val_grw">
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="step2_somatic">توسّع في وصف الإحساس الجسدي (الشكل، الحرارة، الحركة):</label>
-          <textarea id="step2_somatic" class="textarea-input" rows="4" placeholder="مثال: أشعر بكتلة ثقيلة وباردة في منطقة الصدر تجعل تنفسي سطحياً..."></textarea>
+        <div class="form-group" style="margin-top: 20px;">
+          <label for="wheelPriority">ما هو الجانب الأعلى أولوية للتركيز عليه في المرحلة القادمة؟</label>
+          <input type="text" id="wheelPriority" class="input-text" placeholder="مثال: تحسين جانب الصحة وزيادة التدفق المالي...">
         </div>
 
         <div class="card-actions">
-          <button class="btn btn-secondary prev-btn" data-prev="1">⬅ السابق</button>
-          <button class="btn btn-primary next-btn" data-next="3">المتابعة للخطوة التالية ➔</button>
+          <span></span>
+          <button class="btn btn-primary" id="saveWheelBtn">حفظ تقييم العجلة 🎡</button>
         </div>
       </div>
+    </section>
 
-      <div class="card step-card" data-step="3">
+    <section id="tool-movie" class="tool-section">
+      <div class="card active">
         <div class="card-header">
-          <div class="step-num">3</div>
-          <h2>ما هي رسالة هذا الشعور أو حمايته لك؟</h2>
+          <div class="step-num">🎬</div>
+          <h2>سيناريو فيلم وقصة حياتك المستقبلية</h2>
         </div>
-        <p class="card-desc">الخوف غالباً هو حارس يحاول حمايتك. استكشاف نيته الإيجابية يقلل من حدته.</p>
+        <p class="card-desc">تخيل أنك المخرج والبطل لقصة حياتك القادمة. كيف تبدو حياتك المثالية بعد 3 سنوات؟</p>
 
         <div class="form-group">
-          <label for="step3_protection">مما يحاول هذا الخوف/الشعور حمايتك؟</label>
-          <textarea id="step3_protection" class="textarea-input" rows="3" placeholder="مثال: يحاول حمايتي من الفشل أو أن أتحمل خيبة أمل أو الرفض..."></textarea>
+          <label for="movieHero">1. من هو البطل الذي تصبحه في فيلم حياتك؟ (الصفات والمهارات)</label>
+          <input type="text" id="movieHero" class="input-text" placeholder="مثال: شخص واثق، هادئ النفس، ملهم ومؤثر في مجتمعه...">
         </div>
 
         <div class="form-group">
-          <label for="step3_truth">هل هذه الحقيقة المطلقة الآن؟ وما الذي تحتاجه حقاً؟</label>
-          <textarea id="step3_truth" class="textarea-input" rows="3" placeholder="مثال: في الواقع أنا بأمان الآن وأملك الخبرة، وأحتاج للشعور بالاطمئنان والدعم..."></textarea>
+          <label for="movieScene">2. صف مشهداً سينمائياً يومياً تعيشه في مستقبلك المشرق:</label>
+          <textarea id="movieScene" class="textarea-input" rows="4" placeholder="مثال: أستيقظ بنشاط في بيتي المريح، أعمل على مشروعي الشغوف بحرية وأقضي وقتاً ممتعاً مع عائلتي..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="movieShift">3. ما التغيير الرئيسي المنعكس على حياتك بعد تحول هذا المشهد لواقع؟</label>
+          <textarea id="movieShift" class="textarea-input" rows="2" placeholder="مثال: الشعور بالحرية المالية والسكينة الداخلية..."></textarea>
         </div>
 
         <div class="card-actions">
-          <button class="btn btn-secondary prev-btn" data-prev="2">⬅ السابق</button>
-          <button class="btn btn-primary next-btn" data-next="4">المتابعة للخطوة التالية ➔</button>
+          <span></span>
+          <button class="btn btn-primary" id="saveMovieBtn">حفظ السيناريو 🎬</button>
         </div>
       </div>
+    </section>
 
-      <div class="card step-card" data-step="4">
+    <section id="tool-focus" class="tool-section">
+      <div class="card active">
         <div class="card-header">
-          <div class="step-num">4</div>
-          <h2>قرار التحرر والسماح بالمرور</h2>
+          <div class="step-num">🎯</div>
+          <h2>بوصلة التركيز والإرادة الحرة (Shield of Focus)</h2>
         </div>
-        <p class="card-desc">التحرر هو خيار واعٍ بعدم التمسك بالفكرة أو الشعور القديم.</p>
+        <p class="card-desc">الإرادة الحرة تكمن في قدرتك على اختيار أين تضع انتباهك وتستبعد المشتتات.</p>
 
-        <div class="release-questions">
-          <div class="release-box">
-            <p class="q-title">1. هل يمكنك السماح لهذا الشعور بالتواجد والتعبير عن نفسه الآن؟</p>
-            <div class="radio-group" id="q1_group">
-              <label class="radio-btn"><input type="radio" name="allow" value="نعم، أسمح له"> نعم، أسمح له بالمرور</label>
-              <label class="radio-btn"><input type="radio" name="allow" value="أحاول التقبل"> أحاول تقبله تدريجياً</label>
-            </div>
-          </div>
-
-          <div class="release-box">
-            <p class="q-title">2. هل أنت مستعد لتنفس هذا الشعور ولإطلاقه وخروجه مع الزفير؟</p>
-            <div class="radio-group" id="q2_group">
-              <label class="radio-btn"><input type="radio" name="release" value="نعم، مستعد تماماً"> نعم، مستعد الآن 🕊️</label>
-              <label class="radio-btn"><input type="radio" name="release" value="مستعد لترك جزء منه"> مستعد للتخلي عن جزء منه</label>
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="focusTarget">1. ما هو الهدف الرئيسي الذي تختار توجيه إرادتك الحرة إليه هذا الأسبوع؟</label>
+          <input type="text" id="focusTarget" class="input-text" placeholder="مثال: إنهاء خطة العمل، الالتزام بالرياضة 4 أيام...">
         </div>
 
         <div class="form-group">
-          <label for="step4_release_statement">اكتب توكيد التحرر الخاص بك:</label>
-          <input type="text" id="step4_release_statement" class="input-text" value="أنا أسمح لهذا الخوف بالرحيل، وأختار طاقة السكينة والأمان." placeholder="اكتب جملتك المريحة...">
+          <label for="focusDistractions">2. ما هي أكبر 3 مشتتات تسرق انتباهك حالياً؟</label>
+          <textarea id="focusDistractions" class="textarea-input" rows="3" placeholder="مثال: وسائل التواصل بدون هدف، التسويف، المقارنة مع الآخرين..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="focusRule">3. ما هي القاعدة الذهبية التي تضعها لحماية تركيزك؟</label>
+          <input type="text" id="focusRule" class="input-text" placeholder="مثال: إغلاق الهاتف أثناء ساعات العمل الفعال والتنفس عند الشعور بالشتات...">
         </div>
 
         <div class="card-actions">
-          <button class="btn btn-secondary prev-btn" data-prev="3">⬅ السابق</button>
-          <button class="btn btn-primary next-btn" data-next="5">المتابعة للنتيجة ➔</button>
+          <span></span>
+          <button class="btn btn-primary" id="saveFocusBtn">تفعيل درع التركيز 🎯</button>
         </div>
       </div>
+    </section>
 
-      <div class="card step-card" data-step="5">
-        <div class="card-header">
-          <div class="step-num">5</div>
-          <h2>النتيجة وإعادة التقييم</h2>
-        </div>
-        <p class="card-desc">لنلاحظ الأثر والهدوء الذي وصلت إليه بعد هذه الجلسة الذاتية.</p>
-
-        <div class="form-group">
-          <label>ما شدة الشعور لديك الآن بعد الجلسة؟ (<span id="finalIntensityVal">3</span>/10)</label>
-          <div class="slider-container">
-            <input type="range" id="step5_final_intensity" min="1" max="10" value="3" class="range-slider">
-          </div>
-        </div>
-
-        <div class="intensity-comparison">
-          <div class="comp-box initial">
-            <span class="lbl">الشدة في البداية</span>
-            <span class="num" id="compInitial">7/10</span>
-          </div>
-          <div class="comp-arrow">➔</div>
-          <div class="comp-box final">
-            <span class="lbl">الشدة الحالية</span>
-            <span class="num" id="compFinal">3/10</span>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="step5_action">ما هي الخطوة البسيطة الإيجابية التي ستتخذها الآن؟</label>
-          <textarea id="step5_action" class="textarea-input" rows="2" placeholder="مثال: شرب كوب ماء، أخذ استراحة 5 دقائق، البدء بأول خطوة صغيرة..."></textarea>
-        </div>
-
-        <div class="card-actions">
-          <button class="btn btn-secondary prev-btn" data-prev="4">⬅ تعديل الإجابات</button>
-          <button class="btn btn-success" id="generateSummaryBtn">عرض وتصدير ملخص الجلسة 📄</button>
-        </div>
-      </div>
-
-      <div class="card summary-card hidden" id="summaryView">
-        <div class="summary-header">
-          <div class="summary-icon">✨</div>
-          <h2>ملخص جلسة التحرر الذاتية</h2>
-          <p class="summary-date" id="summaryDate"></p>
-        </div>
-
-        <div class="summary-body" id="summaryPrintArea">
-          <div class="summary-section">
-            <h4>1. الشعور والبداية</h4>
-            <p><strong>الشعور المستهدف:</strong> <span id="sumEmotion">-</span></p>
-            <p><strong>شدة الشعور الأولي:</strong> <span id="sumInitialIntensity">-</span>/10</p>
-          </div>
-
-          <div class="summary-section">
-            <h4>2. التجسيد الجسدي</h4>
-            <p><strong>مكان الإحساس:</strong> <span id="sumBodyLocation">-</span></p>
-            <p><strong>الوصف:</strong> <span id="sumSomaticDesc">-</span></p>
-          </div>
-
-          <div class="summary-section">
-            <h4>3. الرسالة والوعي</h4>
-            <p><strong>حماية الشعور:</strong> <span id="sumProtection">-</span></p>
-            <p><strong>الحقيقة والاحتياج:</strong> <span id="sumTruth">-</span></p>
-          </div>
-
-          <div class="summary-section">
-            <h4>4. التحرر والنتيجة</h4>
-            <p><strong>توكيد التحرر:</strong> <span id="sumAffirmation">-</span></p>
-            <p><strong>الشدة النهائية:</strong> <span id="sumFinalIntensity">-</span>/10</p>
-            <p><strong>الخطوة القادمة:</strong> <span id="sumAction">-</span></p>
-          </div>
-        </div>
-
-        <div class="card-actions summary-actions">
-          <button class="btn btn-outline" id="printSummaryBtn">🖨️ طباعة / حفظ كـ PDF</button>
-          <button class="btn btn-primary" id="restartBtn">🔄 بدء جلسة جديدة</button>
-        </div>
-      </div>
-
-    </div>
   </main>
 
   <script src="app.js"></script>

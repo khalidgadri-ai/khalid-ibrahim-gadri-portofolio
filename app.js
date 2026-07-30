@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     releaseValue: '',
     affirmation: 'أنا أسمح لهذا الخوف بالرحيل، وأختار طاقة السكينة والأمان.',
     finalIntensity: 3,
-    nextAction: ''
+    clientName: '',
+    clientPhone: ''
   };
 
   let currentStep = 1;
@@ -24,6 +25,30 @@ document.addEventListener('DOMContentLoaded', () => {
     4: 'التنفس والتحرر',
     5: 'النتيجة والتوجيه'
   };
+
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const toolSections = document.querySelectorAll('.tool-section');
+
+  navTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      navTabs.forEach(t => t.classList.remove('active'));
+      toolSections.forEach(s => s.classList.remove('active'));
+
+      tab.classList.add('active');
+      const toolId = `tool-${tab.dataset.tool}`;
+      const activeSection = document.getElementById(toolId);
+      if (activeSection) activeSection.classList.add('active');
+    });
+  });
+
+  const wheelRanges = document.querySelectorAll('.wheel-range');
+  wheelRanges.forEach(range => {
+    range.addEventListener('input', (e) => {
+      const targetId = range.dataset.target;
+      const targetSpan = document.getElementById(targetId);
+      if (targetSpan) targetSpan.textContent = e.target.value;
+    });
+  });
 
   const progressBar = document.getElementById('progressBar');
   const stepCounterText = document.getElementById('stepCounterText');
@@ -92,9 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
     currentStep = stepNumber;
 
     const progressPercent = (currentStep / totalSteps) * 100;
-    progressBar.style.width = `${progressPercent}%`;
-    stepCounterText.textContent = `الخطوة ${currentStep} من ${totalSteps}`;
-    stepCategoryText.textContent = stepCategoryTitles[currentStep] || '';
+    if (progressBar) progressBar.style.width = `${progressPercent}%`;
+    if (stepCounterText) stepCounterText.textContent = `الخطوة ${currentStep} من ${totalSteps}`;
+    if (stepCategoryText) stepCategoryText.textContent = stepCategoryTitles[currentStep] || '';
 
     cards.forEach(card => {
       if (parseInt(card.dataset.step) === stepNumber) {
@@ -104,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    summaryView.classList.add('hidden');
+    if (summaryView) summaryView.classList.add('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -127,7 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
       sessionData.affirmation = document.getElementById('step4_release_statement').value.trim();
     } else if (step === 5) {
       sessionData.finalIntensity = finalIntensityInput.value;
-      sessionData.nextAction = document.getElementById('step5_action').value.trim();
+      sessionData.clientName = document.getElementById('clientName').value.trim();
+      sessionData.clientPhone = document.getElementById('clientPhone').value.trim();
     }
   }
 
@@ -150,13 +176,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.getElementById('sumAffirmation').textContent = sessionData.affirmation || '-';
       document.getElementById('sumFinalIntensity').textContent = sessionData.finalIntensity;
-      document.getElementById('sumAction').textContent = sessionData.nextAction || 'أخذ استراحة والاطمئنان';
 
       const now = new Date();
       document.getElementById('summaryDate').textContent = `تاريخ الجلسة: ${now.toLocaleDateString('ar-SA')} - ${now.toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' })}`;
 
       summaryView.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  const sendWhatsappBtn = document.getElementById('sendWhatsappBtn');
+  if (sendWhatsappBtn) {
+    sendWhatsappBtn.addEventListener('click', () => {
+      const name = sessionData.clientName ? `مرحباً، أنا ${sessionData.clientName}` : 'مرحباً كوتش خالد';
+      const emotion = sessionData.customEmotion || sessionData.selectedEmotion || 'شعور';
+      const msg = `${name}، أكملت جلسة التحرر الذاتية عبر المنصة:\n- الشعور المستهدف: ${emotion}\n- الشدة الأولية: ${sessionData.initialIntensity}/10\n- الشدة الحالية: ${sessionData.finalIntensity}/10\n- توكيد التحرر: ${sessionData.affirmation}\n\nأود حجز/استكمال جلسة كوتشينج معك.`;
+
+      const encodedMsg = encodeURIComponent(msg);
+      window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
     });
   }
 
@@ -172,12 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
     restartBtn.addEventListener('click', () => {
       document.querySelectorAll('input[type="text"], textarea').forEach(i => i.value = '');
       document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('selected'));
-      intensityInput.value = 7;
-      intensityVal.textContent = '7';
-      finalIntensityInput.value = 3;
-      finalIntensityVal.textContent = '3';
-      compInitial.textContent = '7/10';
-      compFinal.textContent = '3/10';
+      if (intensityInput) { intensityInput.value = 7; intensityVal.textContent = '7'; }
+      if (finalIntensityInput) { finalIntensityInput.value = 3; finalIntensityVal.textContent = '3'; }
+      if (compInitial) compInitial.textContent = '7/10';
+      if (compFinal) compFinal.textContent = '3/10';
 
       goToStep(1);
     });
@@ -191,43 +226,78 @@ document.addEventListener('DOMContentLoaded', () => {
   const breathingText = document.getElementById('breathingText');
   let breathingInterval = null;
 
-  toggleBreathingBtn.addEventListener('click', () => breathingModal.classList.remove('hidden'));
-  closeBreathingBtn.addEventListener('click', () => {
+  if (toggleBreathingBtn) toggleBreathingBtn.addEventListener('click', () => breathingModal.classList.remove('hidden'));
+  if (closeBreathingBtn) closeBreathingBtn.addEventListener('click', () => {
     breathingModal.classList.add('hidden');
     clearInterval(breathingInterval);
     breathingCircle.classList.remove('expand');
     breathingText.textContent = 'شهيق';
   });
 
-  startBreathingBtn.addEventListener('click', () => {
-    let state = 0;
-    startBreathingBtn.disabled = true;
-    startBreathingBtn.textContent = 'التمرين جاري... (دقيقة)';
+  if (startBreathingBtn) {
+    startBreathingBtn.addEventListener('click', () => {
+      let state = 0;
+      startBreathingBtn.disabled = true;
+      startBreathingBtn.textContent = 'التمرين جاري... (دقيقة)';
 
-    const runCycle = () => {
-      if (state === 0) {
-        breathingText.textContent = 'شهيق عميق...';
-        breathingCircle.classList.add('expand');
-        state = 1;
-      } else if (state === 1) {
-        breathingText.textContent = 'احبس النفس...';
-        state = 2;
-      } else {
-        breathingText.textContent = 'زفير بطيء...';
+      const runCycle = () => {
+        if (state === 0) {
+          breathingText.textContent = 'شهيق عميق...';
+          breathingCircle.classList.add('expand');
+          state = 1;
+        } else if (state === 1) {
+          breathingText.textContent = 'احبس النفس...';
+          state = 2;
+        } else {
+          breathingText.textContent = 'زفير بطيء...';
+          breathingCircle.classList.remove('expand');
+          state = 0;
+        }
+      };
+
+      runCycle();
+      breathingInterval = setInterval(runCycle, 4000);
+
+      setTimeout(() => {
+        clearInterval(breathingInterval);
+        breathingText.textContent = 'تم إكمال التمرين ✨';
         breathingCircle.classList.remove('expand');
-        state = 0;
-      }
-    };
+        startBreathingBtn.disabled = false;
+        startBreathingBtn.textContent = 'إعادة التمرين مرة أخرى';
+      }, 60000);
+    });
+  }
 
-    runCycle();
-    breathingInterval = setInterval(runCycle, 4000);
+  const embedModal = document.getElementById('embedModal');
+  const embedCodeBtn = document.getElementById('embedCodeBtn');
+  const closeEmbedBtn = document.getElementById('closeEmbedBtn');
+  const copyEmbedBtn = document.getElementById('copyEmbedBtn');
+  const embedCodeArea = document.getElementById('embedCodeArea');
 
-    setTimeout(() => {
-      clearInterval(breathingInterval);
-      breathingText.textContent = 'تم إكمال التمرين ✨';
-      breathingCircle.classList.remove('expand');
-      startBreathingBtn.disabled = false;
-      startBreathingBtn.textContent = 'إعادة التمرين مرة أخرى';
-    }, 60000);
+  if (embedCodeBtn) embedCodeBtn.addEventListener('click', () => embedModal.classList.remove('hidden'));
+  if (closeEmbedBtn) closeEmbedBtn.addEventListener('click', () => embedModal.classList.add('hidden'));
+
+  if (copyEmbedBtn && embedCodeArea) {
+    copyEmbedBtn.addEventListener('click', () => {
+      embedCodeArea.select();
+      document.execCommand('copy');
+      copyEmbedBtn.textContent = '✅ تم النسخ بنجاح!';
+      setTimeout(() => { copyEmbedBtn.textContent = '📋 نسخ كود الدمج'; }, 3000);
+    });
+  }
+
+  ['saveBeliefBtn', 'saveWheelBtn', 'saveMovieBtn', 'saveFocusBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', () => {
+        btn.textContent = '✅ تم الحفظ بنجاح!';
+        setTimeout(() => {
+          if (id === 'saveBeliefBtn') btn.textContent = 'حفظ المعتقد الجديد 🌟';
+          if (id === 'saveWheelBtn') btn.textContent = 'حفظ تقييم العجلة 🎡';
+          if (id === 'saveMovieBtn') btn.textContent = 'حفظ السيناريو 🎬';
+          if (id === 'saveFocusBtn') btn.textContent = 'تفعيل درع التركيز 🎯';
+        }, 3000);
+      });
+    }
   });
 });
