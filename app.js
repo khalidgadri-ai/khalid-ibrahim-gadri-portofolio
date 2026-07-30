@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     2: 'التجسيد والوصف الجسدي',
     3: 'القناعة والاحتياج الأصيل',
     4: 'التنفس والتحرر',
-    5: 'إعادة التقييم والتشخيص'
+    5: 'إعادة التقييم والتوجيه'
   };
 
   const navTabs = document.querySelectorAll('.nav-tab');
@@ -246,37 +246,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (diag.needsCoaching) {
         if (outcomeBox) outcomeBox.className = 'diagnostic-result-box needs-coaching';
-        if (diagBadge) diagBadge.textContent = '🎯 النتيجة التشخيصية: يوصى بشدة بجلسة كوتشينج';
-        if (diagTitle) diagTitle.textContent = 'أنت بحاجة إلى جلسة كوتشينج مخصصة وعميقة';
-        if (diagIcon) diagIcon.textContent = '🚨';
+        if (diagBadge) diagBadge.textContent = '🎯 نتيجة التقييم: يوصى بشدة بجلسة كوتشينج';
+        if (diagTitle) diagTitle.textContent = 'أنت بحاجة إلى جلسة كوتشينج مخصصة وتحليل الشخصية';
+        if (diagIcon) diagIcon.textContent = '💡';
         if (diagDesc) {
-          diagDesc.textContent = `أظهر تحليل إجاباتك الصريحة وتدرج الشدة (من ${diag.initVal}/10 إلى ${diag.finalVal}/10) وجود جذور انفعالية وقناعات قديمة تتطلب تفكيكاً عميقاً ومواكبة مخصصة مع الكوتش خالد ابراهيم قادري لمساعدتك على التحول التام وتجاوز التحدي بنجاح.`;
+          diagDesc.textContent = `أظهر تحليل إجاباتك الصريحة وتدرج الشدة (من ${diag.initVal}/10 إلى ${diag.finalVal}/10) وجود قناعات قديمة تتطلب تفكيكاً ومواكبة مخصصة. ننصحك بحجز جلسة كوتشينج وخدمة تحليل الشخصية بالأرقام الصينية بالخصم المستحق (40%) أو باقة 3 جلسات بالخصم (50%).`;
         }
       } else {
         if (outcomeBox) outcomeBox.className = 'diagnostic-result-box';
-        if (diagBadge) diagBadge.textContent = '🌱 النتيجة التشخيصية: استجابة ممتازة ووعي عالٍ';
+        if (diagBadge) diagBadge.textContent = '🌱 نتيجة التقييم: استجابة ممتازة ووعي عالٍ';
         if (diagTitle) diagTitle.textContent = 'حالتك مستقرة وتظهر وعياً عالياً بالتحرر';
         if (diagIcon) diagIcon.textContent = '✨';
         if (diagDesc) {
-          diagDesc.textContent = `أظهر تحليل إجاباتك انخفاضاً طيباً في شدة الشعور (انخفاض قدره ${diag.drop} درجات). ننصحك بالاستمرار على توكيد التحرر، ويمكنك حجز جلسة متابعة وتطوير مع الكوتش خالد ابراهيم قادري في حال رغبت بتسريع وصولك لأهدافك.`;
+          diagDesc.textContent = `أظهر تحليل إجاباتك انخفاضاً طيباً في شدة الشعور (انخفاض قدره ${diag.drop} درجات). ننصحك بالاستمرار على توكيد التحرر، واستغلال الخصم الخاص للاستفادة من تحليل الشخصية بالنمط الصيني لتطوير مسارك.`;
         }
       }
 
-      const directWhatsappLink = document.getElementById('directWhatsappLink');
-      if (directWhatsappLink) {
-        const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار الاختبار';
-        const rawMsg = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت اختبار التحرر والكوتشينج وتواصلت بناءً على نتيجة التشخيص:\n\n` +
-          `• نوع الشعور: ${emotionText}\n` +
-          `• الموقف/الذكرى (تعبير حر): ${customEventText}\n` +
-          `• التأثير الجسدي: ${sessionData.somaticLocation} (${sessionData.somaticDesc})\n` +
-          `• حماية الشعور والقناعة: ${sessionData.protectionMsg}\n` +
-          `• الاحتياج الأصيل: ${sessionData.truthMsg}\n` +
-          `• الشدة: من ${sessionData.initialIntensity}/10 إلى ${sessionData.finalIntensity}/10\n` +
-          `• توكيد التحرر: ${sessionData.affirmation}\n\n` +
-          `• نتيجة التشخيص: ${diag.needsCoaching ? 'أحتاج جلسة كوتشينج مخصصة معك' : 'أود استكمال الجلسات معك'}.`;
+      const whatsappSingleSessionLink = document.getElementById('whatsappSingleSessionLink');
+      const whatsappBundleLink = document.getElementById('whatsappBundleLink');
+      const clientNameStr = sessionData.clientName ? `أنا ${sessionData.clientName}` : 'أنا أحد زوار الاختبار';
 
-        const encodedMsg = encodeURIComponent(rawMsg);
-        directWhatsappLink.href = `https://wa.me/966591533385?text=${encodedMsg}`;
+      const basePayload = `• الشعور المستهدف: ${emotionText}\n` +
+        `• الموقف/الذكرى: ${customEventText}\n` +
+        `• التأثير الجسدي: ${sessionData.somaticLocation} (${sessionData.somaticDesc})\n` +
+        `• قناعة الخوف: ${sessionData.protectionMsg}\n` +
+        `• الاحتياج الاصيل: ${sessionData.truthMsg}\n` +
+        `• الشدة: من ${sessionData.initialIntensity}/10 إلى ${sessionData.finalIntensity}/10\n` +
+        `• توكيد التحرر: ${sessionData.affirmation}`;
+
+      if (whatsappSingleSessionLink) {
+        const msgSingle = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت اختبار التحرر والكوتشينج وأود الاستفادة من (عرض خصم 40%) لحجز جلسة كوتشينج فردية + خدمة تحليل الشخصية بالأرقام الصينية.\n\nبيانات تقريري:\n${basePayload}`;
+        whatsappSingleSessionLink.href = `https://wa.me/966591533385?text=${encodeURIComponent(msgSingle)}`;
+      }
+
+      if (whatsappBundleLink) {
+        const msgBundle = `مرحباً كوتش خالد ابراهيم قادري،\n${clientNameStr}، أكملت اختبار التحرر والكوتشينج وأود الاستفادة من (عرض خصم 50%) لحجز باقة 3 جلسات كوتشينج متكاملة.\n\nبيانات تقريري:\n${basePayload}`;
+        whatsappBundleLink.href = `https://wa.me/966591533385?text=${encodeURIComponent(msgBundle)}`;
       }
 
       saveAnalyticsData(sessionData, diag);
@@ -330,8 +335,11 @@ document.addEventListener('DOMContentLoaded', () => {
         `قناعة وحماية الخوف: ${sessionData.protectionMsg || '-'}\n` +
         `الاحتياج الحقيقي: ${sessionData.truthMsg || '-'}\n` +
         `توكيد التحرر: ${sessionData.affirmation}\n\n` +
-        `نتيجة التقييم التشخيصي: ${diag.needsCoaching ? 'يوصى بشدة بحجز جلسة كوتشينج مخصصة' : 'حالة استقرار ووعي جيد'}\n\n` +
-        `للتواصل المباشر وحجز الجلسات:\n` +
+        `نتيجة التقييم: ${diag.needsCoaching ? 'يوصى بشدة بحجز جلسة كوتشينج مخصصة وتحليل شخصية' : 'حالة استقرار ووعي جيد'}\n\n` +
+        `العروض المخصصة المستحقة:\n` +
+        `- خصم 40% على جلسة الكوتشينج + خدمة تحليل الشخصية بالأرقام الصينية\n` +
+        `- خصم 50% على باقة 3 جلسات كوتشينج\n\n` +
+        `للتواصل المباشر وحجز الجلسات بالخصم:\n` +
         `واتساب: https://wa.me/966591533385\n` +
         `تليجرام: https://t.me/khalidigadri\n` +
         `الموقع الرسمي: https://khalidibrahimgadri.com`;

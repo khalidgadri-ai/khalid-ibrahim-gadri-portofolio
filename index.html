@@ -67,7 +67,7 @@
       <div class="cards-wrapper">
         <div class="card step-card active" data-step="1">
           <div class="disclaimer-banner">
-            🔒 <strong>تنبيه هام للاختبار:</strong> للحصول على أدق تشخيص واستبصار، يرجى الإجابة بمصداقية وصراحة تامة والتعبير بحرية كاملة عما تشعر به.
+            🔒 <strong>تنبيه هام للاختبار:</strong> للحصول على أدق تقييم ووعي ذاتي مخصص، يرجى الإجابة بمصداقية وصراحة تامة والتعبير بحرية كاملة عما تشعر به.
           </div>
 
           <div class="card-header">
@@ -101,7 +101,7 @@
 
           <div class="form-group">
             <label for="step1_custom">صف بصراحة ومصداقية: ما الموقف، الذكرى، أو الفكرة التي تسببت بهذا الشعور؟ <span class="required-star">*</span></label>
-            <textarea id="step1_custom" class="textarea-input" rows="4" placeholder="اكتب هنا بالتفصيل وبحرية تامة عما تسبب بهذا الشعور لتشخيص حالتك بدقة..."></textarea>
+            <textarea id="step1_custom" class="textarea-input" rows="4" placeholder="اكتب هنا بالتفصيل وبحرية تامة عما تسبب بهذا الشعور لتحديد تقييمك بدقة..."></textarea>
             <span class="field-error hidden" id="err_step1">⚠️ يرجى كتابة وصف الموقف أو الذكرى للاستمرار</span>
           </div>
 
@@ -116,7 +116,7 @@
             <div class="step-num">2</div>
             <h2>تأثير الشعور وتجسيده في الجسد</h2>
           </div>
-          <p class="card-desc">المشاعر تعبر عن نفسها في الجسد أولاً. مراقبتها دون مقاومة هي بداية التشخيص والشفاء.</p>
+          <p class="card-desc">المشاعر تعبر عن نفسها في الجسد أولاً. مراقبتها دون مقاومة هي بداية الشفاء والتغيير.</p>
 
           <div class="form-group">
             <label>حدد أين تلاحظ التوتر في جسدك بشكل رئيسي:</label>
@@ -212,7 +212,7 @@
 
           <div class="lead-capture-box">
             <h3>💌 استلام نتيجة التقييم وحفظ إجاباتك</h3>
-            <p>أدخل اسمك ورقمك لإصدار التقرير التشخيصي ومعرفة هل تحتاج لجلسات كوتشينج أم لا:</p>
+            <p>أدخل اسمك ورقمك لإصدار التقرير ومعرفة هل تحتاج لجلسات كوتشينج أم لا:</p>
             <div class="form-group">
               <input type="text" id="clientName" class="input-text" placeholder="اسمك الكريم">
             </div>
@@ -223,7 +223,7 @@
 
           <div class="card-actions">
             <button class="btn btn-secondary prev-btn" data-prev="4">⬅ تعديل الإجابات</button>
-            <button class="btn btn-success" id="generateSummaryBtn">إظهار نتيجة التقييم والتشخيص ✨</button>
+            <button class="btn btn-success" id="generateSummaryBtn">إظهار نتيجة التقييم والوعي الذاتي ✨</button>
           </div>
         </div>
 
@@ -236,14 +236,14 @@
           </div>
 
           <div class="diagnostic-result-box" id="diagnosticOutcomeBox">
-            <div class="diag-badge" id="diagBadge">نتيجة التشخيص الفوري</div>
+            <div class="diag-badge" id="diagBadge">نتيجة التقييم الفوري</div>
             <h3 id="diagTitle">جاري تحليل الإجابات...</h3>
             <p id="diagDescription" class="diag-desc-text"></p>
           </div>
 
           <div class="summary-body" id="summaryPrintArea">
             <div class="summary-section">
-              <h4>1. الشعور والموقف المشخص</h4>
+              <h4>1. الشعور والموقف التقييمي</h4>
               <p><strong>نوع الشعور:</strong> <span id="sumEmotion">-</span></p>
               <p><strong>تدرج الشدة:</strong> من <span id="sumInitialIntensity">7</span>/10 إلى <span id="sumFinalIntensity">3</span>/10</p>
               <p><strong>الموقف / الذكرى (التعبير الحر):</strong> <span id="sumCustomEvent">-</span></p>
